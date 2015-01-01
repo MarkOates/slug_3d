@@ -11,6 +11,11 @@
 #include "dirty_signal_send.h"
 
 
+
+#include <flare_gui/flare_gui.h>
+
+
+
 //Door *home_door = NULL;
 
 
@@ -26,8 +31,19 @@ ProgramMaster::ProgramMaster(Display *display)
 	, player_character(level.maps.back()) // yikes
 	, player_controlled_entity(player_character.entity)
 	, hud(NULL)
+	, gui_screen(NULL)
+	, use_show_mouse_as_cursor(false)
 {
 	primary_camera.pitch = default_camera_pitch;
+
+
+
+	gui_screen = new GUIScreen(display);
+	gui_screen->clear_to_background_color = false;
+
+
+
+
 
 
 
@@ -83,6 +99,15 @@ ProgramMaster::ProgramMaster(Display *display)
 	if (!level.maps.empty()) start_map(level.maps.back());
 }
 
+
+
+
+void ProgramMaster::toggle_mouse_as_cursor()
+{
+	this->use_show_mouse_as_cursor = !this->use_show_mouse_as_cursor;
+	if (use_show_mouse_as_cursor) al_show_mouse_cursor(display->display);
+	else al_hide_mouse_cursor(display->display);
+}
 
 
 

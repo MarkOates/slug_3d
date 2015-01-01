@@ -22,6 +22,9 @@
 
 void ProgramMaster::mouse_down_func()
 {
+	if (use_show_mouse_as_cursor) return;
+
+
 	if (af::current_event->mouse.button == 1)
 	{
 		player_character.try_frontal_attack();
@@ -41,7 +44,7 @@ void ProgramMaster::mouse_axes_func() //override
 
 	//if (player_controlled_entity)
 
-	if (primary_camera__entity_is_attached_to_it)
+	if (!use_show_mouse_as_cursor && primary_camera__entity_is_attached_to_it)
 	{
 		vec2d point(primary_camera__entity_is_attached_to_it->view_vector.x, primary_camera__entity_is_attached_to_it->view_vector.z);
 		point = rotate_point(point, -af::current_event->mouse.dx * 0.008);
@@ -56,6 +59,13 @@ void ProgramMaster::mouse_axes_func() //override
 	}
 }
 
+
+
+
+void ProgramMaster::receive_signal(const std::string &signal, void *data)
+{
+	if (signal == "respawn()") respawn();
+}
 
 
 
@@ -76,6 +86,9 @@ void ProgramMaster::key_up_func()
 			break;
 		case ALLEGRO_KEY_D:
 			player_controlled_entity->strafe_right(false);
+			break;
+		case ALLEGRO_KEY_ESCAPE:
+			toggle_mouse_as_cursor();
 			break;
 		}
 	}
@@ -256,7 +269,8 @@ void ProgramMaster::joy_down_func()
 		player_character.try_frontal_attack();
 		break;
 	case 3:
-		respawn();
+		this->toggle_mouse_as_cursor();
+		//respawn();
 		break;
 	case 4:
 		player_controlled_entity->strafe_left();

@@ -20,6 +20,13 @@
 
 
 
+//#include <flare_gui/flare_gui.h>
+
+
+
+#include "gui_screen.h"
+
+
 
 //extern Door *home_door;
 
@@ -34,6 +41,10 @@ public:
 	ModelBin models;
 	Camera3D primary_camera;
 	float default_camera_pitch;
+
+	bool use_show_mouse_as_cursor;
+
+	FGUIScreen *gui_screen;
 
 	Level level;
 	Map *current_map;
@@ -55,7 +66,6 @@ public:
 
 	bool enter_into_door(Door *door);
 
-	void mouse_axes_func() override;
 
    inline bool basically_equal(const vec3d &first, const vec3d &other, float threshold=0.00001f) const;
    
@@ -81,12 +91,16 @@ public:
 	//vec3d epos;
 
 
+	void toggle_mouse_as_cursor();
+
 
 
 
 	void primary_timer_func_COLLISION_RESPONSE_TEST();
 
+	void receive_signal(const std::string &signal, void *data) override;
 
+	void mouse_axes_func() override;
 	void mouse_down_func() override;
 	void primary_timer_func() override;
 	void key_up_func();
