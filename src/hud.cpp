@@ -31,21 +31,21 @@ HUD::HUD(Display *display, ProgramMaster *of)
 	state.set(SHOWING_BARS);
 
 	paragraph_title.align(0.5, 0);
-	paragraph_title.font(fonts[MASTER_FONT_NAME + " 70"]);
+	paragraph_title.font(fonts["bankgthd.ttf 50"]);
 	paragraph_title.color(color::orange);
 	paragraph_title.position(display->width()/2, display->height() / 5);
 
 	for (int i=0; i<NUM_LINES; i++)
 	{
 		line[i].align(0.5, 0);
-		line[i].font(fonts[MASTER_FONT_NAME + " 50"]);
+		line[i].font(fonts["bankgthd.ttf 30"]);
 		line[i].color(color::white);
 		line[i].position(display->width()/2, paragraph_title.get_attr("y") + display->height() / 12 * (i+2));
 	}
 
 	notification_text.text("notification");
 	notification_text.align(1, 1);
-	notification_text.font(fonts[MASTER_FONT_NAME + " 70"]);
+	notification_text.font(fonts["bankgthd.ttf 50"]);
 	notification_text.color(color::white);
 	notification_text.position(display->width()-40, display->height()-60);
 
@@ -172,42 +172,53 @@ void HUD::primary_timer_func()
 
 	if (state.has(SHOWING_BARS) && !state.has(DEBUG_MODE))
 	{
+		// draw the bars
 
-		float bar_y_spacing = 80;
-
-		TextObject text("Hydration");
-		text.position(20, 26).font(fonts[MASTER_FONT_NAME + " 40"]).color(color::white);
-		text.draw();
-
-		TextObject text2("Health");
-		text2.position(20, 26+bar_y_spacing).font(fonts[MASTER_FONT_NAME + " 40"]).color(color::white);
-		text2.draw();
-
-		TextObject text3("Lvl: " + tostring(of->player_character.num_level_ups) + " / Till: " + tostring(of->player_character.experience_left_to_strengh_up));
-		text3.position(20, 26+bar_y_spacing*2+10).font(fonts[MASTER_FONT_NAME + " 30"]).color(color::color(color::white, 0.5));
-		text3.draw();
+		float bar_y_spacing = 50;
+		vec2d roundness = vec2d(5, 5);
 
 		float player_hydration_max = of->player_character.max_hydration;
 		float player_hydration = of->player_character.hydration;
 		vec2d hyd_bar = vec2d(60, 50);
-		vec2d hyd_bar_size = vec2d(player_hydration_max*30, 60);
+		vec2d hyd_bar_size = vec2d(player_hydration_max*30, 30);
 		float hyd_bar_now = player_hydration*30;
 		float inset = 5;
-		al_draw_filled_rounded_rectangle(hyd_bar.x+inset, hyd_bar.y+inset, hyd_bar.x+hyd_bar_now-inset, hyd_bar.y+hyd_bar_size.y-inset, 12, 6, color::color(color::aqua, 0.4));
-		al_draw_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, 12, 6, color::aqua, 4);
-		al_draw_filled_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, 12, 6, color::color(color::black, 0.3));
+		al_draw_filled_rounded_rectangle(hyd_bar.x+inset, hyd_bar.y+inset, hyd_bar.x+hyd_bar_now-inset, hyd_bar.y+hyd_bar_size.y-inset, roundness.x, roundness.y, color::color(color::aqua, 0.8));
+		al_draw_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, color::aqua, 4);
+		al_draw_filled_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, color::color(color::black, 0.3));
 
 
 		player_hydration_max = of->player_character.max_health;
 		player_hydration = of->player_character.health;
 		hyd_bar = hyd_bar + vec2d(0, bar_y_spacing);
-		hyd_bar_size = vec2d(player_hydration_max*30, 60);
+		hyd_bar_size = vec2d(player_hydration_max*30, 30);
 		hyd_bar_now = player_hydration*30;
-		al_draw_filled_rounded_rectangle(hyd_bar.x+inset, hyd_bar.y+inset, hyd_bar.x+hyd_bar_now-inset, hyd_bar.y+hyd_bar_size.y-inset, 12, 6, color::color(color::hex("f1678e"), 0.4));
-		al_draw_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, 12, 6, color::hex("f1678e"), 4);
-		al_draw_filled_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, 12, 6, color::color(color::black, 0.3));
+		al_draw_filled_rounded_rectangle(hyd_bar.x+inset, hyd_bar.y+inset, hyd_bar.x+hyd_bar_now-inset, hyd_bar.y+hyd_bar_size.y-inset, roundness.x, roundness.y, color::color(color::hex("f1678e"), 0.8));
+		al_draw_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, color::hex("f1678e"), 4);
+		al_draw_filled_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, color::color(color::black, 0.3));
 
-		
+
+		// draw the text
+
+		TextObject text("hydration");
+		text.font(fonts["bankgthd.ttf 30"]);
+
+		text.text("hydration");
+		text.position(22, 28+bar_y_spacing*0).color(color::black).draw();
+		text.position(20, 24+bar_y_spacing*0).color(color::white).draw();
+
+		text.text("health");
+		text.position(22, 28+bar_y_spacing*1).color(color::black).draw();
+		text.position(20, 24+bar_y_spacing*1).color(color::white).draw();
+
+
+		//TextObject text2("Health");
+		//text2.position(20, 26+bar_y_spacing).font(fonts[MASTER_FONT_NAME + " 40"]).color(color::white);
+		//text2.draw();
+
+		//TextObject text3("Lvl: " + tostring(of->player_character.num_level_ups) + " / Till: " + tostring(of->player_character.experience_left_to_strengh_up));
+		//text3.position(20, 26+bar_y_spacing*2+10).font(fonts[MASTER_FONT_NAME + " 30"]).color(color::color(color::white, 0.5));
+		//text3.draw();
 	}
 
 
