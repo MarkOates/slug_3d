@@ -47,7 +47,7 @@ void ProgramMaster::mouse_axes_func() //override
 	if (!use_show_mouse_as_cursor && primary_camera__entity_is_attached_to_it)
 	{
 		vec2d point(primary_camera__entity_is_attached_to_it->view_vector.x, primary_camera__entity_is_attached_to_it->view_vector.z);
-		point = rotate_point(point, -af::current_event->mouse.dx * 0.008);
+		point = rotate_point(point, af::current_event->mouse.dx * 0.008);
 
 		primary_camera__entity_is_attached_to_it->view_vector.x = point.x;
 		primary_camera__entity_is_attached_to_it->view_vector.z = point.y;
@@ -196,55 +196,123 @@ void ProgramMaster::key_down_func()
 
 
 
+
+
+
+
+void ProgramMaster::_update_joystick_input_relative_to_camera()
+{
+	static float joy_x_dir = 0;
+	static float joy_y_dir = 0;
+
+
+	if (af::current_event->joystick.axis == 0)
+	{
+		joy_x_dir = af::current_event->joystick.pos;
+	}
+	if (af::current_event->joystick.axis == 1)
+	{
+		joy_y_dir = af::current_event->joystick.pos;
+	}
+
+	//std::cout << "(" << joy_x_dir << ", " << joy_y_dir << ")" << std::endl;
+
+	vec3d new_view_vector = vec3d(joy_x_dir, 0, joy_y_dir).Normalized();
+	if (::basically_equal(joy_x_dir, 0) && ::basically_equal(joy_y_dir, 0))
+	{
+	}
+	else
+	{
+		player_controlled_entity->view_vector = vec3d(joy_x_dir, 0, joy_y_dir).Normalized();
+	}
+	//player_controlled_entity->velocity = 0.5;//fabs(joy_x_dir) + fabs(joy_y_dir);
+	float new_velocity = fabs(joy_x_dir) + fabs(joy_y_dir);
+	if (new_velocity < 0.01)
+	{
+		player_controlled_entity->move_forward(false);
+		player_controlled_entity->move_backward(false);
+	}
+	else
+	{
+		player_controlled_entity->move_forward(true);
+	}
+}
+
+
+
 void ProgramMaster::joy_axis_func()
 {
 	if (!player_controlled_entity) return;
 
-	if (af::current_event->joystick.stick == 0)
+
+
+	//bool first_or_3rd_person_controls = true;
+
+	if (primary_camera.is_fixed_on_axis)
 	{
-		if (af::current_event->joystick.axis == 0)
+		_update_joystick_input_relative_to_camera();
+	}
+	else
+	{
+		// this is your typical joystick controls... UP is forward, DOWN is back, RIGHT turns right, LEFT turns left
+
+		if (af::current_event->joystick.stick == 0)
 		{
-			//player_controlled_entity->_dirty_velocity_normal.x = af::current_event->joystick.pos * 0.05;
-			//player_controlled_entity->add_force(vec3d(af::current_event->joystick.pos * 0.05, 0, 0));
-			//player_controlled_entity->strafe_right(false);
-			//player_controlled_entity->strafe_left(false);
+			if (af::current_event->joystick.axis == 0)
+			{
+				//player_controlled_entity->_dirty_velocity_normal.x = af::current_event->joystick.pos * 0.05;
+				//player_controlled_entity->add_force(vec3d(af::current_event->joystick.pos * 0.05, 0, 0));
+				//player_controlled_entity->strafe_right(false);
+				//player_controlled_entity->strafe_left(false);
 
-			//if (af::current_event->joystick.pos)
-			player_controlled_entity->turning(-af::current_event->joystick.pos * 0.05);
+				//if (af::current_event->joystick.pos)
+				player_controlled_entity->turning(af::current_event->joystick.pos * 0.05);
 
-			//epos.x = af::current_event->joystick.pos * 3;
+				//epos.x = af::current_event->joystick.pos * 3;
+			}
+			if (af::current_event->joystick.axis == 1)
+			{
+				//player_controlled_entity->_dirty_velocity_normal.z = -af::current_event->joystick.pos * 0.05;
+				//player_controlled_entity->add_force(vec3d(0, 0, af::current_event->joystick.pos * 0.05));
+				player_controlled_entity->move_forward(false);
+				player_controlled_entity->move_backward(false);
+
+				if (af::current_event->joystick.pos > 0) player_controlled_entity->move_backward();
+				if (af::current_event->joystick.pos < 0) player_controlled_entity->move_forward();
+
+				//epos.y = -af::current_event->joystick.pos * 3;
+
+			}
 		}
-		if (af::current_event->joystick.axis == 1)
+		else if (af::current_event->joystick.stick == 1)
 		{
-			//player_controlled_entity->_dirty_velocity_normal.z = -af::current_event->joystick.pos * 0.05;
-			//player_controlled_entity->add_force(vec3d(0, 0, af::current_event->joystick.pos * 0.05));
-			player_controlled_entity->move_forward(false);
-			player_controlled_entity->move_backward(false);
+			if (af::current_event->joystick.axis == 0)
+			{
+				// strafeing goes here, too
+			}
+			if (af::current_event->joystick.axis == 1)
+			{
+				Entity *primary_camera__entity_is_attached_to_it = this->player_controlled_entity;;
 
-			if (af::current_event->joystick.pos > 0) player_controlled_entity->move_backward();
-			if (af::current_event->joystick.pos < 0) player_controlled_entity->move_forward();
+				if (primary_camera__entity_is_attached_to_it)
+				{
+					primary_camera.pitch = default_camera_pitch + af::current_event->joystick.pos * 1.0;
+					primary_camera.pitch = limit<float>(-TAU/4, TAU/4, primary_camera.pitch);
 
-			//epos.y = -af::current_event->joystick.pos * 3;
-
+					//epos.z = -af::current_event->joystick.pos * 3;
+				}
+			}
 		}
 	}
-	else if (af::current_event->joystick.stick == 1)
+
+
+// change the pov
+	if (af::current_event->joystick.stick == 2)
 	{
-		if (af::current_event->joystick.axis == 0)
+		if (af::current_event->joystick.pos != 0) // 0 means the button was unpressed
 		{
-			// strafeing goes here, too
-		}
-		if (af::current_event->joystick.axis == 1)
-		{
-			Entity *primary_camera__entity_is_attached_to_it = this->player_controlled_entity;;
-
-			if (primary_camera__entity_is_attached_to_it)
-			{
-				primary_camera.pitch = default_camera_pitch + af::current_event->joystick.pos * 1.0;
-				primary_camera.pitch = limit<float>(-TAU/4, TAU/4, primary_camera.pitch);
-
-				//epos.z = -af::current_event->joystick.pos * 3;
-			}
+			primary_camera.camera_tracking_mode++;
+			primary_camera.camera_tracking_mode = primary_camera.camera_tracking_mode % (Camera3D::CAMERA_VIEW_LAST-1);
 		}
 	}
 }
