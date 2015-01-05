@@ -6,29 +6,27 @@
 
 
 #include <flare_gui/flare_gui.h>
+#include <allegro_flare/timeline.h>
+
+
+
+
 
 
 class GUIScreen : public FGUIScreen
 {
 public:
-	GUIScreen(Display *display)
-		: FGUIScreen(display)
-	{
-		float button_distance = 50;
+	bool showing_dialogue;
+	float dialogue_motion_timer;
+	FGUITextBox *dialogue_box;
+	//Timeline::Track<float>
 
-		FGUIWidget *widget = new FGUIText(this, 20, display->height()-20, fonts["DroidSans.ttf 23"], "Hello GUI!");
-		widget->place.align = vec2d(0, 1);
-
-		widget = new FGUIButton(this, "Respawn", fonts["DroidSans.ttf 18"], 20, display->height()-50-button_distance*2, 110, 40);
-		widget->place.align = vec2d(0, 1);
-		((FGUIButton *)widget)->attr.set("on_click_send_message", "respawn()");
-
-		widget = new FGUIButton(this, "Button2", fonts["DroidSans.ttf 18"], 20, display->height()-50-button_distance*1, 110, 40);
-		widget->place.align = vec2d(0, 1);
-
-		widget = new FGUIButton(this, "Button3", fonts["DroidSans.ttf 18"], 20, display->height()-50-button_distance*0, 110, 40);
-		widget->place.align = vec2d(0, 1);
-	}
+	GUIScreen(Display *display);
+	void receive_signal(int signal_type, void *data) override;
+	//void receive_message(std::string message) override;
+	void on_draw();
+	void show_dialogue(std::string script);
+	void hide_dialogue();
 };
 
 
