@@ -1,7 +1,7 @@
 
 
 
-#include "my_game_maps.h"
+#include "map_factory.h"
 #include "item.h"
 #include "door.h"
 
@@ -10,7 +10,7 @@
 
 
 
-Entity2 *make_entity2(Map *map, std::string model, std::string texture0, vec3d position=vec3d(0,0,0), float rotation_y=0)
+static Entity2 *make_entity2(Map *map, std::string model, std::string texture0, vec3d position=vec3d(0,0,0), float rotation_y=0)
 {
 	Entity2 *e = new Entity2(map, Entity2::SCENERY, map->models[model], "");
 	e->textures.set_texture_by_index(0, map->bitmaps[texture0]);
@@ -22,23 +22,27 @@ Entity2 *make_entity2(Map *map, std::string model, std::string texture0, vec3d p
 
 
 
-Map *construct()
+Map *MapFactory::construct()
 {
 	Map *current_map = new Map();
+	Entity2 *e = NULL;
 	current_map->name = "Construct";
 
 
-	current_map->models["ground_quad.obj"]->scale(300, 300, 300);
-	current_map->collision_mesh = new CollisionMesh(current_map->models["ground_quad.obj"]); // :) yay for collision mesh!! :D :D :D 
+	current_map->models["ground_quad-01.obj"]->scale(300, 300, 300);
+	current_map->collision_mesh = new CollisionMesh(current_map->models["ground_quad-01.obj"]); // :) yay for collision mesh!! :D :D :D 
 
 
 
 
-	Entity2 *instance = new Entity2(current_map, Entity2::entity2_t::SCENERY, current_map->models["ground_quad.obj"], "");
+	Entity2 *instance = new Entity2(current_map, Entity2::SCENERY, current_map->models["ground_quad-01.obj"], "");
 	instance->textures.set_texture_by_index(0, current_map->bitmaps["twon_texture.png"]);
 	current_map->entity2s.push_back(instance);
 
 
+
+
+	/*
 	//make_entity2(current_map, "sign-01.obj", "hospital_sign.png", 0, 0);
 
 
@@ -55,23 +59,54 @@ Map *construct()
 
 
 
-
-	// just a unit cube
-
-	/*
-	float scale = 3.0;
-	current_map->models["unit_cube-01.obj"]->scale(scale, scale, scale);
-
-	for (unsigned z=0; z<10; z++)
-		for (unsigned x=0; x<10; x++)
-		{
-			make_entity2(current_map, "unit_cube-01.obj", "unit_cube-01b.png", vec3d(x*scale*2, 0, z*scale*2), 0);
-		}
 	*/
 
 
 	// sweet ride
-	make_entity2(current_map, "car-01.obj", "car_texture.png", vec3d(100, 0, -30), 0.1);
+	make_entity2(current_map, "car-01.obj", "car_texture.png", vec3d(-106, 0, 81), 0.31);
+
+
+
+
+
+
+	e = make_entity2(current_map, "forward_aarow-02.obj", "pointer_texture.png", vec3d(0, 0, 0), 0);
+	
+
+
+
+
+	// shopping mall sign
+	e = make_entity2(current_map, "sign-01.obj", "hospital_sign.png", vec3d(0, 0, -3), 0);
+	e->place.rotation.y = 0.25;
+
+
+
+
+
+
+	// just a unit cube
+
+	float scale = 1.0;
+	current_map->models["unit_cube-01.obj"]->scale(scale, scale, scale);
+
+	unsigned x=0, y=0, z=0;
+
+	//for (unsigned z=0; z<10; z++)
+		for (x=1; x<10; x++)
+		{
+			e = make_entity2(current_map, "unit_cube-01.obj", "unit_cube-01b.png", vec3d(x*scale*2, 0, z*scale*2), 0);
+			e->place.rotation.y = random_float(0, TAU);
+		}
+
+		x = 0;
+		for (z=1; z<10; z++)
+		{
+			e = make_entity2(current_map, "unit_cube-01.obj", "unit_cube-01b.png", vec3d(x*scale*2, 0, z*scale*2), 0);
+			e->place.rotation.y = random_float(0, TAU);
+		}
+
+
 
 
 
@@ -88,7 +123,7 @@ Map *construct()
 
 
 
-Map *small_room_map()
+Map *MapFactory::small_room_map()
 {
 	Model *model = NULL;
 	Entity2 *entity2 = NULL;
@@ -173,7 +208,7 @@ Map *small_room_map()
 
 
 
-Map *climber_map()
+Map *MapFactory::climber_map()
 {
 	Model *model = NULL;
 	Door *door = NULL;
@@ -214,7 +249,7 @@ Map *climber_map()
 #include "pickup_trinket.h"
 
 
-Map *customize_character_room()
+Map *MapFactory::customize_character_room()
 {
 	InfoPod *info_pod = NULL;
 	Item *item = NULL;
@@ -275,7 +310,7 @@ Map *customize_character_room()
 
 
 //"first_chaser", color::firebrick, "first_chaser-03.obj", "quarter.png", ""
-Map *create_a_map_from_model_with_cherries_in_it(std::string map_name, ALLEGRO_COLOR bg_color, std::string model_identifier, std::string texture, std::string items_model_identifier)
+Map *MapFactory::create_a_map_from_model_with_cherries_in_it(std::string map_name, ALLEGRO_COLOR bg_color, std::string model_identifier, std::string texture, std::string items_model_identifier)
 {
 	Model *model = NULL;
 	Door *door = NULL;
@@ -332,7 +367,7 @@ Map *create_a_map_from_model_with_cherries_in_it(std::string map_name, ALLEGRO_C
 
 
 
-Map *sandbox_map()
+Map *MapFactory::sandbox_map()
 {
 	InfoPod *info_pod = NULL;
 	Item *item = NULL;
@@ -375,7 +410,7 @@ Map *sandbox_map()
 
 
 
-Map *bouncy_trouncy()
+Map *MapFactory::bouncy_trouncy()
 {
 	Map *map = create_a_map_from_model_with_cherries_in_it("Bouncy Trouncy", color::firebrick, "bouncy_trouncy-06t.obj", "quarter.png", "10x10_plane_tx-04.jpg");
 
@@ -441,7 +476,7 @@ Map *bouncy_trouncy()
 
 #include "info_pod.h"
 
-Map *water_room()
+Map *MapFactory::water_room()
 {
 	Map *map = create_a_map_from_model_with_cherries_in_it("Water Room", color::blue, "water_room-03e.obj", "water2.png", "");
 	InfoPod *info_pod = NULL;
@@ -474,7 +509,7 @@ Map *water_room()
 
 
 
-Map *first_world_hiding_under_a_leaf()
+Map *MapFactory::first_world_hiding_under_a_leaf()
 {
 	Model *model = NULL;
 	Door *door = NULL;
@@ -552,7 +587,7 @@ Map *first_world_hiding_under_a_leaf()
 
 
 
-Map *terrain_map(std::vector<Map *> other_maps_to_make_doors_to)
+Map *MapFactory::terrain_map(std::vector<Map *> other_maps_to_make_doors_to)
 {
 	Model *model = NULL;
 	Door *door = NULL;
