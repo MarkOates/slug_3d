@@ -9,6 +9,83 @@
 #include"info_pod.h"
 
 
+
+Entity2 *make_entity2(Map *map, std::string model, std::string texture0, vec3d position=vec3d(0,0,0), float rotation_y=0)
+{
+	Entity2 *e = new Entity2(map, Entity2::SCENERY, map->models[model], "");
+	e->textures.set_texture_by_index(0, map->bitmaps[texture0]);
+	map->entity2s.push_back(e);
+	e->place.position = position;
+	e->place.rotation = vec3d(0, rotation_y, 0);
+	return e;
+}
+
+
+
+Map *construct()
+{
+	Map *current_map = new Map();
+	current_map->name = "Construct";
+
+	current_map->models["ground_quad.obj"]->scale(300, 300, 300);
+	current_map->collision_mesh = new CollisionMesh(current_map->models["ground_quad.obj"]);
+
+
+
+	/*
+	Entity2 *instance = new Entity2(current_map, Entity2::entity2_t::SCENERY, current_map->models["ground_quad.obj"], "");
+	instance->textures.set_texture_by_index(0, current_map->bitmaps["twon_texture.png"]);
+	current_map->entity2s.push_back(instance);
+
+
+	//make_entity2(current_map, "sign-01.obj", "hospital_sign.png", 0, 0);
+
+
+	make_entity2(current_map, "sign-01.obj", "hospital_sign.png", vec3d(5, 0, -20), 0.65);
+
+	// gas sign
+	make_entity2(current_map, "sign-01.obj", "hospital_sign.png", vec3d(20, 0, -60), 0.5);
+
+	// school sign
+	make_entity2(current_map, "sign-01.obj", "hospital_sign.png", vec3d(68, 0, -30), 0.5);
+
+	// shopping mall sign
+	make_entity2(current_map, "sign-01.obj", "hospital_sign.png", vec3d(95, 0, 95), 0);
+
+	*/
+
+
+	// just a unit cube
+
+	float scale = 3.0;
+	current_map->models["unit_cube-01.obj"]->scale(scale, scale, scale);
+
+	for (unsigned z=0; z<10; z++)
+		for (unsigned x=0; x<10; x++)
+		{
+			make_entity2(current_map, "unit_cube-01.obj", "unit_cube-01b.png", vec3d(x*scale*2, 0, z*scale*2), 0);
+		}
+
+
+
+	// sweet ride
+	//make_entity2(current_map, "car-01.obj", "car_texture.png", vec3d(100, 0, -30), 0.1);
+
+
+
+
+
+
+	//entity2->
+
+
+
+	return current_map;
+}
+
+
+
+
 Map *small_room_map()
 {
 	Model *model = NULL;
