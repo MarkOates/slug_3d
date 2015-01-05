@@ -55,8 +55,8 @@ AntEnemy::AntEnemy(Map *map, vec3d position, vec3d domain_min, vec3d domain_max)
 {
 	textures.set_texture_by_index(0, map->bitmaps["an_grey.png"]);
 	colors.set_color(0, color::black);
-	domain.min = vec3d(min(domain_min.x, domain_max.x), position.y, min(domain_min.z, domain_max.z));
-	domain.max = vec3d(max(domain_min.x, domain_max.x), position.y, max(domain_min.z, domain_max.z));
+	domain.min = vec3d(std::min(domain_min.x, domain_max.x), position.y, std::min(domain_min.z, domain_max.z));
+	domain.max = vec3d(std::max(domain_min.x, domain_max.x), position.y, std::max(domain_min.z, domain_max.z));
 }
 
 bool AntEnemy::in_domain()

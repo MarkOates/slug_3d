@@ -269,7 +269,7 @@ bool PlayerCharacter::take_damage(float amt)
 {
 	if (state.has(NUMB_FROM_DAMAGE)) return false;
 
-	health -= max(0, (amt - hydration));
+	health -= std::max(0.0f, (amt - hydration));
 	hydration -= amt;
 
 	if (hydration < 0) hydration = 0;
