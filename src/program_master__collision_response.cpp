@@ -339,7 +339,8 @@ void ProgramMaster::update_new_triangle_thing()
 				// set the collision response func to default:
 					typedef void (ProgramMaster::*collision_response_func_t)(Entity *, float, CollisionMesh::Face *, float);
 					
-					collision_response_func_t collision_response_func = &ProgramMaster::collision_response_func_ALONG;
+					//collision_response_func_t collision_response_func = &ProgramMaster::collision_response_func_ALONG;
+					collision_response_func_t collision_response_func = &ProgramMaster::collision_response_func_CAR_no_bounce;
 					colliding_entity->state_flags.set(Entity::ON_GROUND);
 
 

@@ -84,9 +84,9 @@ void Map::draw()
 	// draw the objects
 	for (unsigned i=0; i<entity2s.size(); i++)
 	{
-		//if (i==1) set_blender(BLENDER_ADDITIVE);
+		//set_blender(BLENDER_ADDITIVE);
 		entity2s[i]->draw();
-		//if (i==1) set_blender(BLENDER_NORMAL);
+		//set_blender(BLENDER_NORMAL);
 
 	}
 

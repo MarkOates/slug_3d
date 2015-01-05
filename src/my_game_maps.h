@@ -27,6 +27,8 @@ Map *climber_map();
 
 Map *terrain_map(std::vector<Map *> other_maps_to_make_doors_to);
 
+Map *construct();
+
 
 
 

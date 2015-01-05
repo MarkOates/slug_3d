@@ -233,7 +233,6 @@ void PlayerCharacter::try_frontal_attack()
 {
 	state.set(FRONTAL_STRIKE_ATTACK);
 	strike_stretch = 1;
-	std::cout << "attack!";
 }
 
 
