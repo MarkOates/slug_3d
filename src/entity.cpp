@@ -67,7 +67,7 @@ Entity::Entity(Map *map)
 
 void Entity::draw()
 {
-	bool draw_crosshairs = false;
+	bool draw_crosshairs = true;
 
 	if (draw_crosshairs)
 	{
@@ -160,8 +160,8 @@ void Entity::update_player_controlls()
 	if (moving_forward) velocity += view_vector.Normalized() * accel_velocity;
 	if (moving_backward) velocity -= view_vector.Normalized() * accel_velocity;
 	
-	if (strafing_right) velocity -= get_strafe_vector() * accel_velocity;
-	else if (strafing_left) velocity += get_strafe_vector() * accel_velocity;
+	if (strafing_right) velocity += get_strafe_vector() * accel_velocity;
+	else if (strafing_left) velocity -= get_strafe_vector() * accel_velocity;
 
 	if (fabs(turning_speed) > 0.0001)
 	{

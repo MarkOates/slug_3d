@@ -8,7 +8,7 @@
 //#include "color.h"
 
 
-#include "my_game_maps.h"
+#include "map_factory.h"
 
 
 
@@ -21,7 +21,7 @@ Level::Level()
 	//maps.push_back(climber_map());
 
 
-	maps.push_back(construct());
+	maps.push_back(MapFactory::construct());
 
 
 
