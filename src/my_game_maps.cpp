@@ -27,12 +27,13 @@ Map *construct()
 	Map *current_map = new Map();
 	current_map->name = "Construct";
 
+
 	current_map->models["ground_quad.obj"]->scale(300, 300, 300);
-	current_map->collision_mesh = new CollisionMesh(current_map->models["ground_quad.obj"]);
+	current_map->collision_mesh = new CollisionMesh(current_map->models["ground_quad.obj"]); // :) yay for collision mesh!! :D :D :D 
 
 
 
-	/*
+
 	Entity2 *instance = new Entity2(current_map, Entity2::entity2_t::SCENERY, current_map->models["ground_quad.obj"], "");
 	instance->textures.set_texture_by_index(0, current_map->bitmaps["twon_texture.png"]);
 	current_map->entity2s.push_back(instance);
@@ -52,11 +53,12 @@ Map *construct()
 	// shopping mall sign
 	make_entity2(current_map, "sign-01.obj", "hospital_sign.png", vec3d(95, 0, 95), 0);
 
-	*/
+
 
 
 	// just a unit cube
 
+	/*
 	float scale = 3.0;
 	current_map->models["unit_cube-01.obj"]->scale(scale, scale, scale);
 
@@ -65,11 +67,11 @@ Map *construct()
 		{
 			make_entity2(current_map, "unit_cube-01.obj", "unit_cube-01b.png", vec3d(x*scale*2, 0, z*scale*2), 0);
 		}
-
+	*/
 
 
 	// sweet ride
-	//make_entity2(current_map, "car-01.obj", "car_texture.png", vec3d(100, 0, -30), 0.1);
+	make_entity2(current_map, "car-01.obj", "car_texture.png", vec3d(100, 0, -30), 0.1);
 
 
 
