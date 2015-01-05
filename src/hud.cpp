@@ -119,8 +119,9 @@ void HUD::draw_debug_data()
 
 void HUD::show_room_name(std::string name)
 {
-	room_name.text("- " + name + " -");
-	room_name.position(display->width()/2, 160).align(0.5, 0.25).font(fonts[MASTER_FONT_NAME + " 70"]).color(color::lightcyan);
+	//php::strtoupper()
+	room_name.text("- " + php::strtoupper(name) + " -");
+	room_name.position(display->width()/2, display->height()/5*4).align(0.5, 0.5).font(fonts["Building_Typeface.ttf 50"]).color(color::lightcyan);
 
 	float start_time = af::time_now + 5.0;
 	float end_time = start_time + 1.4;
@@ -128,13 +129,17 @@ void HUD::show_room_name(std::string name)
 	room_name.get_attr("opacity") = 1.0;
 
 	// coming in
-	motion.canimate(&room_name.get_attr("scale_x"), 3, 1, af::time_now, start_time, interpolator::quadrupleFastIn, NULL, NULL);
-	motion.canimate(&room_name.get_attr("scale_y"), 3, 1, af::time_now, start_time, interpolator::quadrupleFastIn, NULL, NULL);
+	motion.canimate(&room_name.get_attr("scale_x"), 1.1, 1, af::time_now, start_time, interpolator::quadrupleFastIn, NULL, NULL);
+	motion.canimate(&room_name.get_attr("scale_y"), 1.1, 1, af::time_now, start_time, interpolator::quadrupleFastIn, NULL, NULL);
 
 
 	// fade out
 	motion.canimate(&room_name.get_attr("opacity"), 1, 0.0, af::time_now + 5.0, end_time, interpolator::fastIn, NULL, NULL);
 }
+
+
+
+
 
 
 
@@ -182,9 +187,10 @@ void HUD::primary_timer_func()
 		vec2d hyd_bar = vec2d(60, 50);
 		vec2d hyd_bar_size = vec2d(player_hydration_max*30, 30);
 		float hyd_bar_now = player_hydration*30;
+		float hydration_unit = player_hydration / player_hydration_max;
 		float inset = 5;
 		al_draw_filled_rounded_rectangle(hyd_bar.x+inset, hyd_bar.y+inset, hyd_bar.x+hyd_bar_now-inset, hyd_bar.y+hyd_bar_size.y-inset, roundness.x, roundness.y, color::color(color::aqua, 0.8));
-		al_draw_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, color::aqua, 4);
+		al_draw_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, (::basically_equal(hydration_unit, 1.0)) ? color::white : color::aqua, 4);
 		al_draw_filled_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, color::color(color::black, 0.3));
 
 
@@ -194,7 +200,7 @@ void HUD::primary_timer_func()
 		hyd_bar_size = vec2d(player_hydration_max*30, 30);
 		hyd_bar_now = player_hydration*30;
 		al_draw_filled_rounded_rectangle(hyd_bar.x+inset, hyd_bar.y+inset, hyd_bar.x+hyd_bar_now-inset, hyd_bar.y+hyd_bar_size.y-inset, roundness.x, roundness.y, color::color(color::hex("f1678e"), 0.8));
-		al_draw_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, color::hex("f1678e"), 4);
+		al_draw_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, (::basically_equal(hydration_unit, 1.0)) ? color::white : color::hex("f1678e"), 4);
 		al_draw_filled_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, color::color(color::black, 0.3));
 
 
@@ -241,7 +247,7 @@ void HUD::receive_signal(int signal, void *data)
 	switch(signal)
 	{
 	case SIGNAL_SET_DIALOGUE_TEXT:
-		set_message_text(*static_cast<std::string *>(data));
+		//set_message_text(*static_cast<std::string *>(data));
 		std::cout << "[[setting message]]";
 		break;
 	case SIGNAL_SET_NOTIFICATION_TEXT:
@@ -251,7 +257,7 @@ void HUD::receive_signal(int signal, void *data)
 		notification_text.opacity(1);
 		break;
 	case SIGNAL_HIDE_DIALOGUE_TEXT:
-		set_message_text("");
+		//set_message_text("");
 		break;
 	}
 }
@@ -260,7 +266,7 @@ void HUD::receive_signal(int signal, void *data)
 
 void HUD::joy_down_func()
 {
-	set_message_text(""); // dirty
+	//set_message_text(""); // dirty
 
 }
 
