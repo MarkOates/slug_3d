@@ -31,15 +31,15 @@ ProgramMaster::ProgramMaster(Display *display)
 	, player_character(level.maps.back()) // yikes
 	, player_controlled_entity(player_character.entity)
 	, hud(NULL)
-	, gui_screen(NULL)
+	//, gui_screen(NULL)
 	, use_show_mouse_as_cursor(false)
 {
 	primary_camera.pitch = default_camera_pitch;
 
 
 
-	gui_screen = new GUIScreen(display);
-	gui_screen->clear_to_background_color = false;
+	//gui_screen = new GUIScreen(display);
+	//gui_screen->clear_to_background_color = false;
 
 
 
@@ -79,7 +79,7 @@ ProgramMaster::ProgramMaster(Display *display)
 	primary_camera.stepback_pitch = 0;
 
 
-	primary_camera.update_camera_tracking(vec3d(0, 0, 0), primary_camera__entity_attached_to->view_vector, Camera3D::CAMERA_VIEW_TRACK_ALONG_X);
+	//primary_camera.update_camera_tracking(vec3d(0, 0, 0), primary_camera__entity_attached_to->view_vector, Camera3D::CAMERA_VIEW_TRACK_ALONG_X);
 
 
 	// 0.4 REVISION:
@@ -234,7 +234,8 @@ void ProgramMaster::primary_timer_func()
 	//0.4 REVISION // primary_camera.update();
 
 	Entity *primary_camera__entity_attached_to = this->player_controlled_entity;
-	primary_camera.update_camera_tracking(primary_camera__entity_attached_to->position, primary_camera__entity_attached_to->view_vector, Camera3D::CAMERA_VIEW_THIRD_PERSON_HIGH);
+	//primary_camera.update_camera_tracking(primary_camera__entity_attached_to->position, primary_camera__entity_attached_to->view_vector, Camera3D::CAMERA_VIEW_TRACK_ALONG_X_BIRD);
+	primary_camera.update_camera_tracking(primary_camera__entity_attached_to->position, primary_camera__entity_attached_to->view_vector);
 
 	if (player_controlled_entity)
 	{

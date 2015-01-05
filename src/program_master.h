@@ -44,7 +44,7 @@ public:
 
 	bool use_show_mouse_as_cursor;
 
-	FGUIScreen *gui_screen;
+	//FGUIScreen *gui_screen;
 
 	Level level;
 	Map *current_map;
@@ -93,6 +93,9 @@ public:
 
 	void toggle_mouse_as_cursor();
 
+
+
+	void _update_joystick_input_relative_to_camera();
 
 
 
