@@ -92,7 +92,8 @@ void HUD::draw_debug_data()
 
 
 	TextObject text("Hello");
-	text.position(10, 10).font(fonts[MASTER_FONT_NAME + " 21"]).color("white");
+
+	text.position(10, 10).font(fonts["consola.ttf 21"]).color("white");
 
 	if (!primary_camera__entity_attached_to)
 	{
@@ -101,19 +102,20 @@ void HUD::draw_debug_data()
 	}
 	else
 	{
+		al_draw_filled_rectangle(0, 0, 600, 120, color::color(color::black, 0.3));
 		text.position(10, 10).text("pos" + primary_camera__entity_attached_to->position.GetString()).draw();
 		text.position(10, 30).text("view" + primary_camera__entity_attached_to->view_vector.GetString()).draw();
 		text.position(10, 50).text("vel" + primary_camera__entity_attached_to->velocity.GetString()).draw();
-		text.position(10, 70).text("pitch" + tostring(of->primary_camera.pitch)).draw();
-		text.position(10, 90).text("vel_mag: " + tostring(primary_camera__entity_attached_to->velocity.GetMagnitude())).draw();
+		//text.position(10, 70).text("pitch: " + tostring(of->primary_camera.pitch)).draw();
+		//text.position(10, 90).text("vel_mag: " + tostring(primary_camera__entity_attached_to->velocity.GetMagnitude())).draw();
+		//text.position(10, 120).text("num enemies: " + tostring(of->current_map->get_num_enemies())).draw();
 
 		text.position(display->width()-10, 10).align(1.0, 0.0).text("num collision_steps: " + tostring(of->num_collision_steps)).draw();
 
-		text.position(10, 120).text("num enemies: " + tostring(of->current_map->get_num_enemies())).draw();
 	}
 
-	if (of->player_controlled_entity)
-		text.color(color::yellow).position(10, 120).text("player_pos" + of->player_controlled_entity->position.GetString()).draw();
+	//if (of->player_controlled_entity)
+	//	text.color(color::yellow).position(10, 120).text("player_pos" + of->player_controlled_entity->position.GetString()).draw();
 }
 
 
@@ -179,29 +181,31 @@ void HUD::primary_timer_func()
 	{
 		// draw the bars
 
-		float bar_y_spacing = 50;
+		float bar_y_spacing = 40;
 		vec2d roundness = vec2d(5, 5);
+
+		al_draw_filled_circle(60, 40, 90, color::color(color::black, 0.1));
 
 		float player_hydration_max = of->player_character.max_hydration;
 		float player_hydration = of->player_character.hydration;
 		vec2d hyd_bar = vec2d(60, 50);
-		vec2d hyd_bar_size = vec2d(player_hydration_max*30, 30);
+		vec2d hyd_bar_size = vec2d(player_hydration_max*30, 20);
 		float hyd_bar_now = player_hydration*30;
 		float hydration_unit = player_hydration / player_hydration_max;
-		float inset = 5;
+		float inset = 4;
+		al_draw_filled_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, color::color(color::black, 0.5));
+		al_draw_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, (::basically_equal(hydration_unit, 1.0)) ? color::white : color::aqua, 2);
 		al_draw_filled_rounded_rectangle(hyd_bar.x+inset, hyd_bar.y+inset, hyd_bar.x+hyd_bar_now-inset, hyd_bar.y+hyd_bar_size.y-inset, roundness.x, roundness.y, color::color(color::aqua, 0.8));
-		al_draw_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, (::basically_equal(hydration_unit, 1.0)) ? color::white : color::aqua, 4);
-		al_draw_filled_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, color::color(color::black, 0.3));
 
 
 		player_hydration_max = of->player_character.max_health;
 		player_hydration = of->player_character.health;
 		hyd_bar = hyd_bar + vec2d(0, bar_y_spacing);
-		hyd_bar_size = vec2d(player_hydration_max*30, 30);
+		hyd_bar_size = vec2d(player_hydration_max*30, 20);
 		hyd_bar_now = player_hydration*30;
-		al_draw_filled_rounded_rectangle(hyd_bar.x+inset, hyd_bar.y+inset, hyd_bar.x+hyd_bar_now-inset, hyd_bar.y+hyd_bar_size.y-inset, roundness.x, roundness.y, color::color(color::hex("f1678e"), 0.8));
-		al_draw_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, (::basically_equal(hydration_unit, 1.0)) ? color::white : color::hex("f1678e"), 4);
-		al_draw_filled_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, color::color(color::black, 0.3));
+		al_draw_filled_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, color::color(color::black, 0.5));
+		al_draw_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, (::basically_equal(hydration_unit, 1.0)) ? color::white : color::hex("ff798f"), 2);
+		al_draw_filled_rounded_rectangle(hyd_bar.x+inset, hyd_bar.y+inset, hyd_bar.x+hyd_bar_now-inset, hyd_bar.y+hyd_bar_size.y-inset, roundness.x, roundness.y, color::color(color::hex("ff798f"), 0.8));
 
 
 		// draw the text
@@ -210,11 +214,11 @@ void HUD::primary_timer_func()
 		text.font(fonts["bankgthd.ttf 30"]);
 
 		text.text("hydration");
-		text.position(22, 28+bar_y_spacing*0).color(color::black).draw();
+		text.position(22, 27+bar_y_spacing*0).color(color::black).draw();
 		text.position(20, 24+bar_y_spacing*0).color(color::white).draw();
 
 		text.text("health");
-		text.position(22, 28+bar_y_spacing*1).color(color::black).draw();
+		text.position(22, 27+bar_y_spacing*1).color(color::black).draw();
 		text.position(20, 24+bar_y_spacing*1).color(color::white).draw();
 
 
@@ -230,6 +234,16 @@ void HUD::primary_timer_func()
 
 
 	room_name.draw();
+
+
+
+	al_draw_textf(fonts["bankgthd.ttf 26"], color::black, display->width()-30, display->height()-80, ALLEGRO_ALIGN_RIGHT,
+		"x: %f", of->player_controlled_entity->position.x);
+	al_draw_textf(fonts["bankgthd.ttf 26"], color::black, display->width()-30, display->height()-60, ALLEGRO_ALIGN_RIGHT,
+		"y: %f", of->player_controlled_entity->position.y);
+	al_draw_textf(fonts["bankgthd.ttf 26"], color::black, display->width()-30, display->height()-40, ALLEGRO_ALIGN_RIGHT,
+		"z: %f", of->player_controlled_entity->position.z);
+
 
 
 	if (state.has(DEBUG_MODE)) draw_debug_data();
