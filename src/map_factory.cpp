@@ -271,7 +271,7 @@ Map *MapFactory::climber_map()
 
 
 
-#include "pickup_trinket.h"
+#include <slug_3d/pickup_trinket.h>
 
 
 Map *MapFactory::customize_character_room()

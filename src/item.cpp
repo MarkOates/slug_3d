@@ -76,7 +76,7 @@ void Item::on_collide()
 	//std::cout << "collide";
 }
 
-#include "dirty_signal_send.h"
+#include <slug_3d/dirty_signal_send.h>
 
 void Item::on_enter()
 {

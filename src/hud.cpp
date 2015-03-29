@@ -269,7 +269,7 @@ void HUD::primary_timer_func()
 
 
 
-#include "dirty_signal_send.h"
+#include <slug_3d/dirty_signal_send.h>
 
 
 void HUD::receive_signal(int signal, void *data)
