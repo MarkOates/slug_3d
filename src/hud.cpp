@@ -5,12 +5,12 @@
 #include <allegro_flare/color.h>
 #include <allegro_flare/allegro_flare.h>
 
-#include "global_defs.h"
+#include <slug_3d/global_defs.h>
 
 
 
 
-#include "hud.h"
+#include <slug_3d/hud.h>
 //#include "text_object.h"
 //#include "color.h"
 

@@ -4,10 +4,10 @@
 #include <allegro_flare/allegro_flare.h>
 
 
-#include "program_master.h"
+#include <slug_3d/program_master.h>
 //#include "allegro_flare.h"
 
-#include "hud.h"
+#include <slug_3d/hud.h>
 
 
 

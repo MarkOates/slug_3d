@@ -7,9 +7,9 @@
 
 
 
-#include "entity2.h"
+#include <slug_3d/entity2.h>
 //#include "useful.h"
-#include "hud.h"
+#include <slug_3d/hud.h>
 
 
 class InfoPod : public Entity2

@@ -7,7 +7,7 @@
 #include <allegro_flare/model.h>
 
 //#include "model.h"
-#include "entity2.h"
+#include <slug_3d/entity2.h>
 
 
 class Door : public Entity2

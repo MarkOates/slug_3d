@@ -1,6 +1,6 @@
 
 
-#include "item.h"
+#include <slug_3d/item.h>
 
 
 

@@ -1,7 +1,7 @@
 
 
 
-#include "pickup_trinket.h"
+#include <slug_3d/pickup_trinket.h>
 
 
 

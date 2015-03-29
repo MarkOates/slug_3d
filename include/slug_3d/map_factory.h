@@ -5,7 +5,7 @@
 
 
 
-#include "map.h"
+#include <slug_3d/map.h>
 
 
 class MapFactory

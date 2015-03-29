@@ -1,7 +1,7 @@
 
 
 
-#include "aabb3d.h"
+#include <slug_3d/aabb3d.h>
 
 
 

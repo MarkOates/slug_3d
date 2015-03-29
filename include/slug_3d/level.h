@@ -3,8 +3,8 @@
 
 
 
-#include "door.h"
-#include "map.h"
+#include <slug_3d/door.h>
+#include <slug_3d/map.h>
 
 
 

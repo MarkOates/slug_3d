@@ -1,14 +1,14 @@
 
 
 
-#include "level.h"
+#include <slug_3d/level.h>
 
 #include <allegro_flare/color.h>
 
 //#include "color.h"
 
 
-#include "map_factory.h"
+#include <slug_3d/map_factory.h>
 
 
 

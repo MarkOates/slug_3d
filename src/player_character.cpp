@@ -4,8 +4,8 @@
 
 
 
-#include "player_character.h"
-#include "map.h"
+#include <slug_3d/player_character.h>
+#include <slug_3d/map.h>
 
 
 
@@ -101,7 +101,7 @@ int PlayerCharacter::get_num_items(Item::item_t item)
 }
 
 
-#include "dirty_signal_send.h"
+#include <slug_3d/dirty_signal_send.h>
 
 void PlayerCharacter::pickup_experience(float amt)
 {

@@ -1,8 +1,8 @@
 
 
 
-#include "info_pod.h"
-#include "map.h"
+#include <slug_3d/info_pod.h>
+#include <slug_3d/map.h>
 
 
 

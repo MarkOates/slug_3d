@@ -1,5 +1,5 @@
 
-#include "entity2.h"
+#include <slug_3d/entity2.h>
 
 
 //////////////////// Entity2

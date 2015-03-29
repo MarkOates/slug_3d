@@ -1,4 +1,4 @@
-#include "gui_screen.h"
+#include <slug_3d/gui_screen.h>
 
 
 

@@ -5,8 +5,8 @@
 
 
 
-#include "item.h"
-#include "player_character.h"
+#include <slug_3d/item.h>
+#include <slug_3d/player_character.h>
 
 
 class PickupTrinket : public Item

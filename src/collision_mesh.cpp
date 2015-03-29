@@ -1,7 +1,7 @@
 
 
 
-#include "collision_mesh.h"
+#include <slug_3d/collision_mesh.h>
 
 
 #include <iostream>

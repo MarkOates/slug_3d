@@ -1,12 +1,12 @@
 
 
 
-#include "map_factory.h"
-#include "item.h"
-#include "door.h"
+#include <slug_3d/map_factory.h>
+#include <slug_3d/item.h>
+#include <slug_3d/door.h>
 
 
-#include"info_pod.h"
+#include <slug_3d/info_pod.h>
 
 
 
@@ -499,7 +499,7 @@ Map *MapFactory::bouncy_trouncy()
 	return map;
 }
 
-#include "info_pod.h"
+#include <slug_3d/info_pod.h>
 
 Map *MapFactory::water_room()
 {
@@ -529,7 +529,7 @@ Map *MapFactory::water_room()
 
 
 
-#include "info_pod.h"
+#include <slug_3d/info_pod.h>
 
 
 

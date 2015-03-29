@@ -4,7 +4,7 @@
 #include <allegro_flare/allegro_flare.h>
 
 
-#include "enemy.h"
+#include <slug_3d/enemy.h>
 //#include "allegro_flare.h"
 
 

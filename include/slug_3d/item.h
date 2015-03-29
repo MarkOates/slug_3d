@@ -10,9 +10,9 @@
 
 //#include "sample_bin.h"
 //#include "model.h"
-#include "aabb3d.h"
+#include <slug_3d/aabb3d.h>
 //#include "vec3d.h"
-#include "map.h"
+#include <slug_3d/map.h>
 
 
 class Item : public Entity2

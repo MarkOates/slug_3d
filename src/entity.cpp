@@ -9,7 +9,7 @@
 
 
 
-#include "entity.h"
+#include <slug_3d/entity.h>
 //#include "color.h"
 //#include "useful.h"
 

@@ -7,7 +7,7 @@
 #include <allegro_flare/motion.h>
 
 //#include "font_bin.h"
-#include "program_master.h"
+#include <slug_3d/program_master.h>
 //#include "text_object.h"
 //#include "motion_control.h"
 

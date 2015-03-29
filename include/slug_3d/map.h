@@ -19,14 +19,14 @@
 //#include "model.h"
 //#include "model_bin.h"
 ////#include "entity_factory.h"
-#include "aabb3d.h"
+#include <slug_3d/aabb3d.h>
 
-#include "entity.h"
-#include "entity2.h"
+#include <slug_3d/entity.h>
+#include <slug_3d/entity2.h>
 
-#include "collision_mesh.h"
+#include <slug_3d/collision_mesh.h>
 
-#include "enemy.h"
+#include <slug_3d/enemy.h>
 
 
 

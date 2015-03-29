@@ -16,7 +16,7 @@
 class Model;
 class Map;
 //class AABB3D;
-#include "aabb3d.h"
+#include <slug_3d/aabb3d.h>
 //#include "model.h"
 
 

@@ -10,10 +10,10 @@
 
 
 //#include "entity.h"
-#include "entity2.h"
+#include <slug_3d/entity2.h>
 //#include "model.h"
-#include "map.h"
-#include "aabb3d.h"
+#include <slug_3d/map.h>
+#include <slug_3d/aabb3d.h>
 //#include "flags.h"
 
 // for this... no collision map walking on ramps business... no time for that...

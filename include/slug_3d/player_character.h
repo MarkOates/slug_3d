@@ -12,10 +12,10 @@
 
 //#include "model_bin.h"
 //#include "bitmap_bin.h"
-#include "entity.h"
+#include <slug_3d/entity.h>
 //#include "model.h"
-#include "map.h"
-#include "item.h"
+#include <slug_3d/map.h>
+#include <slug_3d/item.h>
 
 
 class PlayerCharacter

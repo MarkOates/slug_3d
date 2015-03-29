@@ -12,9 +12,9 @@
 //#include "screen.h"
 //#include "bitmap_bin.h"
 //#include "camera3d.h"
-#include "level.h"
-#include "map.h"
-#include "player_character.h"
+#include <slug_3d/level.h>
+#include <slug_3d/map.h>
+#include <slug_3d/player_character.h>
 //#include "motion_control.h"
 
 
@@ -24,7 +24,7 @@
 
 
 
-#include "gui_screen.h"
+#include <slug_3d/gui_screen.h>
 
 
 

@@ -2,13 +2,13 @@
 
 
 
-#include "program_master.h"
+#include <slug_3d/program_master.h>
 //#include "allegro_flare.h"
 
-#include "hud.h"
-#include "info_pod.h"
+#include <slug_3d/hud.h>
+#include <slug_3d/info_pod.h>
 
-#include "dirty_signal_send.h"
+#include <slug_3d/dirty_signal_send.h>
 
 
 
@@ -18,7 +18,7 @@
 
 
 
-#include "nothing.h"
+#include <slug_3d/nothing.h>
 ShaderThing *shader_thing = NULL;
 
 
@@ -145,7 +145,7 @@ void ProgramMaster::start_map(Map *map)
 
 
 //#include "interpolators.h"
-#include "pickup_trinket.h"
+#include <slug_3d/pickup_trinket.h>
 
 
 bool ProgramMaster::enter_into_door(Door *door)
@@ -235,8 +235,8 @@ bool ProgramMaster::enter_into_door(Door *door)
 //vec3d epos;
 
 
-#include "enemy.h"
-#include "pickup_trinket.h"
+#include <slug_3d/enemy.h>
+#include <slug_3d/pickup_trinket.h>
 
 
 void ProgramMaster::primary_timer_func()

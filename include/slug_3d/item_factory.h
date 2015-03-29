@@ -5,7 +5,7 @@
 
 
 
-#include "info_pod.h"
+#include <slug_3d/info_pod.h>
 
 
 class ItemFactory

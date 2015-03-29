@@ -3,7 +3,7 @@
 #include <allegro_flare/allegro_flare.h>
 #include <allegro5/allegro_opengl.h>
 
-#include "program_master.h"
+#include <slug_3d/program_master.h>
 
 
 

@@ -3,7 +3,7 @@
 #include <allegro_flare/blender.h>
 
 
-#include "map.h"
+#include <slug_3d/map.h>
 
 //#include "blender.h"
 

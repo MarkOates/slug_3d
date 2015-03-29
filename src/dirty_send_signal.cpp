@@ -1,4 +1,4 @@
-#include "dirty_signal_send.h"
+#include <slug_3d/dirty_signal_send.h>
 
 
 
