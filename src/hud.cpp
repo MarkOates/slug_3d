@@ -33,14 +33,16 @@ HUD::HUD(Display *display, ProgramMaster *of)
 	paragraph_title.align(0.5, 0);
 	paragraph_title.font(fonts["bankgthd.ttf 50"]);
 	paragraph_title.color(color::orange);
-	paragraph_title.position(display->width()/2, display->height() / 5);
+	paragraph_title.opacity(0);
+	paragraph_title.position(display->width()/2, display->height()/2 - 100);
+
 
 	for (int i=0; i<NUM_LINES; i++)
 	{
 		line[i].align(0.5, 0);
 		line[i].font(fonts["bankgthd.ttf 30"]);
 		line[i].color(color::white);
-		line[i].position(display->width()/2, paragraph_title.get_attr("y") + display->height() / 12 * (i+2));
+		line[i].position(display->width()/2, paragraph_title.get_attr("y") + ((i+3)*line[i].h()));
 	}
 
 	notification_text.text("notification");
@@ -48,6 +50,7 @@ HUD::HUD(Display *display, ProgramMaster *of)
 	notification_text.font(fonts["bankgthd.ttf 50"]);
 	notification_text.color(color::white);
 	notification_text.position(display->width()-40, display->height()-60);
+	//notification_text.appearance_on();
 
 //*
 //
@@ -162,11 +165,24 @@ void HUD::primary_timer_func()
 
 
 
+
+	// the dialogue text from an info-pod
+	float hw = display->width()/5*3 / 2;
+	float hh = display->height()/2 / 2;
+	al_draw_filled_rounded_rectangle(display->width()/2-hw, display->height()/2-hh,
+		display->width()/2+hw, display->height()/2+hh, 8, 8,
+		color::color(color::midnightblue, 0.5 * paragraph_title.get_attr("opacity")));
+	al_draw_rounded_rectangle(display->width()/2-hw, display->height()/2-hh,
+		display->width()/2+hw, display->height()/2+hh, 8, 8,
+		color::color(color::white, 0.5 * paragraph_title.get_attr("opacity")), 3.0);
+
 	paragraph_title.draw();
 	for (int i=0; i<NUM_LINES; i++)
 	{
 		line[i].draw();
 	}
+
+
 
 
 
@@ -258,20 +274,48 @@ void HUD::primary_timer_func()
 
 void HUD::receive_signal(int signal, void *data)
 {
+	float *opacity_attr = NULL;
+
 	switch(signal)
 	{
 	case SIGNAL_SET_DIALOGUE_TEXT:
-		//set_message_text(*static_cast<std::string *>(data));
-		std::cout << "[[setting message]]";
-		break;
+		{
+			// set the message string
+			std::cout << "[[setting message]]";
+			set_message_text(*static_cast<std::string *>(data));
+
+			// put the text elements that we want to animate into a container
+			std::vector<float *> opacity_attrs;
+			opacity_attrs.push_back(&paragraph_title.get_attr("opacity"));
+			for (unsigned l=0; l<NUM_LINES; l++)
+				opacity_attrs.push_back(&line[l].get_attr("opacity"));
+
+			// apply animations to each of the text elements
+			for (unsigned i=0; i<opacity_attrs.size(); i++)
+				motion.canimate(opacity_attrs[i], 0, 1, af::time_now, af::time_now+0.4, interpolator::slowIn, NULL, NULL);
+
+			break;
+		}
 	case SIGNAL_SET_NOTIFICATION_TEXT:
-		std::cout << "notification text \"" << *static_cast<std::string *>(data) << "\"";
-		notfication_text_timer = 4;
-		notification_text.text(*static_cast<std::string *>(data));
-		notification_text.opacity(1);
-		break;
+		{
+			std::cout << "notification text \"" << *static_cast<std::string *>(data) << "\"";
+			notfication_text_timer = 4;
+			notification_text.text(*static_cast<std::string *>(data));
+			//notification_text.opacity(1);
+			break;
+		}
 	case SIGNAL_HIDE_DIALOGUE_TEXT:
-		//set_message_text("");
+		{
+			// put the text elements that we want to animate into a container
+			std::vector<float *> opacity_attrs;
+			opacity_attrs.push_back(&paragraph_title.get_attr("opacity"));
+			for (unsigned l=0; l<NUM_LINES; l++)
+				opacity_attrs.push_back(&line[l].get_attr("opacity"));
+
+			// apply animations to each of the text elements
+			for (unsigned i=0; i<opacity_attrs.size(); i++)
+				motion.canimate(opacity_attrs[i], 1, 0, af::time_now, af::time_now+0.4, interpolator::slowIn, NULL, NULL);
+		}
 		break;
 	}
 }
@@ -287,7 +331,7 @@ void HUD::joy_down_func()
 
 void HUD::key_down_func()
 {
-	set_message_text(""); // dirty
+	//set_message_text(""); // dirty
 	if (af::current_event->keyboard.keycode == ALLEGRO_KEY_F1)
 	{
 		state.toggle(DEBUG_MODE);

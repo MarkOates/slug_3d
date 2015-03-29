@@ -19,11 +19,9 @@ public:
 	bool showing_dialogue;
 	float dialogue_motion_timer;
 	FGUITextBox *dialogue_box;
-	//Timeline::Track<float>
 
 	GUIScreen(Display *display);
 	void receive_signal(int signal_type, void *data) override;
-	//void receive_message(std::string message) override;
 	void on_draw();
 	void show_dialogue(std::string script);
 	void hide_dialogue();

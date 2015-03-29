@@ -70,6 +70,31 @@ Map *MapFactory::construct()
 
 
 
+	// coin
+	/*
+	for (unsigned i=0; i<20; i++)
+	{
+		e = make_entity2(current_map, "unit_coin-01.obj", "super_coin1.png", vec3d(10+random_float(-5, 5), 0.5, 10+random_float(-5, 5)), random_float(-5, 5));
+		e->place.scale = vec3d(0.6, 0.6, 0.6);
+		e->entity2_type = Entity2::ITEM;
+	}
+	*/
+
+
+
+
+	// info pod :)
+
+	InfoPod *info_pod = new InfoPod(current_map, vec3d(10, 0, -10), "Hey Guys!/This info pod will display/information about the game.");
+	current_map->entity2s.push_back(info_pod);
+		//e = make_entity2(current_map, "info_pod-03.obj", "infoppod3.jpg", vec3d(10, 0, -10), 0);
+		//e->place.scale = vec3d(0.6, 0.6, 0.6);
+		//e->entity2_type = Entity2::INFO_POD;
+		//((InfoPod*)e)->set_message("Hey Guys!/This info pod will display/information about the game.");
+
+
+
+
 	e = make_entity2(current_map, "forward_aarow-02.obj", "pointer_texture.png", vec3d(0, 0, 0), 0);
 	
 

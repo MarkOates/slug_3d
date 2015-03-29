@@ -16,6 +16,15 @@
 
 
 
+
+
+#include "nothing.h"
+ShaderThing *shader_thing = NULL;
+
+
+
+
+
 //Door *home_door = NULL;
 
 
@@ -97,6 +106,9 @@ ProgramMaster::ProgramMaster(Display *display)
 
 
 	if (!level.maps.empty()) start_map(level.maps.back());
+
+
+	shader_thing = new ShaderThing();
 }
 
 
@@ -233,6 +245,20 @@ void ProgramMaster::primary_timer_func()
 	motion.update(af::time_now);
 	//0.4 REVISION // primary_camera.update();
 
+
+
+	// update the rotation of the coins
+	for (unsigned i=0; i<current_map->entity2s.size(); i++)
+	{
+		if (current_map->entity2s[i]->entity2_type == Entity2::ITEM)
+		{
+			if (current_map->entity2s[i]->place.rotation.y < 0) current_map->entity2s[i]->place.rotation.y -= 0.004;
+			else current_map->entity2s[i]->place.rotation.y += 0.004;
+		}
+	}
+
+	//shader_thing->thing();
+
 	Entity *primary_camera__entity_attached_to = this->player_controlled_entity;
 	//primary_camera.update_camera_tracking(primary_camera__entity_attached_to->position, primary_camera__entity_attached_to->view_vector, Camera3D::CAMERA_VIEW_TRACK_ALONG_X_BIRD);
 	primary_camera.update_camera_tracking(primary_camera__entity_attached_to->position, primary_camera__entity_attached_to->view_vector);
@@ -339,6 +365,10 @@ void ProgramMaster::primary_timer_func()
 
 
 
+
+
+
+
 	//if (this->player_controlled_entity) player_controlled_entity->position += player_controlled_entity->_dirty_velocity_normal;
 
 
@@ -405,14 +435,22 @@ void ProgramMaster::primary_timer_func()
 	}
 
 
-	update_new_triangle_thing();
+	_update_new_triangle_thing();
 
+
+
+
+	// drawing:
+
+
+	shader_thing->thing();
 
 
 	if (current_map) current_map->draw();
 	//if (current_map) current_map->draw_triangles_and_normals();
 	if (current_map)
 	{
+		al_use_shader(NULL);
 		current_map->draw_entities();
 	}
 	if (current_map)

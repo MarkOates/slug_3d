@@ -8,7 +8,7 @@
 
 
 InfoPod::InfoPod(Map *map, vec3d location, std::string message) // left-slash delineates lines
-	: Entity2(map, Entity2::INFO_POD, map->models["info_pod-03.obj"], "")
+	: Entity2(map, Entity2::INFO_POD, map->models["info_pod-04.obj"], "")
 	, message(message)
 	, line()
 	, title()
@@ -20,7 +20,7 @@ InfoPod::InfoPod(Map *map, vec3d location, std::string message) // left-slash de
 	place.rotation.y = 0.5;
 
 	set_message(message);
-	textures.set_texture_by_index(0, map->bitmaps["infoppod3.jpg"]);
+	textures.set_texture_by_index(0, map->bitmaps["info_pod_v2-06.png"]);
 }
 
 

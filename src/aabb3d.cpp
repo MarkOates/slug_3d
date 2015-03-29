@@ -1,19 +1,17 @@
 
 
 
-#include <allegro_flare/useful.h>
-
-
 #include "aabb3d.h"
 
-//#include "useful.h"
+
+
+#include <allegro_flare/useful.h>
+
 
 
 
 
 AABB3D::AABB3D(std::string data)
-	//: _position(position)
-	//, _hsize(size/2)
 	: data(data)
 	, color(random_color())
 {}
@@ -30,35 +28,6 @@ bool AABB3D::collides(vec3d point)
 	if (point.z > max.z) return false;
 	return true;
 }
-
-/*
-bool AABB3D::collides(vec3d point)
-{
-	if (point.x < position.x - hsize.x) return false;
-	if (point.x > position.x + hsize.x) return false;
-	if (point.y < position.y - hsize.y) return false;
-	if (point.y > position.y + hsize.y) return false;
-	if (point.z < position.z - hsize.z) return false;
-	if (point.z > position.z + hsize.z) return false;
-	return true;
-}
-*/
-
-
-/*
-bool AABB3D::collides(AABB3D *other)
-{
-	if (!other) return false;
-	if (other->position.x + hsize.x < position.x - hsize.x) return false;
-	if (other->position.x - hsize.x > position.x + hsize.x) return false;
-	if (other->position.y + hsize.y < position.y - hsize.y) return false;
-	if (other->position.y - hsize.y > position.y + hsize.y) return false;
-	if (other->position.z + hsize.z < position.z - hsize.z) return false;
-	if (other->position.z - hsize.z > position.z + hsize.z) return false;
-	return true;
-}
-*/
-
 
 
 

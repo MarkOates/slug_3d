@@ -12,10 +12,6 @@
 
 
 
-inline bool ProgramMaster::basically_equal(const vec3d &first, const vec3d &other, float threshold) const
-{
-return fabs(first.x - other.x) < threshold && fabs(first.y - other.y) < threshold && fabs(first.z - other.z) < threshold;
-}
    
 
 void ProgramMaster::collision_response_func_CAR(Entity *entity, float time_to_collision, CollisionMesh::Face *face, float face_collision_stepout)
@@ -172,7 +168,7 @@ void ProgramMaster::collision_response_func_ALONG(Entity *entity, float time_to_
 }
 
 
-void ProgramMaster::update_new_triangle_thing()
+void ProgramMaster::_update_new_triangle_thing()
 {
 
 	if (!current_map) return;
@@ -339,8 +335,8 @@ void ProgramMaster::update_new_triangle_thing()
 				// set the collision response func to default:
 					typedef void (ProgramMaster::*collision_response_func_t)(Entity *, float, CollisionMesh::Face *, float);
 					
-					//collision_response_func_t collision_response_func = &ProgramMaster::collision_response_func_ALONG;
-					collision_response_func_t collision_response_func = &ProgramMaster::collision_response_func_CAR_no_bounce;
+					collision_response_func_t collision_response_func = &ProgramMaster::collision_response_func_ALONG;
+					//collision_response_func_t collision_response_func = &ProgramMaster::collision_response_func_CAR_no_bounce;
 					colliding_entity->state_flags.set(Entity::ON_GROUND);
 
 
