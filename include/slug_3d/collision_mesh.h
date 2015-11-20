@@ -39,7 +39,7 @@ public:
 		// they are left public for accessibility
 	{
 	public:
-		ALLEGRO_VERTEX av0, av1, av2;
+		ALLEGRO_VERTEX_WITH_NORMAL av0, av1, av2;
 		vec3d v0, v1, v2;
 		vec3d normal;
 		vec3d centroid;
@@ -47,7 +47,7 @@ public:
 		int parent_models_object_num;
 		int parent_models_face_num;
 
-		Face(ALLEGRO_VERTEX av0, ALLEGRO_VERTEX av1, ALLEGRO_VERTEX av2,
+		Face(ALLEGRO_VERTEX_WITH_NORMAL av0, ALLEGRO_VERTEX_WITH_NORMAL av1, ALLEGRO_VERTEX_WITH_NORMAL av2,
 			int parent_models_object_num, int parent_models_face_num,
 			vec3d normal=vec3d(0)
 			);
@@ -59,9 +59,9 @@ public:
 
 
 	std::vector<Face> faces;
-	Model *model;
+	ModelNew *model;
 
-	CollisionMesh(Model *m);
+	CollisionMesh(ModelNew *m);
 };
 
 

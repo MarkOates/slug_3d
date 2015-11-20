@@ -110,7 +110,7 @@ void Map::draw_triangles_and_normals()
 
 void Map::draw_entities()
 {
-	Model *unit_sphere = models["unit_sphere-01.obj"];
+	ModelNew *unit_sphere = models["unit_sphere-01.obj"];
 	if (!unit_sphere) return;
 	for (unsigned i=0; i<entities.size(); i++)
 	{

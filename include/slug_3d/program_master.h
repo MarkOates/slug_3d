@@ -95,8 +95,8 @@ public:
 	void key_up_func();
 	void key_down_func();
 	void joy_axis_func() override;
-	void joy_down_func() override;
-	void joy_up_func() override;
+	void joy_button_down_func() override;
+	void joy_button_up_func() override;
 };
 
 

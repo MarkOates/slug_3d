@@ -8,7 +8,7 @@
 
 
 
-Entity2::Entity2(Map *map, entity2_t entity2_type, Model *model, std::string data)
+Entity2::Entity2(Map *map, entity2_t entity2_type, ModelNew *model, std::string data)
 	: map(map)
 	, model(model)
 	, place()
@@ -31,7 +31,8 @@ void Entity2::draw()
 
 	place.start_transform();
 	//set_blender(blender);
-	model->draw(&textures, &colors);
+	//model->draw(&textures, &colors);
+	model->draw();
 	//bbox.draw();
 	//set_blender(BLENDER_NORMAL);
 	place.restore_transform();
@@ -44,7 +45,8 @@ void Entity2::draw_triangles_and_normals()
 	if (!model) return;
 
 	place.start_transform();
-	model->draw_triangles_and_normals();
+	// TODO:
+	//model->draw_triangles_and_normals();
 	//bbox.draw();
 	place.restore_transform();
 }

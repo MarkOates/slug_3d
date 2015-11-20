@@ -13,7 +13,8 @@ Door::Door(Map *map, door_t type, std::string door_name, vec3d location, float r
 	, destination_door(destination_door)
 	, player_in_doorway(false)
 {
-	this->textures.set_texture_by_index(0, map->bitmaps["door_texture_256.jpg"]);
+	//this->textures.set_texture_by_index(0, map->bitmaps["door_texture_256.jpg"]);
+	model->texture = map->bitmaps["door_texture_256.jpg"];
 
 	this->place.position.x = location.x;
 	this->place.position.y = location.y;

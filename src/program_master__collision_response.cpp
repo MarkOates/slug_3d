@@ -340,25 +340,26 @@ void ProgramMaster::_update_new_triangle_thing()
 					colliding_entity->state_flags.set(Entity::ON_GROUND);
 
 
-					if (colliding_face->parent_models_object_num >= (int)mesh.model->objects.size())
+					if (colliding_face->parent_models_object_num >= (int)mesh.model->named_objects.size())
 					{
 						// cannot ditermine the colliding model::object
 					}
 					else
 					{
-						Model::Object *colliding_model_object = &mesh.model->objects[colliding_face->parent_models_object_num];
+						//Model::Object *colliding_model_object = &mesh.model->objects[colliding_face->parent_models_object_num];
+						ModelNew::named_object *colliding_model_object = &mesh.model->named_objects[colliding_face->parent_models_object_num];
 						// test for colliding model::object type (by name in the model)
 						
-						if (colliding_model_object->name.substr(0,strlen("water")) == "water")
+						if (colliding_model_object->identifier.substr(0,strlen("water")) == "water")
 						{
 						}
-						else if (colliding_model_object->name.substr(0,strlen("bounce")) == "bounce")
+						else if (colliding_model_object->identifier.substr(0,strlen("bounce")) == "bounce")
 						{
 						}
-						else if (colliding_model_object->name.substr(0,strlen("super_bounce")) == "super_bounce")
+						else if (colliding_model_object->identifier.substr(0,strlen("super_bounce")) == "super_bounce")
 						{
 						}
-						else if (colliding_model_object->name.substr(0,strlen("slippy")) == "slippy")
+						else if (colliding_model_object->identifier.substr(0,strlen("slippy")) == "slippy")
 						{
 							collision_response_func = &ProgramMaster::collision_response_func_ALONG_SLIPPY;
 						}
@@ -371,31 +372,31 @@ void ProgramMaster::_update_new_triangle_thing()
 
 
 
-					if (colliding_face->parent_models_object_num >= (int)mesh.model->objects.size())
+					if (colliding_face->parent_models_object_num >= (int)mesh.model->named_objects.size())
 					{
 						// cannot ditermine the colliding model::object
 					}
 					else
 					{
-						Model::Object *colliding_model_object = &mesh.model->objects[colliding_face->parent_models_object_num];
+						ModelNew::named_object *colliding_model_object = &mesh.model->named_objects[colliding_face->parent_models_object_num];
 						// test for colliding model::object type (by name in the model)
 						
-						if (colliding_model_object->name.substr(0,strlen("water")) == "water")
+						if (colliding_model_object->identifier.substr(0,strlen("water")) == "water")
 						{
 							//std::cout << "W";
 							player_character.pickup_hydration(0.005);
 						}
-						else if (colliding_model_object->name.substr(0,strlen("bounce")) == "bounce")
+						else if (colliding_model_object->identifier.substr(0,strlen("bounce")) == "bounce")
 						{
 							//colliding_entity->velocity += vec3d(0, 1, 0);
 							colliding_entity->velocity += colliding_face->normal * 1;
 						}
-						else if (colliding_model_object->name.substr(0,strlen("super_bounce")) == "super_bounce")
+						else if (colliding_model_object->identifier.substr(0,strlen("super_bounce")) == "super_bounce")
 						{
 							//colliding_entity->velocity += vec3d(0, 1, 0);
 							colliding_entity->velocity += colliding_face->normal * 8;
 						}
-						else if (colliding_model_object->name.substr(0,strlen("slippy")) == "slippy")
+						else if (colliding_model_object->identifier.substr(0,strlen("slippy")) == "slippy")
 						{
 							//colliding_entity->velocity += vec3d(0, 1, 0);
 							std::cout << "S";

@@ -54,7 +54,7 @@ public:
 
 	void primary_timer_func() override;
 	void key_down_func() override;
-	void joy_down_func() override;
+	void joy_button_down_func() override;
 };
 
 

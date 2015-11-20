@@ -35,7 +35,8 @@ Item::Item(Map *map, item_t item_type, vec3d location)
 	if (item_type == ITEM_TYPE_HEART)
 	{
 		model = map->models["heart_item-01.obj"];
-		textures.set_texture_by_index(0, map->bitmaps["heart_item-01tx.png"]);
+		//textures.set_texture_by_index(0, map->bitmaps["heart_item-01tx.png"]);
+		model->texture = map->bitmaps["heart_item-01tx.png"];
 		//speed_diff = random_float(0.9, 1.1);
 		//blender = blender_t::BLENDER_ADDITIVE;
 		data = "heart_item-01tx.png";
@@ -43,7 +44,8 @@ Item::Item(Map *map, item_t item_type, vec3d location)
 	if (item_type == ITEM_TYPE_PAPER_CLIP)
 	{
 		data = "paper_clip.png";
-		textures.set_texture_by_index(0, map->bitmaps["paper_clip.png"]);
+		//textures.set_texture_by_index(0, map->bitmaps["paper_clip.png"]);
+		model->texture = map->bitmaps["paper_clip.png"];
 		//speed_diff = random_float(0.9, 1.1);
 		//bbox.min = vec3d(-1.0, -1.0, -1.0);
 		//bbox.max = vec3d(1.0, 1.0, 1.0);
@@ -53,13 +55,15 @@ Item::Item(Map *map, item_t item_type, vec3d location)
 	if (item_type == ITEM_TYPE_DOLL_HEAD)
 	{
 		data = "doll_head32.png";
-		textures.set_texture_by_index(0, map->bitmaps["doll_head32.png"]);
+		//textures.set_texture_by_index(0, map->bitmaps["doll_head32.png"]);
+		model->texture = map->bitmaps["doll_head32.png"];
 		pickup_text = "You Found a Doll Head/Sweet.  Now that's a classy accessory!/That's the kind of fancy trinket you/might wear to a mollusc party.";
 	}
 	if (item_type == ITEM_TYPE_BOTTLE_CAP)
 	{
 		data = "bottle_cap.png";
-		textures.set_texture_by_index(0, map->bitmaps["bottle_cap.png"]);
+		//textures.set_texture_by_index(0, map->bitmaps["bottle_cap.png"]);
+		model->texture = map->bitmaps["bottle_cap.png"];
 		pickup_text = "You Found a Bottle Cap/Wow! What an achievement!  A bottle/cap sure would look nice instead/of your shell.  Ok, maybe not.  But you/can always use your imagination...";
 	}
 }

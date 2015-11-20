@@ -32,7 +32,8 @@ ProgramMaster::ProgramMaster(Display *display)
 	: Screen(display)
 	, current_map(NULL)
 	//, player_controlled_entity2(new Entity2(NULL, Entity2::PLAYER, models["hero-02.obj"], ""))
-	, primary_camera(display->width(), display->height(), NULL)
+	//, primary_camera(display->width(), display->height(), NULL)
+	, primary_camera(vec3d(0, 0, 0))
 	, num_collision_steps(0)
 	, default_camera_pitch(-0.5)
 	//, epos(0)
@@ -43,6 +44,8 @@ ProgramMaster::ProgramMaster(Display *display)
 	//, gui_screen(NULL)
 	, use_show_mouse_as_cursor(false)
 {
+	std::cout << "In Program Master" << std::endl;
+
 	primary_camera.pitch = default_camera_pitch;
 
 
@@ -117,8 +120,8 @@ ProgramMaster::ProgramMaster(Display *display)
 void ProgramMaster::toggle_mouse_as_cursor()
 {
 	this->use_show_mouse_as_cursor = !this->use_show_mouse_as_cursor;
-	if (use_show_mouse_as_cursor) al_show_mouse_cursor(display->display);
-	else al_hide_mouse_cursor(display->display);
+	if (use_show_mouse_as_cursor) al_show_mouse_cursor(display->al_display);
+	else al_hide_mouse_cursor(display->al_display);
 }
 
 
@@ -361,7 +364,7 @@ void ProgramMaster::primary_timer_func()
 
 	al_clear_depth_buffer(1000);
 	al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
-	primary_camera.set_frustum_as_camera(display->display);
+	primary_camera.set_frustum_as_camera(display->al_display);
 
 
 

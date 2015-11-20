@@ -1,6 +1,10 @@
 msvc/
 
 
+*.swp
+*.swo
+*.exe
+allegro.log
 
 # Windows image file caches
 Thumbs.db

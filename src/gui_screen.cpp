@@ -22,25 +22,27 @@
 		float button_distance = 50;
 		float button_width = 170;
 
-		FGUIWidget *widget = new FGUIText(this, 20, display->height()-20, fonts["DroidSans.ttf 20"], "press ESC to toggle cursor");
+		FGUIWidget *widget = new FGUIText(this, 20, display->height()-20, "press ESC to toggle cursor");
 		widget->place.align = vec2d(0, 1);
+		((FGUIText *)widget)->set_font(af::fonts["DroidSans.ttf 20"]);//->place.align = vec2d(0, 1);
 		((FGUIText *)widget)->set_font_color(color::black);//->place.align = vec2d(0, 1);
 
-		widget = new FGUIButton(this, "Respawn", fonts["DroidSans.ttf 18"], 20, display->height()-50-button_distance*2, button_width, 40);
+		widget = new FGUIButton(this, 20, display->height()-50-button_distance*2, button_width, 40, "Respawn");
 		widget->place.align = vec2d(0, 1);
+		//((FGUIButton *)widget)->set_font(af::fonts["DroidSans.ttf 18"]);//->place.align = vec2d(0, 1);
 		((FGUIButton *)widget)->attr.set("on_click_send_message", "respawn()");
 
-		widget = new FGUIButton(this, "dialogue up", fonts["DroidSans.ttf 18"], 20, display->height()-50-button_distance*1, button_width, 40);
+		widget = new FGUIButton(this, 20, display->height()-50-button_distance*1, button_width, 40, "dialogue up");
 		widget->place.align = vec2d(0, 1);
 		((FGUIButton *)widget)->attr.set("on_click_send_message", "show_dialogue");
 
-		widget = new FGUIButton(this, "dialogue down", fonts["DroidSans.ttf 18"], 20, display->height()-50-button_distance*0, button_width, 40);
+		widget = new FGUIButton(this, 20, display->height()-50-button_distance*0, button_width, 40, "dialogue down");
 		widget->place.align = vec2d(0, 1);
 		((FGUIButton *)widget)->attr.set("on_click_send_message", "hide_dialogue");
 
 
 		// text box
-		dialogue_box = new FGUITextBox(this, fonts["DroidSerif.ttf 34"], "", display->width()/2, display->height()/3, display->width()/4*2, display->height()/4);
+		dialogue_box = new FGUITextBox(this, display->width()/2, display->height()/3, display->width()/4*2, display->height()/4, "");
 		dialogue_box->attr.set("id", "dialogue_box");
 	}
 	void GUIScreen::receive_signal(int message_type, void *data)
@@ -93,13 +95,13 @@
 		showing_dialogue = true;
 
 		dialogue_box->set_text(script);
-		motion.cmove_to(&dialogue_motion_timer, 1.0, 0.6, interpolator::linear);
+		af::motion.cmove_to(&dialogue_motion_timer, 1.0, 0.6, interpolator::linear);
 	}
 	void GUIScreen::hide_dialogue()
 	{
 		if (!showing_dialogue) return;
 
 		showing_dialogue = false;
-		motion.cmove_to(&dialogue_motion_timer, 0.0, 0.6, interpolator::linear);
+		af::motion.cmove_to(&dialogue_motion_timer, 0.0, 0.6, interpolator::linear);
 		dialogue_box->set_text_color(color::transparent);
 	}

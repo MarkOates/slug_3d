@@ -42,7 +42,7 @@ public:
 
 	int exp_from_kill;
 
-	Enemy(Map *map, vec3d position, Model *model);
+	Enemy(Map *map, vec3d position, ModelNew *model);
 	void update() override;
 	bool take_damage(float damage);
 };

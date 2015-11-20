@@ -13,7 +13,7 @@
 static Entity2 *make_entity2(Map *map, std::string model, std::string texture0, vec3d position=vec3d(0,0,0), float rotation_y=0)
 {
 	Entity2 *e = new Entity2(map, Entity2::SCENERY, map->models[model], "");
-	e->textures.set_texture_by_index(0, map->bitmaps[texture0]);
+	e->model->texture = map->bitmaps[texture0];
 	map->entity2s.push_back(e);
 	e->place.position = position;
 	e->place.rotation = vec3d(0, rotation_y, 0);
@@ -29,19 +29,25 @@ Map *MapFactory::construct()
 	current_map->name = "Construct";
 
 
-	current_map->models["ground_quad-01.obj"]->scale(300, 300, 300);
+	current_map->models["ground_quad-01.obj"]->scale(300);
+
+	std::cout << "AAA" << std::endl;
+
 	current_map->collision_mesh = new CollisionMesh(current_map->models["ground_quad-01.obj"]); // :) yay for collision mesh!! :D :D :D 
 
+	std::cout << "BBB" << std::endl;
 
 
 
 	Entity2 *instance = new Entity2(current_map, Entity2::SCENERY, current_map->models["ground_quad-01.obj"], "");
-	instance->textures.set_texture_by_index(0, current_map->bitmaps["twon_texture.png"]);
+	instance->model->set_named_object_texture(0, current_map->bitmaps["twon_texture.png"]);
+	//instance->model->texture = current_map->bitmaps["twon_texture.png"];
 	current_map->entity2s.push_back(instance);
 
 
 
 
+	std::cout << "CCC" << std::endl;
 	/*
 	//make_entity2(current_map, "sign-01.obj", "hospital_sign.png", 0, 0);
 
@@ -65,7 +71,7 @@ Map *MapFactory::construct()
 	// sweet ride
 	make_entity2(current_map, "car-01.obj", "car_texture.png", vec3d(-106, 0, 81), 0.31);
 
-
+	std::cout << "DDD" << std::endl;
 
 
 
@@ -113,7 +119,7 @@ Map *MapFactory::construct()
 	// just a unit cube
 
 	float scale = 1.0;
-	current_map->models["unit_cube-01.obj"]->scale(scale, scale, scale);
+	current_map->models["unit_cube-01.obj"]->scale(scale);
 
 	unsigned x=0, y=0, z=0;
 
@@ -150,7 +156,7 @@ Map *MapFactory::construct()
 
 Map *MapFactory::small_room_map()
 {
-	Model *model = NULL;
+	ModelNew *model = NULL;
 	Entity2 *entity2 = NULL;
 	Item *item = NULL;
 	Door *door = NULL;
@@ -182,7 +188,10 @@ Map *MapFactory::small_room_map()
 	model = current_map->models["yup.obj"];
 		//model->set_texture_by_name("ground_Plane.001", current_map->bitmaps["Grass_texture_sketchup_warehouse_type069_0.jpg"]);
 		//model->set_texture_by_name("ramp_Plane", current_map->bitmaps["playground-04.obj"]);
-		model->set_texture_by_name("Plane", current_map->bitmaps["now_with_stone_thing-01.png"]);
+
+
+		//model->set_texture_by_name("Plane", current_map->bitmaps["now_with_stone_thing-01.png"]);
+		model->set_named_object_texture("Plane", current_map->bitmaps["now_with_stone_thing-01.png"]);
 	current_map->entity2s.push_back(new Entity2(current_map, Entity2::WORLD, model, ""));
 
 
@@ -207,8 +216,8 @@ Map *MapFactory::small_room_map()
 		instance->place.position.y = 0;
 		instance->place.position.z = 3;
 		instance->blender = BLENDER_ADDITIVE;
-		instance->textures.set_texture_by_index(0, current_map->bitmaps["cool_yea_fan_sure.png"]);
-		instance->textures.set_texture_by_index(1, current_map->bitmaps["cool_yea_fan_sure.png"]);
+		instance->model->texture = current_map->bitmaps["cool_yea_fan_sure.png"];
+		//instance->textures.set_texture_by_index(1, current_map->bitmaps["cool_yea_fan_sure.png"]);
 	current_map->entity2s.push_back(instance);
 
 
@@ -235,7 +244,7 @@ Map *MapFactory::small_room_map()
 
 Map *MapFactory::climber_map()
 {
-	Model *model = NULL;
+	ModelNew *model = NULL;
 	Door *door = NULL;
 	Entity2 *entity2 = NULL;
 	Map *current_map = new Map();
@@ -246,7 +255,7 @@ Map *MapFactory::climber_map()
 	current_map->collision_mesh = new CollisionMesh(current_map->models["level-03.obj"]);
 
 	model = current_map->models["level-03.obj"];
-		model->set_texture_by_name("Plane", current_map->bitmaps["new_tex.jpg"]);
+		model->set_named_object_texture("Plane", current_map->bitmaps["new_tex.jpg"]);
 	current_map->entity2s.push_back(new Entity2(current_map, Entity2::WORLD, model, ""));
 	
 
@@ -255,8 +264,8 @@ Map *MapFactory::climber_map()
 		instance->place.position.x = -18;
 		instance->place.position.y = 0; 
 		instance->place.position.z = 3;
-		instance->textures.set_texture_by_index(0, current_map->bitmaps["cool_yea_fan_sure.png"]);
-		instance->textures.set_texture_by_index(1, current_map->bitmaps["cool_yea_fan_sure.png"]);
+		instance->model->set_named_object_texture(0, current_map->bitmaps["cool_yea_fan_sure.png"]);
+		instance->model->set_named_object_texture(1, current_map->bitmaps["cool_yea_fan_sure.png"]);
 	current_map->entity2s.push_back(instance);
 
 
@@ -284,13 +293,13 @@ Map *MapFactory::customize_character_room()
 	
 
 	Map *current_map = create_a_map_from_model_with_cherries_in_it("Customize Your Character", color::firebrick, "customize_room-01c.obj", "quarter.png", "10x10_plane_tx-04.png");
-		current_map->collision_mesh->model->set_texture_by_name("walls_Plane.004", current_map->bitmaps["bark.jpg"]);
-		current_map->collision_mesh->model->set_texture_by_name("ground_Plane", current_map->bitmaps["scaly.jpg"]);
+		current_map->collision_mesh->model->set_named_object_texture("walls_Plane.004", current_map->bitmaps["bark.jpg"]);
+		current_map->collision_mesh->model->set_named_object_texture("ground_Plane", current_map->bitmaps["scaly.jpg"]);
 
 	//model = current_map->models["magick_world-04.obj"];
 		entity2 = current_map->entity2s[0];//new Entity2(current_map, Entity2::WORLD, current_map->collision_mesh->model, "");
-		entity2->colors.set_color(0, color::midnightblue);
-		entity2->colors.set_color(1, color::aliceblue);
+		//TODO: entity2->colors.set_color(0, color::midnightblue);
+		//TODO: entity2->colors.set_color(1, color::aliceblue);
 		//current_map->collision_mesh->model->set_color(0, color::midnightblue);
 		//current_map->collision_mesh->model->set_color();
 
@@ -337,7 +346,7 @@ Map *MapFactory::customize_character_room()
 //"first_chaser", color::firebrick, "first_chaser-03.obj", "quarter.png", ""
 Map *MapFactory::create_a_map_from_model_with_cherries_in_it(std::string map_name, ALLEGRO_COLOR bg_color, std::string model_identifier, std::string texture, std::string items_model_identifier)
 {
-	Model *model = NULL;
+	ModelNew *model = NULL;
 	Door *door = NULL;
 	Entity2 *entity2 = NULL;
 	Map *current_map = new Map();
@@ -350,7 +359,7 @@ Map *MapFactory::create_a_map_from_model_with_cherries_in_it(std::string map_nam
 
 	model = current_map->models[model_identifier];
 	//model->set_texture_by_name("Plane.001", current_map->bitmaps[texture]);
-	model->textures.set_texture_by_index(0, current_map->bitmaps[texture]); //("Plane.001", 
+	model->set_named_object_texture(0, current_map->bitmaps[texture]); //("Plane.001", 
 	current_map->entity2s.push_back(new Entity2(current_map, Entity2::WORLD, model, ""));
 
 
@@ -358,15 +367,16 @@ Map *MapFactory::create_a_map_from_model_with_cherries_in_it(std::string map_nam
 	if (!items_model_identifier.empty() && current_map->models[items_model_identifier])
 	{
 		Map *map_to_add_items_to = current_map;
-		Model *model_to_parse_for_items = current_map->models[items_model_identifier];
+		ModelNew *model_to_parse_for_items = current_map->models[items_model_identifier];
 
 		// process the map
-		std::cout << "size(start):" << model_to_parse_for_items->objects.size() << std::endl;
-		for (unsigned i=0; i<model_to_parse_for_items->objects.size(); i++)
+		std::cout << "size(start):" << model_to_parse_for_items->named_objects.size() << std::endl;
+		for (unsigned i=0; i<model_to_parse_for_items->named_objects.size(); i++)
 		{
-			if (model_to_parse_for_items->objects[i].name.substr(0,strlen("cherry")) == "cherry")
+			if (model_to_parse_for_items->named_objects[i].identifier.substr(0,strlen("cherry")) == "cherry")
 			{
-				vec3d centroid = model_to_parse_for_items->objects[i].get_centroid();
+			//TODO:	vec3d centroid = model_to_parse_for_items->named_objects[i].get_centroid();
+			vec3d centroid = vec3d(0, 0, 0);
 				std::cout << "   " << "cherry" << " found at " << centroid.ToString() << std::endl;
 
 				Item *item = new Item(map_to_add_items_to, Item::ITEM_TYPE_HEART, centroid);
@@ -375,7 +385,7 @@ Map *MapFactory::create_a_map_from_model_with_cherries_in_it(std::string map_nam
 				//if (map_model->remove_object(i)) i--;
 			}
 		}
-		std::cout << "size(end):" << model_to_parse_for_items->objects.size() << std::endl;
+		std::cout << "size(end):" << model_to_parse_for_items->named_objects.size() << std::endl;
 
 		std::cout << "...map post-processing complete." << std::endl;
 	}
@@ -398,9 +408,9 @@ Map *MapFactory::sandbox_map()
 	Item *item = NULL;
 
 	Map *current_map = create_a_map_from_model_with_cherries_in_it("Sand Box", color::firebrick, "sandbox-04.obj", "quarter.png", "10x10_plane_tx-04.png");
-		current_map->collision_mesh->model->set_texture_by_name("floor_Plane.002", current_map->bitmaps["sand-01.jpg"]);
-		current_map->collision_mesh->model->set_texture_by_name("platform_Plane.001", current_map->bitmaps["scaly.jpg"]);
-		current_map->collision_mesh->model->set_texture_by_name("walls_Plane", current_map->bitmaps["bark.jpg"]);
+		current_map->collision_mesh->model->set_named_object_texture("floor_Plane.002", current_map->bitmaps["sand-01.jpg"]);
+		current_map->collision_mesh->model->set_named_object_texture("platform_Plane.001", current_map->bitmaps["scaly.jpg"]);
+		current_map->collision_mesh->model->set_named_object_texture("walls_Plane", current_map->bitmaps["bark.jpg"]);
 	
 
 
@@ -441,12 +451,12 @@ Map *MapFactory::bouncy_trouncy()
 
 	map->clear_color = color::darkgreen;
 
-	map->collision_mesh->model->textures.set_texture_by_index(0, map->bitmaps["bark.jpg"]);
-	map->collision_mesh->model->textures.set_texture_by_index(1, map->bitmaps["bark.jpg"]);
-	map->collision_mesh->model->textures.set_texture_by_index(2, map->bitmaps["water2.png"]);
-	map->collision_mesh->model->textures.set_texture_by_index(3, map->bitmaps["water2.png"]);
-	map->collision_mesh->model->textures.set_texture_by_index(4, map->bitmaps["water2.png"]);
-	map->collision_mesh->model->textures.set_texture_by_index(5, map->bitmaps["grass128.jpg"]);
+	map->collision_mesh->model->set_named_object_texture(0, map->bitmaps["bark.jpg"]);
+	map->collision_mesh->model->set_named_object_texture(1, map->bitmaps["bark.jpg"]);
+	map->collision_mesh->model->set_named_object_texture(2, map->bitmaps["water2.png"]);
+	map->collision_mesh->model->set_named_object_texture(3, map->bitmaps["water2.png"]);
+	map->collision_mesh->model->set_named_object_texture(4, map->bitmaps["water2.png"]);
+	map->collision_mesh->model->set_named_object_texture(5, map->bitmaps["grass128.jpg"]);
 
 
 
@@ -506,9 +516,9 @@ Map *MapFactory::water_room()
 	Map *map = create_a_map_from_model_with_cherries_in_it("Water Room", color::blue, "water_room-03e.obj", "water2.png", "");
 	InfoPod *info_pod = NULL;
 
-	map->collision_mesh->model->textures.set_texture_by_index(1, map->bitmaps["water2.png"]);
-	map->collision_mesh->model->textures.set_texture_by_index(2, map->bitmaps["water_room-05.jpg"]);
-	map->collision_mesh->model->textures.set_texture_by_index(3, map->bitmaps["Grass_texture_sketchup_warehouse_type069_0.jpg"]);
+	map->collision_mesh->model->set_named_object_texture(1, map->bitmaps["water2.png"]);
+	map->collision_mesh->model->set_named_object_texture(2, map->bitmaps["water_room-05.jpg"]);
+	map->collision_mesh->model->set_named_object_texture(3, map->bitmaps["Grass_texture_sketchup_warehouse_type069_0.jpg"]);
 
 	//model = current_map->models["level_select_worl-02.obj"];
 	//	model->set_texture_by_name("Plane.000", current_map->bitmaps["trees.png"]);
@@ -536,7 +546,7 @@ Map *MapFactory::water_room()
 
 Map *MapFactory::first_world_hiding_under_a_leaf()
 {
-	Model *model = NULL;
+	ModelNew *model = NULL;
 	Door *door = NULL;
 	Entity2 *entity2 = NULL;
 	InfoPod *info_pod = NULL;
@@ -550,15 +560,15 @@ Map *MapFactory::first_world_hiding_under_a_leaf()
 	current_map->collision_mesh = new CollisionMesh(current_map->models["magick_world-04.obj"]);
 	
 	model = current_map->models["magick_world-04.obj"];
-		model->set_texture_by_name("walls_Plane.001", current_map->bitmaps["trees.png"]);
-		model->set_texture_by_name("Plane_Plane.003", current_map->bitmaps["grass128.jpg"]);
-		model->set_texture_by_name("elevated_Plane.002", current_map->bitmaps["grass128.jpg"]);
-		model->set_texture_by_name("water_Plane.004", current_map->bitmaps["water2.png"]);
+		model->set_named_object_texture("walls_Plane.001", current_map->bitmaps["trees.png"]);
+		model->set_named_object_texture("Plane_Plane.003", current_map->bitmaps["grass128.jpg"]);
+		model->set_named_object_texture("elevated_Plane.002", current_map->bitmaps["grass128.jpg"]);
+		model->set_named_object_texture("water_Plane.004", current_map->bitmaps["water2.png"]);
 		
 //		model->set_texture_by_name("Plane.001_Plane.002", current_map->bitmaps["Grass_texture_sketchup_warehouse_type069_0.jpg"]);
 		entity2 = new Entity2(current_map, Entity2::WORLD, model, "");
-		entity2->colors.set_color(3, color::green);
-		entity2->colors.set_color(2, color::burlywood);
+		//TODO: entity2->colors.set_color(3, color::green);
+		//TODO: entity2->colors.set_color(2, color::burlywood);
 		current_map->entity2s.push_back(entity2);
 
 
@@ -614,7 +624,7 @@ Map *MapFactory::first_world_hiding_under_a_leaf()
 
 Map *MapFactory::terrain_map(std::vector<Map *> other_maps_to_make_doors_to)
 {
-	Model *model = NULL;
+	ModelNew *model = NULL;
 	Door *door = NULL;
 	Entity2 *entity2 = NULL;
 	InfoPod *info_pod = NULL;
@@ -638,8 +648,8 @@ Map *MapFactory::terrain_map(std::vector<Map *> other_maps_to_make_doors_to)
 	// add an object to the map (in this case it's the same model as the collision_mesh)
 
 	model = current_map->models["level_select_worl-02.obj"];
-		model->set_texture_by_name("Plane.000", current_map->bitmaps["trees.png"]);
-		model->set_texture_by_name("Plane.001_Plane.002", current_map->bitmaps["grass128.jpg"]);
+		model->set_named_object_texture("Plane.000", current_map->bitmaps["trees.png"]);
+		model->set_named_object_texture("Plane.001_Plane.002", current_map->bitmaps["grass128.jpg"]);
 	current_map->entity2s.push_back(new Entity2(current_map, Entity2::WORLD, model, ""));
 
 

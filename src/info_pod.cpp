@@ -20,7 +20,8 @@ InfoPod::InfoPod(Map *map, vec3d location, std::string message) // left-slash de
 	place.rotation.y = 0.5;
 
 	set_message(message);
-	textures.set_texture_by_index(0, map->bitmaps["info_pod_v2-06.png"]);
+	//textures.set_texture_by_index(0, map->bitmaps["info_pod_v2-06.png"]);
+	model->texture = map->bitmaps["info_pod_v2-06.png"];
 }
 
 

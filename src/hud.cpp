@@ -322,7 +322,7 @@ void HUD::receive_signal(int signal, void *data)
 
 
 
-void HUD::joy_down_func()
+void HUD::joy_button_down_func()
 {
 	//set_message_text(""); // dirty
 

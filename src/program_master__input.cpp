@@ -319,7 +319,7 @@ void ProgramMaster::joy_axis_func()
 
 
 
-void ProgramMaster::joy_down_func()
+void ProgramMaster::joy_button_down_func()
 {
 	if (!player_controlled_entity) return;
 
@@ -354,7 +354,7 @@ void ProgramMaster::joy_down_func()
 
 
 
-void ProgramMaster::joy_up_func()
+void ProgramMaster::joy_button_up_func()
 {
 	if (!player_controlled_entity) return;
 

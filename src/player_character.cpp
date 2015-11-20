@@ -35,12 +35,12 @@ PlayerCharacter::PlayerCharacter(Map *map)
 	//models["hero-06.obj"]->textures.set_texture(0, bitmaps["scaly.jpg"]);
 	//models["hero-06.obj"]->textures.set_texture(1, bitmaps["scaly.jpg"]);
 	//models["hero-06.obj"]->textures.set_texture(2, bitmaps["scaly.jpg"]);
-	slug->textures.set_texture_by_index(0, bitmaps["scaly.jpg"]);
+	slug->model->set_named_object_texture(0, bitmaps["scaly.jpg"]);
 	//slug->textures.set_texture(1, bitmaps["scaly.jpg"]);
 	//slug->textures.set_texture(2, bitmaps["scaly.jpg"]);
 	
 	shell = new Entity2(NULL, Entity2::PLAYER, models["simple_bitmap_on_back-01.obj"], "");
-	shell->textures.set_texture_by_index(0, bitmaps["nothing.png"]);//nothing.png
+	shell->model->set_named_object_texture(0, bitmaps["nothing.png"]);//nothing.png
 	shell->place.scale.x = 0.7;
 	shell->place.scale.z = 0.7;
 	
@@ -188,7 +188,7 @@ void PlayerCharacter::equip_shell(std::string model_identifier)
 {
 	//if (shell) shell->map->remove_and_destroy_entity2(shell);
 
-	shell->textures.set_texture_by_index(0, bitmaps[model_identifier]);
+	shell->model->set_named_object_texture(0, bitmaps[model_identifier]);
 	//shell = new Entity2(map, Entity2::
 	//if (models[model_identifier])
 	//if (!
