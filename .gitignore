@@ -4,6 +4,8 @@ msvc/
 *.swp
 *.swo
 *.exe
+*.dll
+
 allegro.log
 
 # Windows image file caches

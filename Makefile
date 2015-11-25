@@ -12,8 +12,8 @@ ALLEGRO_FLARE_LIB=allegro_flare-0.8.6-mingw-4.8.1
 
 
 
-default:
-	g++ -std=gnu++11 src/*.cpp -o slugfest -IE:/allegro_flare/include $(INCLUDE_FLAGS)  -lopengl32 -l$(FGUI_LIB) -l$(ALLEGRO_FLARE_LIB) -l$(ALLEGRO_MONOLITH_LIB) $(LINK_FLAGS)
+bin/slugfest.exe:
+	g++ -std=gnu++11 src/*.cpp -o bin/slugfest.exe -IE:/allegro_flare/include $(INCLUDE_FLAGS)  -lopengl32 -l$(FGUI_LIB) -l$(ALLEGRO_FLARE_LIB) -l$(ALLEGRO_MONOLITH_LIB) $(LINK_FLAGS)
 
 
 
