@@ -22,7 +22,7 @@ public:
 
 	GUIScreen(Display *display);
 	void receive_signal(int signal_type, void *data) override;
-	void on_draw();
+	void on_draw() override;
 	void show_dialogue(std::string script);
 	void hide_dialogue();
 };

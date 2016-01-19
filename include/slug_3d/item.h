@@ -38,7 +38,7 @@ public:
 public:
 	Item(Map *map, item_t item_type, vec3d location);
 
-	void update();
+	void update() override;
 
 	void on_collide() override;
 	void on_enter() override;

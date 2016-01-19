@@ -92,8 +92,8 @@ public:
 
 	void mouse_axes_func() override;
 	void mouse_down_func() override;
-	void key_up_func();
-	void key_down_func();
+	void key_up_func() override;
+	void key_down_func() override;
 	void joy_axis_func() override;
 	void joy_button_down_func() override;
 	void joy_button_up_func() override;

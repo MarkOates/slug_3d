@@ -131,8 +131,8 @@ void ProgramMaster::start_map(Map *map)
 {
 	current_map = map;
 	//attach_entity_to_map(map, player_controlled_entity);
-	player_character.put_in_map(map, vec3d(0, 0, 0));
-
+	player_character.put_in_map(map, vec3d(0, 22, 0));
+//venus4_rgb_cyl_www.jpg
 	hud->show_room_name(current_map->name);
 
 	// make sure the player is spawned in the correct location
@@ -524,6 +524,8 @@ void ProgramMaster::primary_timer_func()
 						Enemy *enemy = static_cast<Enemy *>(current_map->entity2s[i]);
 						player_character.take_damage(enemy->damage_from_touching);
 					}
+					break;
+				default:
 					break;
 				}
 

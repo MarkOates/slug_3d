@@ -51,7 +51,7 @@ bool Enemy::take_damage(float damage)
 
 AntEnemy::AntEnemy(Map *map, vec3d position, vec3d domain_min, vec3d domain_max)
 	: Enemy(map, position, map->models["ant-03.obj"])
-	, domain(domain)
+	, domain()
 {
 	//textures.set_texture_by_index(0, map->bitmaps["an_grey.png"]);
 	model->texture = map->bitmaps["an_grey.png"];

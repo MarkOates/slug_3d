@@ -21,19 +21,17 @@ Level::Level()
 	//maps.push_back(climber_map());
 
 
-	maps.push_back(MapFactory::construct());
+//	maps.push_back(MapFactory::construct());
 
 
 
 	// these are the maps from the original slugs life
-	/*
-	maps.push_back(sandbox_map());
-	maps.push_back(water_room());
-	maps.push_back(customize_character_room());
-	maps.push_back(bouncy_trouncy());
-	maps.push_back(terrain_map(maps));
-	maps.push_back(first_world_hiding_under_a_leaf()); // this should be the last room in the release version
-	*/
+	maps.push_back(MapFactory::sandbox_map());
+	maps.push_back(MapFactory::water_room());
+	maps.push_back(MapFactory::customize_character_room());
+	maps.push_back(MapFactory::bouncy_trouncy());
+	maps.push_back(MapFactory::terrain_map(maps));
+	maps.push_back(MapFactory::first_world_hiding_under_a_leaf()); // this should be the last room in the release version
 }
 
 void Level::list_all_entity2s()
