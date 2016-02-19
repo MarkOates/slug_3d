@@ -4,8 +4,8 @@
 
 # INCLUDE_FLAGS=-IE:/allegro-5.1.11-mingw-edgar/include -IE:/allegro_flare/include -IE:/slug_3d/include -IE:/flare_gui/include
 # INCLUDE_FLAGS=-IE:/allegro-5.1.11-mingw-edgar/include -IE:/allegro_flare/include -IE:/slug_3d/include -IE:/flare_gui/include
-LINK_FLAGS=-L/Users/markoates/Repos/allegro5/build/lib -L/Users/markoates/Repos/allegro_flare/lib -L/Users/markoates/Repos/flare_gui/lib
-INCLUDE_FLAGS=-I/Users/markoates/Repos/allegro5/include -I/Users/markoates/Repos/allegro_flare/include -I/Users/markoates/Repos/slug_3d/include -I/Users/markoates/Repos/flare_gui/include
+LINK_FLAGS=-L/Users/markoates/Repos/allegro-5.1.13/lib -L/Users/markoates/Repos/allegro_flare/lib -L/Users/markoates/Repos/flare_gui/lib
+INCLUDE_FLAGS=-I/Users/markoates/Repos/allegro-5.1.13/include -I/Users/markoates/Repos/allegro_flare/include -I/Users/markoates/Repos/slug_3d/include -I/Users/markoates/Repos/flare_gui/include
 
 
 # ALLEGRO_LIBS=-lallegro_monolith-debug.dll
