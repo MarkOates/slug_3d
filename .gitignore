@@ -1,6 +1,11 @@
 msvc/
 
 
+# ignore the compiled binary files
+bin/slugfest
+bin/slugfest.exe
+
+
 *.swp
 *.swo
 *.exe
