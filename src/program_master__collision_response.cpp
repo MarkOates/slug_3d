@@ -168,6 +168,71 @@ void ProgramMaster::collision_response_func_ALONG(Entity *entity, float time_to_
 }
 
 
+
+
+
+
+
+void ProgramMaster::collision_response_func_CONTINUOUS(Entity *entity, float time_to_collision, CollisionMesh::Face *face, float face_collision_stepout)
+{
+	//bool draw_crosshairs = false;
+   // vec3d previous_velocity = entity->velocity;
+   // vec3d previous_position = entity->position;
+
+	vec3d point_of_intersection = entity->position + time_to_collision * entity->velocity;
+	//if (draw_crosshairs) draw_crosshair(point_of_intersection, color::red, 0.4); // point of collision
+
+   entity->position = point_of_intersection + vec3d(0.0, face_collision_stepout, 0.0);
+   entity->velocity.y = 0;
+
+
+   // redirect velocity
+   // float vel_mag = previous_velocity.GetMagnitude();
+   // vec3d new_vel_dir = (entity->position - previous_position).Normalized();
+   // entity->velocity = new_vel_dir * vel_mag;
+
+
+
+   //std::cout << "stepout: " << face_collision_stepout*fabs(face->normal.y) << std::endl;
+   return;
+
+	float STEPOUT = face_collision_stepout;
+      vec3d stepout_normal = face->normal * STEPOUT;
+
+
+	vec3d stepout_point = point_of_intersection + face->normal * STEPOUT;
+	//if (draw_crosshairs) draw_crosshair(stepout_point, color::aqua, 0.4); // point of collision
+
+	//vec3d resultant_velocity_vector = reflect(entity->velocity, face->normal);
+	//if (draw_crosshairs) draw_3d_line(stepout_point, stepout_point + resultant_velocity_vector.Normalized() * 2);
+
+	vec3d projected_point = project(entity->position + entity->velocity, face->v0, face->normal);
+		// returns a point in world coordinates /on the plane/ that is the projection of the point.
+		// you should then take it and... uh... do a stepback (same as the collision point), then find the
+		// difference between this and the stepback, (but you have to make sure that the tail (part after the collision)
+		// is long enough for the projection to be correct), normalize it, set it to the magnitude of the
+		// original velocity, and boom.
+
+	vec3d projected_point_stepped_out = projected_point + face->normal * STEPOUT;
+
+	//if (draw_crosshairs) draw_3d_line(stepout_point, projected_point_stepped_out, color::black);
+
+	//if (draw_crosshairs) draw_crosshair(projected_point, color::darkcyan, 0.6);//stepout_point, resultant_velocity_vector, color::darkblue);
+
+
+	entity->position = stepout_point;
+
+	entity->velocity = projected_point_stepped_out - stepout_point; // < velocity is NOT preserved,
+																			// it is the difference of the 
+																	// this one furgin works!!! 8o 8o 8o 8o
+}
+
+
+
+
+
+
+
 void ProgramMaster::_update_new_triangle_thing()
 {
 
@@ -313,7 +378,7 @@ void ProgramMaster::_update_new_triangle_thing()
 
                // set the default collision response function to use:
 					typedef void (ProgramMaster::*collision_response_func_t)(Entity *, float, CollisionMesh::Face *, float);
-					collision_response_func_t collision_response_func = &ProgramMaster::collision_response_func_ALONG;
+					collision_response_func_t collision_response_func = &ProgramMaster::collision_response_func_CONTINUOUS;
 					//collision_response_func_t collision_response_func = &ProgramMaster::collision_response_func_CAR_no_bounce;
 
 
@@ -395,6 +460,9 @@ void ProgramMaster::_update_new_triangle_thing()
 						
 					}
 	
+            draw_3d_line(colliding_face->centroid,
+                  colliding_face->centroid+colliding_face->normal*5,
+                  color::black);
 				//colliding_face->draw(color::orange); // if you wan tto draw the colliding face
 			}
 			else
@@ -406,5 +474,7 @@ void ProgramMaster::_update_new_triangle_thing()
 
 		time_left_in_timestep -= (time_left_in_timestep * collision_time);
 	}
+
+   //std::cout << "NUM_COLLISION_STEPS: " << num_collision_steps << std::endl;
 }
 

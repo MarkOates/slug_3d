@@ -73,6 +73,7 @@ public:
 	void collision_response_func_BALL(Entity *entity, float time_to_collision, CollisionMesh::Face *face, float face_collision_stepout=0.0001);
 	void collision_response_func_CAR_no_bounce(Entity *entity, float time_to_collision, CollisionMesh::Face *face, float face_collision_stepout=0.0001);
 	void collision_response_func_ALONG(Entity *entity, float time_to_collision, CollisionMesh::Face *face, float face_collision_stepout=0.0001);
+	void collision_response_func_CONTINUOUS(Entity *entity, float time_to_collision, CollisionMesh::Face *face, float face_collision_stepout=0.0001);
 	void collision_response_func_ALONG_SLIPPY(Entity *entity, float time_to_collision, CollisionMesh::Face *face, float face_collision_stepout=0.0001);
 
 	
