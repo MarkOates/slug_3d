@@ -36,18 +36,72 @@ void ProgramMaster::mouse_down_func()
 }
 
 
+void ProgramMaster::mouse_warp_func()
+{
+	static int counts=0;
+	counts++;
+	/*
+   std::cout << "WARP" << counts << " " << af::current_event->type << " "
+      << af::current_event->mouse.x << ","
+      << af::current_event->mouse.y << "  "
+      << af::current_event->mouse.dx << ","
+      << af::current_event->mouse.dy
+      << std::endl;
+	*/
+
+   warp_displacement_x = af::current_event->mouse.dx;
+   warp_displacement_y = af::current_event->mouse.dy;
+}
 
 
 void ProgramMaster::mouse_axes_func() //override
 {
 	Entity *primary_camera__entity_is_attached_to_it = player_controlled_entity;
 
+#ifdef __APPLE__
+    #include "TargetConditionals.h"
+    #if TARGET_IPHONE_SIMULATOR
+         // iOS Simulator
+    #elif TARGET_OS_IPHONE
+        // iOS device
+    #elif TARGET_OS_MAC
+
+	ALLEGRO_EVENT next_event;
+	if (al_peek_next_event(af::event_queue, &next_event))
+	{
+		if (next_event.type == ALLEGRO_EVENT_MOUSE_AXES)
+		{
+			al_drop_next_event(af::event_queue);
+		}
+	}
+
+    #else
+    #   error "Unknown Apple platform"
+	 #endif
+#endif
+
+/*
+	static int counts=0;
+	counts++;
+	std::cout << "MOUSE" << counts << " " << af::current_event->type << " "
+      << af::current_event->mouse.x << ","
+      << af::current_event->mouse.y << "  "
+      << af::current_event->mouse.dx << ","
+      << af::current_event->mouse.dy << " ==== "
+      << warp_displacement_x << ","
+      << warp_displacement_y << " ### "
+      << af::current_event->mouse.dx - warp_displacement_x << ","
+      << af::current_event->mouse.dy - warp_displacement_y
+      << std::endl;
+*/
+
 	//if (player_controlled_entity)
 
 	if (!use_show_mouse_as_cursor && primary_camera__entity_is_attached_to_it)
 	{
+      int warp_fixed_dx = af::current_event->mouse.dx - warp_displacement_x;
 		vec2d point(primary_camera__entity_is_attached_to_it->view_vector.x, primary_camera__entity_is_attached_to_it->view_vector.z);
-		point = rotate_point(point, af::current_event->mouse.dx * 0.008);
+		point = rotate_point(point, warp_fixed_dx * 0.008);
 
 		primary_camera__entity_is_attached_to_it->view_vector.x = point.x;
 		primary_camera__entity_is_attached_to_it->view_vector.z = point.y;
@@ -55,7 +109,9 @@ void ProgramMaster::mouse_axes_func() //override
 		//primary_camera.pitch = limit<float>(-TAU/4, TAU/4, primary_camera.pitch);
 
 		al_hide_mouse_cursor(al_get_current_display());
-		al_set_mouse_xy(al_get_current_display(), al_get_display_width(al_get_current_display())/2, al_get_display_height(al_get_current_display())/2);
+      al_set_mouse_xy(al_get_current_display(), al_get_display_width(al_get_current_display())/2, al_get_display_height(al_get_current_display())/2);
+      warp_displacement_x = 0;
+      warp_displacement_y = 0;
 	}
 }
 

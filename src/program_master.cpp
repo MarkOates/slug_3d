@@ -36,6 +36,8 @@ ProgramMaster::ProgramMaster(Display *display)
 	, hud(NULL)
 	//, gui_screen(NULL)
 	, use_show_mouse_as_cursor(false)
+   , warp_displacement_x(0)
+   , warp_displacement_y(0)
 {
 	std::cout << "In Program Master" << std::endl;
 

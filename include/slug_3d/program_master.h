@@ -43,6 +43,9 @@ protected:
 	void _update_new_triangle_thing();
 	void _update_joystick_input_relative_to_camera();
 
+   int warp_displacement_x;
+   int warp_displacement_y;
+
 public:
 	Level level;
 	Map *current_map;
@@ -91,6 +94,7 @@ public:
 	void receive_signal(const std::string &signal, void *data) override;
 
 	void mouse_axes_func() override;
+	void mouse_warp_func() override;
 	void mouse_down_func() override;
 	void key_up_func() override;
 	void key_down_func() override;
