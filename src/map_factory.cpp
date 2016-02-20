@@ -293,7 +293,7 @@ Map *MapFactory::customize_character_room()
 	
 
 	///POSTSHOPMap *current_map = create_a_map_from_model_with_cherries_in_it("Customize Your Character", color::firebrick, "customize_room-01c.obj", "quarter.png", "10x10_plane_tx-04.png");
-	Map *current_map = create_a_map_from_model_with_cherries_in_it("Customize Your Character", color::firebrick, "customize_room-01c.obj", "10x10_plane_tx-04.jpg", "10x10_plane_tx-04.jpg");
+	Map *current_map = create_a_map_from_model_with_cherries_in_it("Customize Your Character", color::firebrick, "customize_room-01c.obj", "10x10_plane_tx-04.jpg", "");
 		current_map->collision_mesh->model->set_named_object_texture("walls_Plane.004", current_map->bitmaps["bark.jpg"]);
 		current_map->collision_mesh->model->set_named_object_texture("ground_Plane", current_map->bitmaps["scaly.jpg"]);
 
@@ -409,7 +409,7 @@ Map *MapFactory::sandbox_map()
 	Item *item = NULL;
 
 	//Map *current_map = create_a_map_from_model_with_cherries_in_it("Sand Box", color::firebrick, "sandbox-04.obj", "quarter.png", "10x10_plane_tx-04.png");
-	Map *current_map = create_a_map_from_model_with_cherries_in_it("Sand Box", color::firebrick, "sandbox-04.obj", "10x10_plane_tx-04.jpg", "10x10_plane_tx-04.jpg");
+	Map *current_map = create_a_map_from_model_with_cherries_in_it("Sand Box", color::firebrick, "sandbox-04.obj", "10x10_plane_tx-04.jpg", "");
 		current_map->collision_mesh->model->set_named_object_texture("floor_Plane.002", current_map->bitmaps["sand-01.jpg"]);
 		current_map->collision_mesh->model->set_named_object_texture("platform_Plane.001", current_map->bitmaps["scaly.jpg"]);
 		current_map->collision_mesh->model->set_named_object_texture("walls_Plane", current_map->bitmaps["bark.jpg"]);
@@ -449,7 +449,7 @@ Map *MapFactory::sandbox_map()
 
 Map *MapFactory::bouncy_trouncy()
 {
-	Map *map = create_a_map_from_model_with_cherries_in_it("Bouncy Trouncy", color::firebrick, "bouncy_trouncy-06t.obj", "10x10_plane_tx-04.jpg", "10x10_plane_tx-04.jpg");
+	Map *map = create_a_map_from_model_with_cherries_in_it("Bouncy Trouncy", color::firebrick, "bouncy_trouncy-06t.obj", "10x10_plane_tx-04.jpg", "");
 	//Map *map = create_a_map_from_model_with_cherries_in_it("Bouncy Trouncy", color::firebrick, "bouncy_trouncy-06t.obj", "quarter.png", "10x10_plane_tx-04.jpg");
 
 	map->clear_color = color::darkgreen;
