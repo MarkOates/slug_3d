@@ -177,8 +177,9 @@ void ProgramMaster::_update_new_triangle_thing()
 
 
 
-
-
+   //
+   // apply global forces (like gravity) on objects
+   //
 
 	//float AIR_DRAG = 0.06;
 	//float AIR_DRAG = 0.01;
@@ -209,29 +210,37 @@ void ProgramMaster::_update_new_triangle_thing()
 	}
 
 
-		
-	// draw the main character
 
-	//player_controlled_entity2->draw();
 
-	// do the tests biatch!!
+
+
+
+   //
+   // validate the collision mesh
+   //
+
 
 	if (!current_map->collision_mesh) return;
 
 	CollisionMesh &mesh = *current_map->collision_mesh;
-	//vec3d respawn(0, 20, 0);
 
 	/*
+   // draw centroids and normals on the mesh
 	for (unsigned i=0; i<mesh.faces.size(); i++)
 	{
 		draw_crosshair(mesh.faces[i].centroid, color::dodgerblue, 0.5);
-		draw_3d_line(mesh.faces[i].centroid,
-			mesh.faces[i].centroid+mesh.faces[i].normal*0.75, color::aliceblue);
+		draw_3d_line(mesh.faces[i].centroid, mesh.faces[i].centroid+mesh.faces[i].normal*0.75, color::aliceblue);
 	}
 	*/
 
 
+
+
+
+   //
+	// COLLISION TEST
 	// do the sweep to find the least intersection time
+   //
 
 	float time_left_in_timestep = 1.0;
 	num_collision_steps = 0;
@@ -239,14 +248,13 @@ void ProgramMaster::_update_new_triangle_thing()
 	while (time_left_in_timestep > 0)
 	{
 		num_collision_steps++;
-		//std::cout << time_left_in_timestep << std::endl;
+
 		//
 		// find the soonest intersection time
 		//
 
 		float collision_time = 1.0;
 		CollisionMesh::Face *colliding_face = NULL;
-		//Model::Object *colliding_model_object = NULL;
 		Entity *colliding_entity = NULL;
 
 		for (unsigned f=0; f<mesh.faces.size(); f++)
@@ -276,7 +284,6 @@ void ProgramMaster::_update_new_triangle_thing()
 								//entity.position = respawn;
 								colliding_face = &face;
 								colliding_entity = &entity;
-								//colliding_model_object = 
 							}
 					}
 				}
@@ -285,13 +292,6 @@ void ProgramMaster::_update_new_triangle_thing()
 		}
 
 		
-		//bool freeze_this_pass = false;
-		//std::cout << "time_left: " << time_left_in_timestep << " - t: " << collision_time << std::endl;
-		//if (collision_time < 0.0001)
-		//{
-		//	freeze_this_pass = true;
-		//}
-
 
 
 		// reposition the objects to the least intersection time
@@ -306,75 +306,69 @@ void ProgramMaster::_update_new_triangle_thing()
 
 			if (colliding_entity == entity)
 			{
-				// collision_response 
-				// collision_response_func(Entity *e, collision_time, time_left_in_timestep, Face *dcolliding_face, face_collision_stepout)
-					// entity
-					// 
-/*				if (false) // use a custom collision response function
-				{
-					vec3d end_point_of_full_projection = entity->position + entity->velocity;
-					//float time_to_collision = collision_time * time_left_in_timestep;
-					entity->position += entity->velocity * collision_time * time_left_in_timestep;
-
-					vec3d collision_point = entity->position;
-						
-					entity->position += colliding_face->normal * face_collision_stepout; // slight pushback to make the thing easier
-
-					float vel_mag = entity->velocity.GetMagnitude();
-					vec3d resultant_velocity_vector = project(end_point_of_full_projection, colliding_face->v0, colliding_face->normal.Normalized()).Normalized() * vel_mag;
-					//resultant_velocity_vector = 
-
-					entity->velocity = resultant_velocity_vector;
-					//entity->velocity *= collision_dampening;
-
-				}
-				else if (true)
-				{
-				*/
-
-				// set the collision response func to default:
-					typedef void (ProgramMaster::*collision_response_func_t)(Entity *, float, CollisionMesh::Face *, float);
-					
-					collision_response_func_t collision_response_func = &ProgramMaster::collision_response_func_ALONG;
-					//collision_response_func_t collision_response_func = &ProgramMaster::collision_response_func_CAR_no_bounce;
+               // set the entity to be on the ground.
+               // this might need be fixed to ONLY occur when the collision occurs at a particular angle
 					colliding_entity->state_flags.set(Entity::ON_GROUND);
 
 
+               // set the default collision response function to use:
+					typedef void (ProgramMaster::*collision_response_func_t)(Entity *, float, CollisionMesh::Face *, float);
+					collision_response_func_t collision_response_func = &ProgramMaster::collision_response_func_ALONG;
+					//collision_response_func_t collision_response_func = &ProgramMaster::collision_response_func_CAR_no_bounce;
+
+
+               //
+               // determine which collision response to use, based on the *identifier*
+               // given to the named object in the collision mesh model.  So for example,
+               // the Model3D used for the collision mesh might have multiple objects in it,
+               // like "water", or "bounce", or "slippy", so that when a collision occurs on
+               // that material, then the collision response can be different
+               //
+
 					if (colliding_face->parent_models_object_num >= (int)mesh.model->named_objects.size())
 					{
-						// cannot ditermine the colliding model::object
+						// cannot determine the colliding model::object
 					}
 					else
 					{
-						//Model::Object *colliding_model_object = &mesh.model->objects[colliding_face->parent_models_object_num];
-						ModelNew::named_object *colliding_model_object = &mesh.model->named_objects[colliding_face->parent_models_object_num];
 						// test for colliding model::object type (by name in the model)
-						
+
+						ModelNew::named_object *colliding_model_object = &mesh.model->named_objects[colliding_face->parent_models_object_num];
 						if (colliding_model_object->identifier.substr(0,strlen("water")) == "water")
 						{
+                     // nothing, at this point
 						}
 						else if (colliding_model_object->identifier.substr(0,strlen("bounce")) == "bounce")
 						{
+                     // nothing, at this point
 						}
 						else if (colliding_model_object->identifier.substr(0,strlen("super_bounce")) == "super_bounce")
 						{
+                     // nothing, at this point
 						}
 						else if (colliding_model_object->identifier.substr(0,strlen("slippy")) == "slippy")
 						{
 							collision_response_func = &ProgramMaster::collision_response_func_ALONG_SLIPPY;
 						}
-						
 					}
 
 
+
+               //
+               // perform the actual collision response calculations on the object
+               //
 
 					(this->*collision_response_func)(colliding_entity, collision_time * time_left_in_timestep, colliding_face, face_collision_stepout);
 
 
 
+               //
+               // perform some additional additional, post-collision response actions on the entity
+               //
+
 					if (colliding_face->parent_models_object_num >= (int)mesh.model->named_objects.size())
 					{
-						// cannot ditermine the colliding model::object
+						// cannot determine the colliding model::object
 					}
 					else
 					{
@@ -383,29 +377,23 @@ void ProgramMaster::_update_new_triangle_thing()
 						
 						if (colliding_model_object->identifier.substr(0,strlen("water")) == "water")
 						{
-							//std::cout << "W";
 							player_character.pickup_hydration(0.005);
 						}
 						else if (colliding_model_object->identifier.substr(0,strlen("bounce")) == "bounce")
 						{
-							//colliding_entity->velocity += vec3d(0, 1, 0);
 							colliding_entity->velocity += colliding_face->normal * 1;
 						}
 						else if (colliding_model_object->identifier.substr(0,strlen("super_bounce")) == "super_bounce")
 						{
-							//colliding_entity->velocity += vec3d(0, 1, 0);
 							colliding_entity->velocity += colliding_face->normal * 8;
 						}
 						else if (colliding_model_object->identifier.substr(0,strlen("slippy")) == "slippy")
 						{
-							//colliding_entity->velocity += vec3d(0, 1, 0);
-							std::cout << "S";
-							//colliding_entity->velocity += colliding_face->normal * 10;
+                     // this one isn't working as expected
 							colliding_entity->state_flags.unset(Entity::ON_GROUND);
 						}
 						
 					}
-				/*}*/
 	
 				//colliding_face->draw(color::orange); // if you wan tto draw the colliding face
 			}
@@ -416,11 +404,7 @@ void ProgramMaster::_update_new_triangle_thing()
 		}
 
 
-		//if (freeze_this_pass) wait_for_keypress();
-
 		time_left_in_timestep -= (time_left_in_timestep * collision_time);
-		//for (long long i=0; i<9999999; i++) {}
 	}
-	//std::cout << "============" << num_steps << std::endl;
 }
 
