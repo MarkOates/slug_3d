@@ -18,13 +18,6 @@
 
 
 
-#include <slug_3d/nothing.h>
-ShaderThing *shader_thing = NULL;
-
-
-
-
-
 //Door *home_door = NULL;
 
 
@@ -109,9 +102,6 @@ ProgramMaster::ProgramMaster(Display *display)
 
 
 	if (!level.maps.empty()) start_map(level.maps.back());
-
-
-	shader_thing = new ShaderThing();
 }
 
 
@@ -260,7 +250,6 @@ void ProgramMaster::primary_timer_func()
 		}
 	}
 
-	//shader_thing->thing();
 
 	Entity *primary_camera__entity_attached_to = this->player_controlled_entity;
 	//primary_camera.update_camera_tracking(primary_camera__entity_attached_to->position, primary_camera__entity_attached_to->view_vector, Camera3D::CAMERA_VIEW_TRACK_ALONG_X_BIRD);
@@ -445,8 +434,6 @@ void ProgramMaster::primary_timer_func()
 
 	// drawing:
 
-
-	shader_thing->thing();
 
 
 	if (current_map) current_map->draw();
