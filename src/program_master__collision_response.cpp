@@ -182,8 +182,36 @@ void ProgramMaster::collision_response_func_CONTINUOUS(Entity *entity, float tim
 	vec3d point_of_intersection = entity->position + time_to_collision * entity->velocity;
 	//if (draw_crosshairs) draw_crosshair(point_of_intersection, color::red, 0.4); // point of collision
 
-   entity->position = point_of_intersection + vec3d(0.0, face_collision_stepout, 0.0);
-   entity->velocity.y = 0;
+   //vec3d final_offset_from_intersection_point = vec3d(0.0, face_collision_stepout, 0.0);
+   vec3d reflect_normal = reflect(entity->velocity, face->normal).Normalized();
+   vec3d final_offset_from_intersection_point = reflect_normal * face_collision_stepout;
+
+   if (face->normal.y < 0)
+   {
+      // the slope is facing "down"
+      std::cout << "??ceil?? " << face->normal.y << std::endl;
+   }
+   else
+   {
+      float abs_ascent = fabs(face->normal.y);
+      // the slope is facing "up"
+      if (abs_ascent > 0.85)
+      {
+         // slope is flat-ish, ok for walking over at regular speed
+         //std::cout << "--flat-- " << face->normal.y << std::endl;
+         final_offset_from_intersection_point = vec3d(0.0, face_collision_stepout, 0.0);
+         entity->state_flags.set(Entity::ON_GROUND);
+         entity->velocity.y = 0;
+      }
+      else
+      {
+         // slope is too steep, should not be able to ascend
+         // offset not by "up" vector, but by the velocity vector reflected off the face
+         //std::cout << "!!wall!! " << face->normal.y << std::endl;
+      }
+   }
+
+   entity->position = point_of_intersection + final_offset_from_intersection_point;
 
 
    // redirect velocity
@@ -373,7 +401,6 @@ void ProgramMaster::_update_new_triangle_thing()
 			{
                // set the entity to be on the ground.
                // this might need be fixed to ONLY occur when the collision occurs at a particular angle
-					colliding_entity->state_flags.set(Entity::ON_GROUND);
 
 
                // set the default collision response function to use:
