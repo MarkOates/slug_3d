@@ -4,7 +4,7 @@
 
 
 
-#include <allegro_flare/model.h>
+#include <allegro_flare/model3d.h>
 #include <allegro_flare/bit_flags.h>
 
 
@@ -42,7 +42,7 @@ public:
 
 	int exp_from_kill;
 
-	Enemy(Map *map, vec3d position, ModelNew *model);
+	Enemy(Map *map, vec3d position, Model3D *model);
 	void update() override;
 	bool take_damage(float damage);
 };

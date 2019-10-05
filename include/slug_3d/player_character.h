@@ -4,7 +4,7 @@
 
 
 
-#include <allegro_flare/model.h>
+#include <allegro_flare/model3d.h>
 #include <allegro_flare/bins/model_bin.h>
 #include <allegro_flare/bins/bitmap_bin.h>
 

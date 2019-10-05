@@ -29,7 +29,7 @@ void Map::clear()
 		delete entity2s[i];
 	entity2s.clear();
 
-	spawn_view = vec3d(0, 0, 1).Normalized();
+	spawn_view = vec3d(0, 0, 1).normalized();
 	spawn = 0;
 
 	bboxes.clear();
@@ -110,7 +110,7 @@ void Map::draw_triangles_and_normals()
 
 void Map::draw_entities()
 {
-	ModelNew *unit_sphere = models["unit_sphere-01.obj"];
+	Model3D *unit_sphere = models["unit_sphere-01.obj"];
 	if (!unit_sphere) return;
 	for (unsigned i=0; i<entities.size(); i++)
 	{

@@ -10,7 +10,7 @@
 
 
 
-Entity2::Entity2(Map *map, entity2_t entity2_type, ModelNew *model, std::string data)
+Entity2::Entity2(Map *map, entity2_t entity2_type, Model3D *model, std::string data)
 	: map(map)
 	, model(model)
 	, place()

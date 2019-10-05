@@ -65,7 +65,7 @@ void ProgramMaster::collision_response_func_ALONG_SLIPPY(Entity *entity, float t
 
 	//float mag = entity->velocity.GetMagnitude();
 	vec3d resultant_velocity_vector = reflect(entity->velocity, face->normal);
-	if (draw_crosshairs) draw_3d_line(stepout_point, stepout_point + resultant_velocity_vector.Normalized() * 2);
+	if (draw_crosshairs) draw_3d_line(stepout_point, stepout_point + resultant_velocity_vector.normalized() * 2);
 
 	//float mag = entity->velocity.GetMagnitude();
 	vec3d projected_point = project(entity->position + entity->velocity, face->v0, face->normal);
@@ -126,7 +126,7 @@ void ProgramMaster::collision_response_func_ALONG(Entity *entity, float time_to_
 
 	//float mag = entity->velocity.GetMagnitude();
 	vec3d resultant_velocity_vector = reflect(entity->velocity, face->normal);
-	if (draw_crosshairs) draw_3d_line(stepout_point, stepout_point + resultant_velocity_vector.Normalized() * 2);
+	if (draw_crosshairs) draw_3d_line(stepout_point, stepout_point + resultant_velocity_vector.normalized() * 2);
 
 	//float mag = entity->velocity.GetMagnitude();
 	vec3d projected_point = project(entity->position + entity->velocity, face->v0, face->normal);
@@ -328,7 +328,7 @@ void ProgramMaster::_update_new_triangle_thing()
 			for (unsigned e=0; e<current_map->entities.size(); e++)
 			{
 				Entity &entity = *current_map->entities[e];
-				if (entity.velocity.GetMagnitude() > 0)
+				if (entity.velocity.get_magnitude() > 0)
 				{
 					IsectData intersect_info = IsectData();
 
@@ -398,7 +398,7 @@ void ProgramMaster::_update_new_triangle_thing()
 					{
 						// test for colliding model::object type (by name in the model)
 
-						ModelNew::named_object *colliding_model_object = &mesh.model->named_objects[colliding_face->parent_models_object_num];
+						Model3D::named_object *colliding_model_object = &mesh.model->named_objects[colliding_face->parent_models_object_num];
 						if (colliding_model_object->identifier.substr(0,strlen("water")) == "water")
 						{
                      // nothing, at this point
@@ -437,7 +437,7 @@ void ProgramMaster::_update_new_triangle_thing()
 					}
 					else
 					{
-						ModelNew::named_object *colliding_model_object = &mesh.model->named_objects[colliding_face->parent_models_object_num];
+						Model3D::named_object *colliding_model_object = &mesh.model->named_objects[colliding_face->parent_models_object_num];
 						// test for colliding model::object type (by name in the model)
 						
 						if (colliding_model_object->identifier.substr(0,strlen("water")) == "water")

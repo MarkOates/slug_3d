@@ -4,7 +4,7 @@
 
 
 #include <allegro_flare/vec3d.h>
-#include <allegro_flare/model.h>
+#include <allegro_flare/model3d.h>
 #include <allegro_flare/useful3d.h>
 
 
@@ -59,9 +59,9 @@ public:
 
 
 	std::vector<Face> faces;
-	ModelNew *model;
+	Model3D *model;
 
-	CollisionMesh(ModelNew *m);
+	CollisionMesh(Model3D *m);
 };
 
 

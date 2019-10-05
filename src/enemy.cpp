@@ -11,9 +11,9 @@
 
 
 
-Enemy::Enemy(Map *map, vec3d position, ModelNew *model)
+Enemy::Enemy(Map *map, vec3d position, Model3D *model)
 	: Entity2(map, Entity2::ENEMY, model)
-	, view_direction(vec3d((random_float(0, 10)+0.1)*random_sign(), 0, (random_float(0, 10)+0.1)*random_sign()).Normalized())
+	, view_direction(vec3d((random_float(0, 10)+0.1)*random_sign(), 0, (random_float(0, 10)+0.1)*random_sign()).normalized())
 	, speed(0.06)
 	, health(1)
 	, damage_from_touching(0.5)
@@ -72,7 +72,7 @@ vec3d AntEnemy::get_domain_center()
 
 void AntEnemy::face_target(vec3d target)
 {
-	view_direction = (target - vec3d(place.position.x, place.position.y, place.position.z)).Normalized();
+	view_direction = (target - vec3d(place.position.x, place.position.y, place.position.z)).normalized();
 }
 
 void AntEnemy::make_red()
@@ -141,7 +141,7 @@ void AntEnemy::update()
 		place.position.x += velocity.x;
 		place.position.y += velocity.y;
 		place.position.z += velocity.z;
-		place.scale.z = cos(af::time_now*20)*0.2 + 1.0;
+		place.scale.z = cos(Framework::time_now*20)*0.2 + 1.0;
 	}
 
 	if (state.has(TURNING))
