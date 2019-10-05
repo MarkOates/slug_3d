@@ -11,8 +11,8 @@ INCLUDE_FLAGS=-I/Users/markoates/Repos/allegro-5.1.13/include -I/Users/markoates
 # ALLEGRO_LIBS=-lallegro_monolith-debug.dll
 # ALLEGRO_FLARE_LIB=allegro_flare-0.8.6-mingw-4.8.1
 ALLEGRO_LIBS=-lallegro_color -lallegro_font -lallegro_ttf -lallegro_dialog -lallegro_audio -lallegro_acodec -lallegro_primitives -lallegro_image -lallegro_main -lallegro
-FGUI_LIB=flare_gui-0.6.6-mingw-4.8.1
-ALLEGRO_FLARE_LIB=allegro_flare-0.8.6-clang-7.0.2
+# FGUI_LIB=flare_gui-0.6.6-mingw-4.8.1
+ALLEGRO_FLARE_LIB=allegro_flare-0.8.9wip
 
 
 # EXE_EXTENSION=
@@ -29,11 +29,11 @@ CORE_OBJ_FILES=$(CORE_ITEMS:%=obj/%.o)
 
 
 bin/slugfest: $(CORE_OBJ_FILES)
-	g++ -std=gnu++11 obj/*.o -o bin/slugfest -framework OpenGL -l$(FGUI_LIB) -l$(ALLEGRO_FLARE_LIB) $(ALLEGRO_LIBS) $(LINK_FLAGS)
+	g++ -std=gnu++11 obj/*.o -o bin/slugfest -framework OpenGL -l$(ALLEGRO_FLARE_LIB) $(ALLEGRO_LIBS) $(LINK_FLAGS)
 
 
 bin/slugfest$(EXE_EXTENSION): $(CORE_OBJ_FILES)
-	g++ -std=gnu++11 obj/*.o -o bin/slugfest$(EXE_EXTENSION) -lopengl32 -l$(FGUI_LIB) -l$(ALLEGRO_FLARE_LIB) $(ALLEGRO_LIBS) $(LINK_FLAGS)
+	g++ -std=gnu++11 obj/*.o -o bin/slugfest$(EXE_EXTENSION) -lopengl32 -l$(ALLEGRO_FLARE_LIB) $(ALLEGRO_LIBS) $(LINK_FLAGS)
 
 
 package: bin/slugfest
