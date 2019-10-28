@@ -5,6 +5,7 @@
 
 #include <allegro_flare/color.h>
 #include <allegro_flare/useful.h>
+#include <cmath> // for std::fabs
 
 
 
@@ -157,13 +158,13 @@ void Entity::update_player_controlls()
 	//vec3d velocity = velocity_normal.Normalized() * velocity_magnitude; //< problem
 
 	float accel_velocity = 0.01;
-	if (moving_forward) velocity += view_vector.Normalized() * accel_velocity;
-	if (moving_backward) velocity -= view_vector.Normalized() * accel_velocity;
+	if (moving_forward) velocity += view_vector.normalized() * accel_velocity;
+	if (moving_backward) velocity -= view_vector.normalized() * accel_velocity;
 	
 	if (strafing_right) velocity += get_strafe_vector() * accel_velocity;
 	else if (strafing_left) velocity -= get_strafe_vector() * accel_velocity;
 
-	if (fabs(turning_speed) > 0.0001)
+	if (std::fabs(turning_speed) > 0.0001)
 	{
 		vec2d point(view_vector.x, view_vector.z);
 		point = rotate_point(point, turning_speed);

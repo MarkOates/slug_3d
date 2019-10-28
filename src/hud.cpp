@@ -106,9 +106,9 @@ void HUD::draw_debug_data()
 	else
 	{
 		al_draw_filled_rectangle(0, 0, 600, 120, color::color(color::black, 0.3));
-		text.position(10, 10).text("pos" + primary_camera__entity_attached_to->position.GetString()).draw();
-		text.position(10, 30).text("view" + primary_camera__entity_attached_to->view_vector.GetString()).draw();
-		text.position(10, 50).text("vel" + primary_camera__entity_attached_to->velocity.GetString()).draw();
+		text.position(10, 10).text("pos" + primary_camera__entity_attached_to->position.get_string()).draw();
+		text.position(10, 30).text("view" + primary_camera__entity_attached_to->view_vector.get_string()).draw();
+		text.position(10, 50).text("vel" + primary_camera__entity_attached_to->velocity.get_string()).draw();
 		//text.position(10, 70).text("pitch: " + tostring(of->primary_camera.pitch)).draw();
 		//text.position(10, 90).text("vel_mag: " + tostring(primary_camera__entity_attached_to->velocity.GetMagnitude())).draw();
 		//text.position(10, 120).text("num enemies: " + tostring(of->current_map->get_num_enemies())).draw();
@@ -128,18 +128,18 @@ void HUD::show_room_name(std::string name)
 	room_name.text("- " + php::strtoupper(name) + " -");
 	room_name.position(display->width()/2, display->height()/5*4).align(0.5, 0.5).font(fonts["Building_Typeface.ttf 50"]).color(color::lightcyan);
 
-	float start_time = af::time_now + 5.0;
+	float start_time = Framework::time_now + 5.0;
 	float end_time = start_time + 1.4;
 
 	room_name.get_attr("opacity") = 1.0;
 
 	// coming in
-	motion.canimate(&room_name.get_attr("scale_x"), 1.1, 1, af::time_now, start_time, interpolator::quadrupleFastIn, NULL, NULL);
-	motion.canimate(&room_name.get_attr("scale_y"), 1.1, 1, af::time_now, start_time, interpolator::quadrupleFastIn, NULL, NULL);
+	motion.canimate(&room_name.get_attr("scale_x"), 1.1, 1, Framework::time_now, start_time, interpolator::quadruple_fast_in, NULL, NULL);
+	motion.canimate(&room_name.get_attr("scale_y"), 1.1, 1, Framework::time_now, start_time, interpolator::quadruple_fast_in, NULL, NULL);
 
 
 	// fade out
-	motion.canimate(&room_name.get_attr("opacity"), 1, 0.0, af::time_now + 5.0, end_time, interpolator::fastIn, NULL, NULL);
+	motion.canimate(&room_name.get_attr("opacity"), 1, 0.0, Framework::time_now + 5.0, end_time, interpolator::fast_in, NULL, NULL);
 }
 
 
@@ -150,7 +150,7 @@ void HUD::show_room_name(std::string name)
 
 void HUD::primary_timer_func()
 {
-	motion.update(af::time_now);
+	motion.update(Framework::time_now);
 
 
 
@@ -292,7 +292,7 @@ void HUD::receive_signal(int signal, void *data)
 
 			// apply animations to each of the text elements
 			for (unsigned i=0; i<opacity_attrs.size(); i++)
-				motion.canimate(opacity_attrs[i], 0, 1, af::time_now, af::time_now+0.4, interpolator::slowIn, NULL, NULL);
+				motion.canimate(opacity_attrs[i], 0, 1, Framework::time_now, Framework::time_now+0.4, interpolator::slow_in, NULL, NULL);
 
 			break;
 		}
@@ -314,7 +314,7 @@ void HUD::receive_signal(int signal, void *data)
 
 			// apply animations to each of the text elements
 			for (unsigned i=0; i<opacity_attrs.size(); i++)
-				motion.canimate(opacity_attrs[i], 1, 0, af::time_now, af::time_now+0.4, interpolator::slowIn, NULL, NULL);
+				motion.canimate(opacity_attrs[i], 1, 0, Framework::time_now, Framework::time_now+0.4, interpolator::slow_in, NULL, NULL);
 		}
 		break;
 	}
@@ -332,7 +332,7 @@ void HUD::joy_button_down_func()
 void HUD::key_down_func()
 {
 	//set_message_text(""); // dirty
-	if (af::current_event->keyboard.keycode == ALLEGRO_KEY_F1)
+	if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_F1)
 	{
 		state.toggle(DEBUG_MODE);
 	}

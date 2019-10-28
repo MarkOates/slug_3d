@@ -82,7 +82,7 @@ void CollisionMesh::Face::draw(ALLEGRO_COLOR col)
 
 
 
-CollisionMesh::CollisionMesh(ModelNew *m)
+CollisionMesh::CollisionMesh(Model3D *m)
 	: model(m)
 	, faces()
 {

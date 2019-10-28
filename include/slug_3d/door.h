@@ -4,7 +4,7 @@
 
 
 
-#include <allegro_flare/model.h>
+#include <allegro_flare/model3d.h>
 
 //#include "model.h"
 #include <slug_3d/entity2.h>

@@ -156,7 +156,7 @@ Map *MapFactory::construct()
 
 Map *MapFactory::small_room_map()
 {
-	ModelNew *model = NULL;
+	Model3D *model = NULL;
 	Entity2 *entity2 = NULL;
 	Item *item = NULL;
 	Door *door = NULL;
@@ -244,7 +244,7 @@ Map *MapFactory::small_room_map()
 
 Map *MapFactory::climber_map()
 {
-	ModelNew *model = NULL;
+	Model3D *model = NULL;
 	Door *door = NULL;
 	Entity2 *entity2 = NULL;
 	Map *current_map = new Map();
@@ -347,7 +347,7 @@ Map *MapFactory::customize_character_room()
 //"first_chaser", color::firebrick, "first_chaser-03.obj", "quarter.png", ""
 Map *MapFactory::create_a_map_from_model_with_cherries_in_it(std::string map_name, ALLEGRO_COLOR bg_color, std::string model_identifier, std::string texture, std::string items_model_identifier)
 {
-	ModelNew *model = NULL;
+	Model3D *model = NULL;
 	Door *door = NULL;
 	Entity2 *entity2 = NULL;
 	Map *current_map = new Map();
@@ -368,7 +368,7 @@ Map *MapFactory::create_a_map_from_model_with_cherries_in_it(std::string map_nam
 	if (!items_model_identifier.empty() && current_map->models[items_model_identifier])
 	{
 		Map *map_to_add_items_to = current_map;
-		ModelNew *model_to_parse_for_items = current_map->models[items_model_identifier];
+		Model3D *model_to_parse_for_items = current_map->models[items_model_identifier];
 
 		// process the map
 		std::cout << "size(start):" << model_to_parse_for_items->named_objects.size() << std::endl;
@@ -378,7 +378,7 @@ Map *MapFactory::create_a_map_from_model_with_cherries_in_it(std::string map_nam
 			{
 			//TODO:	vec3d centroid = model_to_parse_for_items->named_objects[i].get_centroid();
 			vec3d centroid = vec3d(0, 0, 0);
-				std::cout << "   " << "cherry" << " found at " << centroid.ToString() << std::endl;
+				std::cout << "   " << "cherry" << " found at " << centroid.to_string() << std::endl;
 
 				Item *item = new Item(map_to_add_items_to, Item::ITEM_TYPE_HEART, centroid);
 				map_to_add_items_to->register_entity2(item);
@@ -549,7 +549,7 @@ Map *MapFactory::water_room()
 
 Map *MapFactory::first_world_hiding_under_a_leaf()
 {
-	ModelNew *model = NULL;
+	Model3D *model = NULL;
 	Door *door = NULL;
 	Entity2 *entity2 = NULL;
 	InfoPod *info_pod = NULL;
@@ -627,7 +627,7 @@ Map *MapFactory::first_world_hiding_under_a_leaf()
 
 Map *MapFactory::terrain_map(std::vector<Map *> other_maps_to_make_doors_to)
 {
-	ModelNew *model = NULL;
+	Model3D *model = NULL;
 	Door *door = NULL;
 	Entity2 *entity2 = NULL;
 	InfoPod *info_pod = NULL;

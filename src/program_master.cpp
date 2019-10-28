@@ -12,7 +12,7 @@
 
 
 
-#include <flare_gui/flare_gui.h>
+//#include <flare_gui/flare_gui.h>
 
 
 
@@ -159,8 +159,8 @@ bool ProgramMaster::enter_into_door(Door *door)
 	player_character.entity->view_vector = vec3d(0, 0, -1);
 
 
-	float start = af::time_now + 1;
-	float end = af::time_now + 2;
+	float start = Framework::time_now + 1;
+	float end = Framework::time_now + 2;
 
 
 
@@ -173,12 +173,12 @@ bool ProgramMaster::enter_into_door(Door *door)
 	//motion.canimate(&primary_camera.stepback.x, primary_camera.stepback_default.x, primary_camera.stepback_default.x, af::time_now, af::time_now + 1.4, interpolator::doubleFastIn, NULL, NULL); 
 	primary_camera.stepback.y = stepback_default.y/2;
 	primary_camera.stepback.z = stepback_default.z*2;
-	motion.canimate(&primary_camera.stepback.y, primary_camera.stepback.y, stepback_default.y, start, end, interpolator::slowInOut, NULL, NULL);
-	motion.canimate(&primary_camera.stepback.z, primary_camera.stepback.z, stepback_default.z, af::time_now, end, interpolator::slowInOut, NULL, NULL);
+	motion.canimate(&primary_camera.stepback.y, primary_camera.stepback.y, stepback_default.y, start, end, interpolator::slow_in_out, NULL, NULL);
+	motion.canimate(&primary_camera.stepback.z, primary_camera.stepback.z, stepback_default.z, Framework::time_now, end, interpolator::slow_in_out, NULL, NULL);
 	//motion.canimate(&primary_camera.stepback.z, primary_camera.stepback_default.x, primary_camera.stepback_default.z, af::time_now, af::time_now + 1.4, interpolator::doubleFastIn, NULL, NULL);
 
 	primary_camera.stepback_rotation.y = 2;
-	motion.canimate(&primary_camera.stepback_rotation.y, primary_camera.stepback_rotation.y, stepback_rotation_default.y, af::time_now, end+0.3, interpolator::slowInOut, NULL, NULL);
+	motion.canimate(&primary_camera.stepback_rotation.y, primary_camera.stepback_rotation.y, stepback_rotation_default.y, Framework::time_now, end+0.3, interpolator::slow_in_out, NULL, NULL);
 
 
 
@@ -237,7 +237,7 @@ bool ProgramMaster::enter_into_door(Door *door)
 void ProgramMaster::primary_timer_func()
 {
 	// UPDATING THE VELOCITY/POSITION OF OBJECTS
-	motion.update(af::time_now);
+	motion.update(Framework::time_now);
 	//0.4 REVISION // primary_camera.update();
 
 

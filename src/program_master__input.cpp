@@ -25,11 +25,11 @@ void ProgramMaster::mouse_down_func()
 	if (use_show_mouse_as_cursor) return;
 
 
-	if (af::current_event->mouse.button == 1)
+	if (Framework::current_event->mouse.button == 1)
 	{
 		player_character.try_frontal_attack();
 	}
-	if (af::current_event->mouse.button == 2)
+	if (Framework::current_event->mouse.button == 2)
 	{
 		player_character.try_spinning_attack();
 	}
@@ -49,8 +49,8 @@ void ProgramMaster::mouse_warp_func()
       << std::endl;
 	*/
 
-   warp_displacement_x = af::current_event->mouse.dx;
-   warp_displacement_y = af::current_event->mouse.dy;
+   warp_displacement_x = Framework::current_event->mouse.dx;
+   warp_displacement_y = Framework::current_event->mouse.dy;
 }
 
 
@@ -67,11 +67,11 @@ void ProgramMaster::mouse_axes_func() //override
     #elif TARGET_OS_MAC
 
 	ALLEGRO_EVENT next_event;
-	if (al_peek_next_event(af::event_queue, &next_event))
+	if (al_peek_next_event(Framework::event_queue, &next_event))
 	{
 		if (next_event.type == ALLEGRO_EVENT_MOUSE_AXES)
 		{
-			al_drop_next_event(af::event_queue);
+			al_drop_next_event(Framework::event_queue);
 		}
 	}
 
@@ -99,7 +99,7 @@ void ProgramMaster::mouse_axes_func() //override
 
 	if (!use_show_mouse_as_cursor && primary_camera__entity_is_attached_to_it)
 	{
-      int warp_fixed_dx = af::current_event->mouse.dx - warp_displacement_x;
+      int warp_fixed_dx = Framework::current_event->mouse.dx - warp_displacement_x;
 		vec2d point(primary_camera__entity_is_attached_to_it->view_vector.x, primary_camera__entity_is_attached_to_it->view_vector.z);
 		point = rotate_point(point, warp_fixed_dx * 0.008);
 
@@ -129,7 +129,7 @@ void ProgramMaster::key_up_func()
 {
 	if (player_controlled_entity)
 	{
-		switch(af::current_event->keyboard.keycode)
+		switch(Framework::current_event->keyboard.keycode)
 		{
 		case ALLEGRO_KEY_W:
 			player_controlled_entity->move_forward(false);
@@ -157,7 +157,7 @@ void ProgramMaster::key_down_func()
 	if (player_controlled_entity)
 	{
 		// do the player_controlled_entity controls
-		switch(af::current_event->keyboard.keycode)
+		switch(Framework::current_event->keyboard.keycode)
 		{
 		case ALLEGRO_KEY_W:
 			player_controlled_entity->move_forward();
@@ -209,7 +209,7 @@ void ProgramMaster::key_down_func()
 	}
 
 	// do the standard keyboard controls
-	switch(af::current_event->keyboard.keycode)
+	switch(Framework::current_event->keyboard.keycode)
 	{
 	case ALLEGRO_KEY_SPACE:
 		if (!player_controlled_entity) return;
@@ -262,24 +262,24 @@ void ProgramMaster::_update_joystick_input_relative_to_camera()
 	static float joy_y_dir = 0;
 
 
-	if (af::current_event->joystick.axis == 0)
+	if (Framework::current_event->joystick.axis == 0)
 	{
-		joy_x_dir = af::current_event->joystick.pos;
+		joy_x_dir = Framework::current_event->joystick.pos;
 	}
-	if (af::current_event->joystick.axis == 1)
+	if (Framework::current_event->joystick.axis == 1)
 	{
-		joy_y_dir = af::current_event->joystick.pos;
+		joy_y_dir = Framework::current_event->joystick.pos;
 	}
 
 	//std::cout << "(" << joy_x_dir << ", " << joy_y_dir << ")" << std::endl;
 
-	vec3d new_view_vector = vec3d(joy_x_dir, 0, joy_y_dir).Normalized();
+	vec3d new_view_vector = vec3d(joy_x_dir, 0, joy_y_dir).normalized();
 	if (::basically_equal(joy_x_dir, 0) && ::basically_equal(joy_y_dir, 0))
 	{
 	}
 	else
 	{
-		player_controlled_entity->view_vector = vec3d(joy_x_dir, 0, joy_y_dir).Normalized();
+		player_controlled_entity->view_vector = vec3d(joy_x_dir, 0, joy_y_dir).normalized();
 	}
 	//player_controlled_entity->velocity = 0.5;//fabs(joy_x_dir) + fabs(joy_y_dir);
 	float new_velocity = fabs(joy_x_dir) + fabs(joy_y_dir);
@@ -312,9 +312,9 @@ void ProgramMaster::joy_axis_func()
 	{
 		// this is your typical joystick controls... UP is forward, DOWN is back, RIGHT turns right, LEFT turns left
 
-		if (af::current_event->joystick.stick == 0)
+		if (Framework::current_event->joystick.stick == 0)
 		{
-			if (af::current_event->joystick.axis == 0)
+			if (Framework::current_event->joystick.axis == 0)
 			{
 				//player_controlled_entity->_dirty_velocity_normal.x = af::current_event->joystick.pos * 0.05;
 				//player_controlled_entity->add_force(vec3d(af::current_event->joystick.pos * 0.05, 0, 0));
@@ -322,37 +322,37 @@ void ProgramMaster::joy_axis_func()
 				//player_controlled_entity->strafe_left(false);
 
 				//if (af::current_event->joystick.pos)
-				player_controlled_entity->turning(af::current_event->joystick.pos * 0.05);
+				player_controlled_entity->turning(Framework::current_event->joystick.pos * 0.05);
 
 				//epos.x = af::current_event->joystick.pos * 3;
 			}
-			if (af::current_event->joystick.axis == 1)
+			if (Framework::current_event->joystick.axis == 1)
 			{
 				//player_controlled_entity->_dirty_velocity_normal.z = -af::current_event->joystick.pos * 0.05;
 				//player_controlled_entity->add_force(vec3d(0, 0, af::current_event->joystick.pos * 0.05));
 				player_controlled_entity->move_forward(false);
 				player_controlled_entity->move_backward(false);
 
-				if (af::current_event->joystick.pos > 0) player_controlled_entity->move_backward();
-				if (af::current_event->joystick.pos < 0) player_controlled_entity->move_forward();
+				if (Framework::current_event->joystick.pos > 0) player_controlled_entity->move_backward();
+				if (Framework::current_event->joystick.pos < 0) player_controlled_entity->move_forward();
 
 				//epos.y = -af::current_event->joystick.pos * 3;
 
 			}
 		}
-		else if (af::current_event->joystick.stick == 1)
+		else if (Framework::current_event->joystick.stick == 1)
 		{
-			if (af::current_event->joystick.axis == 0)
+			if (Framework::current_event->joystick.axis == 0)
 			{
 				// strafeing goes here, too
 			}
-			if (af::current_event->joystick.axis == 1)
+			if (Framework::current_event->joystick.axis == 1)
 			{
 				Entity *primary_camera__entity_is_attached_to_it = this->player_controlled_entity;;
 
 				if (primary_camera__entity_is_attached_to_it)
 				{
-					primary_camera.pitch = default_camera_pitch + af::current_event->joystick.pos * 1.0;
+					primary_camera.pitch = default_camera_pitch + Framework::current_event->joystick.pos * 1.0;
 					primary_camera.pitch = limit<float>(-TAU/4, TAU/4, primary_camera.pitch);
 
 					//epos.z = -af::current_event->joystick.pos * 3;
@@ -363,9 +363,9 @@ void ProgramMaster::joy_axis_func()
 
 
 // change the pov
-	if (af::current_event->joystick.stick == 2)
+	if (Framework::current_event->joystick.stick == 2)
 	{
-		if (af::current_event->joystick.pos != 0) // 0 means the button was unpressed
+		if (Framework::current_event->joystick.pos != 0) // 0 means the button was unpressed
 		{
 			primary_camera.camera_tracking_mode++;
 			primary_camera.camera_tracking_mode = primary_camera.camera_tracking_mode % (Camera3D::CAMERA_VIEW_LAST-1);
@@ -379,9 +379,9 @@ void ProgramMaster::joy_button_down_func()
 {
 	if (!player_controlled_entity) return;
 
-	std::cout << "BUTTON" << af::current_event->joystick.button << std::endl;
+	std::cout << "BUTTON" << Framework::current_event->joystick.button << std::endl;
 
-	switch(af::current_event->joystick.button)
+	switch(Framework::current_event->joystick.button)
 	{
 	case 0:
 		player_controlled_entity->activate_skill("jump");
@@ -415,7 +415,7 @@ void ProgramMaster::joy_button_up_func()
 	if (!player_controlled_entity) return;
 
 
-	switch(af::current_event->joystick.button)
+	switch(Framework::current_event->joystick.button)
 	{
 	case 4:
 		player_controlled_entity->strafe_left(false);

@@ -6,6 +6,7 @@
 
 
 #include <allegro_flare/useful.h>
+#include <cmath>
 
 
 
@@ -70,7 +71,7 @@ void AABB3D::draw()
 
 void AABB3D::resize(vec3d new_size)
 {
-	new_size = vec3d(fabs(new_size.x), fabs(new_size.y), fabs(new_size.z));
+	new_size = vec3d(std::fabs(new_size.x), std::fabs(new_size.y), std::fabs(new_size.z));
 	min = -(new_size/2);
 	max = new_size/2;
 }

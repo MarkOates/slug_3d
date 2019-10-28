@@ -333,19 +333,19 @@ void PlayerCharacter::update()
 	//bool moving = true;
 	if (entity->state_flags.has(Entity::MOVING))
 	{
-		slug->place.scale.y = 1.0 + cos(af::time_now*10) * 0.3;
-		slug->place.scale.z = 1.0 + cos(af::time_now*11) * 0.2;
+		slug->place.scale.y = 1.0 + cos(Framework::time_now*10) * 0.3;
+		slug->place.scale.z = 1.0 + cos(Framework::time_now*11) * 0.2;
 
 		if (shell)
 		{
-			shell->place.position.y = shell->place.position.y + cos(af::time_now*9) * 0.05 + 0.1;
+			shell->place.position.y = shell->place.position.y + cos(Framework::time_now*9) * 0.05 + 0.1;
 		}
 	}
 
 
 	strike_stretch -= 0.1;
 	if (strike_stretch < 0) strike_stretch = 0;
-	slug->place.scale.z = slug->place.scale.z + interpolator::quadrupleSlowIn(strike_stretch) * strike_distance;
+	slug->place.scale.z = slug->place.scale.z + interpolator::quadruple_slow_in(strike_stretch) * strike_distance;
 
 
 	float player_rotation_y = get_y_rotation();

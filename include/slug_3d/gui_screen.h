@@ -5,7 +5,8 @@
 
 
 
-#include <flare_gui/flare_gui.h>
+#include <allegro_flare/gui/gui_screen.h>
+#include <allegro_flare/gui/widgets/text_box.h>
 #include <allegro_flare/timeline.h>
 
 
@@ -13,12 +14,12 @@
 
 
 
-class GUIScreen : public FGUIScreen
+class GUIScreen : public UIScreen
 {
 public:
 	bool showing_dialogue;
 	float dialogue_motion_timer;
-	FGUITextBox *dialogue_box;
+	UITextBox *dialogue_box;
 
 	GUIScreen(Display *display);
 	void receive_signal(int signal_type, void *data) override;

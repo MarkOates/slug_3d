@@ -9,14 +9,14 @@
 
 int main(int argc, char *argv[])
 {
-	af::initialize();
+	Framework::initialize();
 	//Display *display = af::create_display(Display::FULLSCREEN_AUTO);
 	//Display *display = af::create_display(1920/3*2, 1080/3*2, ALLEGRO_OPENGL);
-	Display *display = af::create_display(1920, 1080, ALLEGRO_OPENGL);
+	Display *display = Framework::create_display(1920, 1080, ALLEGRO_OPENGL);
 	
 	ProgramMaster *game_program_master = new ProgramMaster(display);
 
-	af::run_loop();
+	Framework::run_loop();
 
 	return 0;
 }

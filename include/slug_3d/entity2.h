@@ -5,7 +5,7 @@
 
 
 #include <allegro_flare/blender.h>
-#include <allegro_flare/model.h>
+#include <allegro_flare/model3d.h>
 
 
 //#include "model.h"
@@ -52,7 +52,7 @@ public:
 	entity2_t entity2_type;
 
 	AABB3D bbox;
-	ModelNew *model;
+	Model3D *model;
 	blender_t blender;
 	//TextureSet textures;
 	//ColorSet colors;
@@ -61,7 +61,7 @@ public:
 	std::string data;
 	bool player_inside;
 
-	Entity2(Map *map, entity2_t entity2_type, ModelNew *model, std::string data="");
+	Entity2(Map *map, entity2_t entity2_type, Model3D *model, std::string data="");
 
 	virtual void draw();
 	void draw_triangles_and_normals();
