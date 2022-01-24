@@ -20,6 +20,7 @@ Map::Map()
 {
    std::cout << "6------------------" << std::endl;
    models.set_full_path("/Users/markoates/Repos/slug_3d/bin/data/models");
+   bitmaps.set_full_path("/Users/markoates/Repos/slug_3d/bin/data/bitmaps");
 	clear();
 }
 

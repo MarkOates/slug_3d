@@ -86,27 +86,28 @@ CollisionMesh::CollisionMesh(AllegroFlare::Model3D *m)
 	: model(m)
 	, faces()
 {
-	std::cout << "+CollisionMesh()" << std::endl;
+   bool silence_cout = true;
+	if (!silence_cout) std::cout << "+CollisionMesh()" << std::endl;
 	if (!m) { std::cout << "  !*model is NULL" << std::endl; return; }
 	if (m->get_num_named_objects() == 0) { std::cout << "  !*Model contains no named objects" << std::endl; return; }
 
 
 	for (int o=0; o<m->get_num_named_objects(); o++)
 	{
-		std::cout << "   parsing named object " << o << std::endl;
+		if (!silence_cout) std::cout << "   parsing named object " << o << std::endl;
 		//std::cout << "      has " << m->named_objects[o].index_list.size() << " vertexes" << std::endl;
-		std::cout << ")))" << std::endl;
+		if (!silence_cout) std::cout << ")))" << std::endl;
 		m->named_objects[0];
-		std::cout << ")))" << std::endl;
-		std::cout << o << std::endl;
+		if (!silence_cout) std::cout << ")))" << std::endl;
+		if (!silence_cout) std::cout << o << std::endl;
 		int size = m->named_objects[0].index_list.size();
 
-		std::cout << ")))" << std::endl;
-		std::cout << "      has " << size << " vertexes" << std::endl;
-		std::cout << ")))" << std::endl;
+		if (!silence_cout) std::cout << ")))" << std::endl;
+		if (!silence_cout) std::cout << "      has " << size << " vertexes" << std::endl;
+		if (!silence_cout) std::cout << ")))" << std::endl;
 		if (m->named_objects[o].index_list.size() % 3 != 0)
 		{
-			std::cout << "[CollisionMesh()] error: model's named_objects[].index_list.size() is not a multiple of 3; cannot load." << std::endl;
+			if (!silence_cout) std::cout << "[CollisionMesh()] error: model's named_objects[].index_list.size() is not a multiple of 3; cannot load." << std::endl;
 			break;
 		}
 		std::vector<int> &index_list = m->named_objects[o].index_list;

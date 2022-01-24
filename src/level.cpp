@@ -28,9 +28,13 @@ Level::Level()
 
 
 	// these are the maps from the original slugs life
+   std::cout << "-----------------4*" << std::endl;
 	maps.push_back(MapFactory::sandbox_map());
+   std::cout << "-----------------4A" << std::endl;
 	maps.push_back(MapFactory::water_room());
+   std::cout << "-----------------4B" << std::endl;
 	maps.push_back(MapFactory::customize_character_room());
+   std::cout << "-----------------4C" << std::endl;
 	maps.push_back(MapFactory::bouncy_trouncy());
 	maps.push_back(MapFactory::terrain_map(maps));
 	maps.push_back(MapFactory::first_world_hiding_under_a_leaf()); // this should be the last room in the release version

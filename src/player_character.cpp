@@ -38,6 +38,9 @@ PlayerCharacter::PlayerCharacter(Map *map)
 	, all_leveled_up(false)
 	, num_level_ups(0)
 {
+   models.set_full_path("/Users/markoates/Repos/slug_3d/bin/data/models");
+   bitmaps.set_full_path("/Users/markoates/Repos/slug_3d/bin/data/bitmaps");
+
 	
 	slug = new Entity2(map, Entity2::FORCE_FIELD, models["hero-06.obj"], "");
 	//models["hero-06.obj"]->textures.set_texture(0, bitmaps["scaly.jpg"]);

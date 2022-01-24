@@ -63,6 +63,7 @@ ProgramMaster::ProgramMaster(Display *display)
    models.set_full_path("/Users/markoates/Repos/slug_3d/bin/data/models");
 
 
+	std::cout << "A************************" << std::endl;
 
 	hud = new HUD(display, this);
 
@@ -79,6 +80,7 @@ ProgramMaster::ProgramMaster(Display *display)
 	player_controlled_entity = player_character.entity;
 
 
+	std::cout << "B************************" << std::endl;
 
 
 
@@ -94,6 +96,7 @@ ProgramMaster::ProgramMaster(Display *display)
 	primary_camera.stepback = vec3d(0, 2, -5); // a good 3rd person backward view
 	primary_camera.stepback_pitch = 0;
 
+	std::cout << "C************************" << std::endl;
 
 	//primary_camera.update_camera_tracking(vec3d(0, 0, 0), primary_camera__entity_attached_to->view_vector, Camera3D::CAMERA_VIEW_TRACK_ALONG_X);
 
@@ -113,6 +116,8 @@ ProgramMaster::ProgramMaster(Display *display)
 
 
 	if (!level.maps.empty()) start_map(level.maps.back());
+
+	std::cout << "D************************" << std::endl;
 }
 
 

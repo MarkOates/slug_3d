@@ -29,6 +29,8 @@ HUD::HUD(allegro_flare::Display *display, ProgramMaster *of)
 	, notification_text("")
 	, notfication_text_timer(0.0)
 {
+   fonts.set_full_path("/Users/markoates/Repos/slug_3d/bin/data/fonts");
+
 	state.set(SHOWING_BARS);
 
 	paragraph_title.align(0.5, 0);
