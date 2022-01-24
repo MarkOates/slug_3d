@@ -14,10 +14,12 @@ Map::Map()
 	, spawn(0, 0, 0)
 	, bitmaps()
 	, models()
-	, clear_color(color::hex("a1de65"))
+	, clear_color(AllegroFlare::color::hex("a1de65"))
 	, bboxes()
 	, collision_mesh(NULL)
 {
+   std::cout << "6------------------" << std::endl;
+   models.set_full_path("/Users/markoates/Repos/slug_3d/bin/data/models");
 	clear();
 }
 
@@ -29,7 +31,7 @@ void Map::clear()
 		delete entity2s[i];
 	entity2s.clear();
 
-	spawn_view = vec3d(0, 0, 1).normalized();
+	spawn_view = AllegroFlare::vec3d(0, 0, 1).normalized();
 	spawn = 0;
 
 	bboxes.clear();
@@ -110,7 +112,7 @@ void Map::draw_triangles_and_normals()
 
 void Map::draw_entities()
 {
-	Model3D *unit_sphere = models["unit_sphere-01.obj"];
+   AllegroFlare::Model3D *unit_sphere = models["unit_sphere-01.obj"];
 	if (!unit_sphere) return;
 	for (unsigned i=0; i<entities.size(); i++)
 	{

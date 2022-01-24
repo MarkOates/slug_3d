@@ -2,9 +2,9 @@
 #define __SH_HUD_HEADER
 
 
-#include <allegro_flare/bins/font_bin.h>
-#include <allegro_flare/objects/text_object.h>
-#include <allegro_flare/motion.h>
+#include <AllegroFlare/FontBin.hpp>
+#include <allegro_flare/text_object.h>
+#include <AllegroFlare/Motion.hpp>
 
 //#include "font_bin.h"
 #include <slug_3d/program_master.h>
@@ -16,7 +16,7 @@ class ProgramMaster;
 
 #define NUM_LINES 5
 
-class HUD : public Screen
+class HUD : public allegro_flare::Screen
 {
 public:
 	enum HUD_state_flags_t
@@ -25,20 +25,20 @@ public:
 		SHOWING_BARS = 0x02
 	};
 
-	FontBin fonts;
-	Motion motion;
+   AllegroFlare::FontBin fonts;
+   AllegroFlare::Motion motion;
 	ProgramMaster *of;
 	//bool display_debug_data;
-	TextObject room_name;
-	BitFlags<int> state;
+   allegro_flare::TextObject room_name;
+   allegro_flare::BitFlags<int> state;
 
-	TextObject paragraph_title;
-	TextObject line[NUM_LINES];
+   allegro_flare::TextObject paragraph_title;
+   allegro_flare::TextObject line[NUM_LINES];
 
-	TextObject notification_text;
+   allegro_flare::TextObject notification_text;
 	float notfication_text_timer;
 
-	HUD(Display *display, ProgramMaster *of);
+	HUD(allegro_flare::Display *display, ProgramMaster *of);
 
 	void draw_debug_data();
 	void show_room_name(std::string name);

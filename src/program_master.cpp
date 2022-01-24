@@ -15,6 +15,14 @@
 //#include <flare_gui/flare_gui.h>
 
 
+using allegro_flare::Display;
+using allegro_flare::Framework;
+using AllegroFlare::vec3d;
+using AllegroFlare::random_float;
+using AllegroFlare::random_int;
+using AllegroFlare::tostring;
+
+
 
 
 
@@ -52,6 +60,7 @@ ProgramMaster::ProgramMaster(Display *display)
 
 
 
+   models.set_full_path("/Users/markoates/Repos/slug_3d/bin/data/models");
 
 
 
@@ -137,6 +146,7 @@ void ProgramMaster::start_map(Map *map)
 
 
 #include <allegro_flare/interpolators.h>
+using namespace allegro_flare::interpolator;
 
 
 //#include "interpolators.h"
@@ -173,12 +183,12 @@ bool ProgramMaster::enter_into_door(Door *door)
 	//motion.canimate(&primary_camera.stepback.x, primary_camera.stepback_default.x, primary_camera.stepback_default.x, af::time_now, af::time_now + 1.4, interpolator::doubleFastIn, NULL, NULL); 
 	primary_camera.stepback.y = stepback_default.y/2;
 	primary_camera.stepback.z = stepback_default.z*2;
-	motion.canimate(&primary_camera.stepback.y, primary_camera.stepback.y, stepback_default.y, start, end, interpolator::slow_in_out, NULL, NULL);
-	motion.canimate(&primary_camera.stepback.z, primary_camera.stepback.z, stepback_default.z, Framework::time_now, end, interpolator::slow_in_out, NULL, NULL);
+	motion.canimate(&primary_camera.stepback.y, primary_camera.stepback.y, stepback_default.y, start, end, allegro_flare::interpolator::slow_in_out, NULL, NULL);
+	motion.canimate(&primary_camera.stepback.z, primary_camera.stepback.z, stepback_default.z, Framework::time_now, end, allegro_flare::interpolator::slow_in_out, NULL, NULL);
 	//motion.canimate(&primary_camera.stepback.z, primary_camera.stepback_default.x, primary_camera.stepback_default.z, af::time_now, af::time_now + 1.4, interpolator::doubleFastIn, NULL, NULL);
 
 	primary_camera.stepback_rotation.y = 2;
-	motion.canimate(&primary_camera.stepback_rotation.y, primary_camera.stepback_rotation.y, stepback_rotation_default.y, Framework::time_now, end+0.3, interpolator::slow_in_out, NULL, NULL);
+	motion.canimate(&primary_camera.stepback_rotation.y, primary_camera.stepback_rotation.y, stepback_rotation_default.y, Framework::time_now, end+0.3, allegro_flare::interpolator::slow_in_out, NULL, NULL);
 
 
 

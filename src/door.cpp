@@ -6,7 +6,7 @@
 
 
 
-Door::Door(Map *map, door_t type, std::string door_name, vec3d location, float rotation, std::string destination_door)
+Door::Door(Map *map, door_t type, std::string door_name, AllegroFlare::vec3d location, float rotation, std::string destination_door)
 	: Entity2(map, Entity2::DOOR, map->models["door-05.obj"])
 	, door_name(door_name)
 	, type(type)

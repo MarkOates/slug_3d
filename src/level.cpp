@@ -1,9 +1,10 @@
 
 
 
+
 #include <slug_3d/level.h>
 
-#include <allegro_flare/color.h>
+#include <AllegroFlare/Color.hpp>
 
 //#include "color.h"
 
@@ -22,6 +23,7 @@ Level::Level()
 
 
 //	maps.push_back(MapFactory::construct());
+   std::cout << "-----------------4" << std::endl;
 
 
 
@@ -32,6 +34,8 @@ Level::Level()
 	maps.push_back(MapFactory::bouncy_trouncy());
 	maps.push_back(MapFactory::terrain_map(maps));
 	maps.push_back(MapFactory::first_world_hiding_under_a_leaf()); // this should be the last room in the release version
+
+   std::cout << "5------------------" << std::endl;
 }
 
 void Level::list_all_entity2s()

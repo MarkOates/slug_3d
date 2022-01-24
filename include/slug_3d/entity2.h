@@ -5,7 +5,7 @@
 
 
 #include <allegro_flare/blender.h>
-#include <allegro_flare/model3d.h>
+#include <AllegroFlare/Model3D.hpp>
 
 
 //#include "model.h"
@@ -52,23 +52,23 @@ public:
 	entity2_t entity2_type;
 
 	AABB3D bbox;
-	Model3D *model;
-	blender_t blender;
+   AllegroFlare::Model3D *model;
+   allegro_flare::blender_t blender;
 	//TextureSet textures;
 	//ColorSet colors;
 
-	placement3d place;
+   allegro_flare::placement3d place;
 	std::string data;
 	bool player_inside;
 
-	Entity2(Map *map, entity2_t entity2_type, Model3D *model, std::string data="");
+	Entity2(Map *map, entity2_t entity2_type, AllegroFlare::Model3D *model, std::string data="");
 
 	virtual void draw();
 	void draw_triangles_and_normals();
 	virtual void update();
-	bool collides(vec3d point);
+	bool collides(AllegroFlare::vec3d point);
 
-	bool update_player_collision(vec3d player_location);
+	bool update_player_collision(AllegroFlare::vec3d player_location);
 
 	virtual void on_collide(); //< not used, unfortunately... but was implemented in derived classes... unfortunately not here
 	virtual void on_enter(); //< not used, unfortunately... but was implemented in derived classes... unfortunately not here

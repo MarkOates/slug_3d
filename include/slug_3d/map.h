@@ -3,11 +3,11 @@
 
 
 
-#include <allegro_flare/vec3d.h>
-#include <allegro_flare/bins/bitmap_bin.h>
+#include <AllegroFlare/Vec3D.hpp>
+#include <AllegroFlare/BitmapBin.hpp>
 #include <allegro_flare/placement3d.h>
-#include <allegro_flare/model3d.h>
-#include <allegro_flare/bins/model_bin.h>
+#include <AllegroFlare/Model3D.hpp>
+#include <AllegroFlare/ModelBin.hpp>
 
 
 #include <string>
@@ -34,11 +34,11 @@ class Map
 {
 public:
 	std::string name;
-	vec3d spawn;
-	vec3d spawn_view;
+   AllegroFlare::vec3d spawn;
+   AllegroFlare::vec3d spawn_view;
 
-	ModelBin models;
-	BitmapBin bitmaps;
+   AllegroFlare::ModelBin models;
+   AllegroFlare::BitmapBin bitmaps;
 
 	//Model *OLD_collision_mesh;
 	CollisionMesh *collision_mesh;
@@ -57,7 +57,7 @@ public:
 
 	void clear();
 
-	Entity2 *make_add_entity2(std::string model_identifier, vec3d position, vec3d scale);
+	Entity2 *make_add_entity2(std::string model_identifier, AllegroFlare::vec3d position, AllegroFlare::vec3d scale);
 
 	void my_dungeon_01();
 

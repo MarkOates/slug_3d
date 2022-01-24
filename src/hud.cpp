@@ -1,9 +1,10 @@
 
 
 
-#include <allegro_flare/objects/text_object.h>
-#include <allegro_flare/color.h>
+#include <allegro_flare/text_object.h>
+#include <AllegroFlare/Color.hpp>
 #include <allegro_flare/allegro_flare.h>
+#include <AllegroFlare/UsefulPHP.hpp>
 
 #include <slug_3d/global_defs.h>
 
@@ -18,7 +19,7 @@
 //#include "allegro_flare.h"
 
 
-HUD::HUD(Display *display, ProgramMaster *of)
+HUD::HUD(allegro_flare::Display *display, ProgramMaster *of)
 	: Screen(display)
 	, of(of)
 	//, display_debug_data(false)
@@ -32,7 +33,7 @@ HUD::HUD(Display *display, ProgramMaster *of)
 
 	paragraph_title.align(0.5, 0);
 	paragraph_title.font(fonts["bankgthd.ttf 50"]);
-	paragraph_title.color(color::orange);
+	paragraph_title.color(AllegroFlare::color::orange);
 	paragraph_title.opacity(0);
 	paragraph_title.position(display->width()/2, display->height()/2 - 100);
 
@@ -41,14 +42,14 @@ HUD::HUD(Display *display, ProgramMaster *of)
 	{
 		line[i].align(0.5, 0);
 		line[i].font(fonts["bankgthd.ttf 30"]);
-		line[i].color(color::white);
+		line[i].color(AllegroFlare::color::white);
 		line[i].position(display->width()/2, paragraph_title.get_attr("y") + ((i+3)*line[i].h()));
 	}
 
 	notification_text.text("notification");
 	notification_text.align(1, 1);
 	notification_text.font(fonts["bankgthd.ttf 50"]);
-	notification_text.color(color::white);
+	notification_text.color(AllegroFlare::color::white);
 	notification_text.position(display->width()-40, display->height()-60);
 	//notification_text.appearance_on();
 
@@ -74,7 +75,7 @@ void HUD::set_message_text(std::string title, std::string line1, std::string lin
 void HUD::set_message_text(std::string message)
 {
 	//this->message = message;
-	std::vector<std::string> lines = php::explode("/", message);
+	std::vector<std::string> lines = AllegroFlare::php::explode("/", message);
 	paragraph_title.text("");
 	if (!lines.empty()) paragraph_title.text(lines[0]);
 	for (unsigned i=1; i<6; i++)
@@ -94,18 +95,18 @@ void HUD::draw_debug_data()
 	Entity *primary_camera__entity_attached_to = this->of->player_controlled_entity;
 
 
-	TextObject text("Hello");
+   allegro_flare::TextObject text("Hello");
 
 	text.position(10, 10).font(fonts["consola.ttf 21"]).color("white");
 
 	if (!primary_camera__entity_attached_to)
 	{
-		text.position(10, 10).color(color::red).text("The camera is not attached to an Entity*").draw();
-		text.position(10, 30).color(color::red).text("Press the spacebar to create/toggle the camera's Entity").draw();
+		text.position(10, 10).color(AllegroFlare::color::red).text("The camera is not attached to an Entity*").draw();
+		text.position(10, 30).color(AllegroFlare::color::red).text("Press the spacebar to create/toggle the camera's Entity").draw();
 	}
 	else
 	{
-		al_draw_filled_rectangle(0, 0, 600, 120, color::color(color::black, 0.3));
+		al_draw_filled_rectangle(0, 0, 600, 120, AllegroFlare::color::color(AllegroFlare::color::black, 0.3));
 		text.position(10, 10).text("pos" + primary_camera__entity_attached_to->position.get_string()).draw();
 		text.position(10, 30).text("view" + primary_camera__entity_attached_to->view_vector.get_string()).draw();
 		text.position(10, 50).text("vel" + primary_camera__entity_attached_to->velocity.get_string()).draw();
@@ -113,7 +114,7 @@ void HUD::draw_debug_data()
 		//text.position(10, 90).text("vel_mag: " + tostring(primary_camera__entity_attached_to->velocity.GetMagnitude())).draw();
 		//text.position(10, 120).text("num enemies: " + tostring(of->current_map->get_num_enemies())).draw();
 
-		text.position(display->width()-10, 10).align(1.0, 0.0).text("num collision_steps: " + tostring(of->num_collision_steps)).draw();
+		text.position(display->width()-10, 10).align(1.0, 0.0).text("num collision_steps: " + AllegroFlare::tostring(of->num_collision_steps)).draw();
 
 	}
 
@@ -125,21 +126,21 @@ void HUD::draw_debug_data()
 void HUD::show_room_name(std::string name)
 {
 	//php::strtoupper()
-	room_name.text("- " + php::strtoupper(name) + " -");
-	room_name.position(display->width()/2, display->height()/5*4).align(0.5, 0.5).font(fonts["Building_Typeface.ttf 50"]).color(color::lightcyan);
+	room_name.text("- " + AllegroFlare::php::strtoupper(name) + " -");
+	room_name.position(display->width()/2, display->height()/5*4).align(0.5, 0.5).font(fonts["Building_Typeface.ttf 50"]).color(AllegroFlare::color::lightcyan);
 
-	float start_time = Framework::time_now + 5.0;
+	float start_time = allegro_flare::Framework::time_now + 5.0;
 	float end_time = start_time + 1.4;
 
 	room_name.get_attr("opacity") = 1.0;
 
 	// coming in
-	motion.canimate(&room_name.get_attr("scale_x"), 1.1, 1, Framework::time_now, start_time, interpolator::quadruple_fast_in, NULL, NULL);
-	motion.canimate(&room_name.get_attr("scale_y"), 1.1, 1, Framework::time_now, start_time, interpolator::quadruple_fast_in, NULL, NULL);
+	motion.canimate(&room_name.get_attr("scale_x"), 1.1, 1, allegro_flare::Framework::time_now, start_time, allegro_flare::interpolator::quadruple_fast_in, NULL, NULL);
+	motion.canimate(&room_name.get_attr("scale_y"), 1.1, 1, allegro_flare::Framework::time_now, start_time, allegro_flare::interpolator::quadruple_fast_in, NULL, NULL);
 
 
 	// fade out
-	motion.canimate(&room_name.get_attr("opacity"), 1, 0.0, Framework::time_now + 5.0, end_time, interpolator::fast_in, NULL, NULL);
+	motion.canimate(&room_name.get_attr("opacity"), 1, 0.0, allegro_flare::Framework::time_now + 5.0, end_time, allegro_flare::interpolator::fast_in, NULL, NULL);
 }
 
 
@@ -150,7 +151,7 @@ void HUD::show_room_name(std::string name)
 
 void HUD::primary_timer_func()
 {
-	motion.update(Framework::time_now);
+	motion.update(allegro_flare::Framework::time_now);
 
 
 
@@ -171,10 +172,10 @@ void HUD::primary_timer_func()
 	float hh = display->height()/2 / 2;
 	al_draw_filled_rounded_rectangle(display->width()/2-hw, display->height()/2-hh,
 		display->width()/2+hw, display->height()/2+hh, 8, 8,
-		color::color(color::midnightblue, 0.5 * paragraph_title.get_attr("opacity")));
+		AllegroFlare::color::color(AllegroFlare::color::midnightblue, 0.5 * paragraph_title.get_attr("opacity")));
 	al_draw_rounded_rectangle(display->width()/2-hw, display->height()/2-hh,
 		display->width()/2+hw, display->height()/2+hh, 8, 8,
-		color::color(color::white, 0.5 * paragraph_title.get_attr("opacity")), 3.0);
+		AllegroFlare::color::color(AllegroFlare::color::white, 0.5 * paragraph_title.get_attr("opacity")), 3.0);
 
 	paragraph_title.draw();
 	for (int i=0; i<NUM_LINES; i++)
@@ -198,44 +199,44 @@ void HUD::primary_timer_func()
 		// draw the bars
 
 		float bar_y_spacing = 40;
-		vec2d roundness = vec2d(5, 5);
+      AllegroFlare::vec2d roundness = AllegroFlare::vec2d(5, 5);
 
-		al_draw_filled_circle(60, 40, 90, color::color(color::black, 0.1));
+		al_draw_filled_circle(60, 40, 90, AllegroFlare::color::color(AllegroFlare::color::black, 0.1));
 
 		float player_hydration_max = of->player_character.max_hydration;
 		float player_hydration = of->player_character.hydration;
-		vec2d hyd_bar = vec2d(60, 50);
-		vec2d hyd_bar_size = vec2d(player_hydration_max*30, 20);
+      AllegroFlare::vec2d hyd_bar = AllegroFlare::vec2d(60, 50);
+      AllegroFlare::vec2d hyd_bar_size = AllegroFlare::vec2d(player_hydration_max*30, 20);
 		float hyd_bar_now = player_hydration*30;
 		float hydration_unit = player_hydration / player_hydration_max;
 		float inset = 4;
-		al_draw_filled_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, color::color(color::black, 0.5));
-		al_draw_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, (::basically_equal(hydration_unit, 1.0)) ? color::white : color::aqua, 2);
-		al_draw_filled_rounded_rectangle(hyd_bar.x+inset, hyd_bar.y+inset, hyd_bar.x+hyd_bar_now-inset, hyd_bar.y+hyd_bar_size.y-inset, roundness.x, roundness.y, color::color(color::aqua, 0.8));
+		al_draw_filled_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, AllegroFlare::color::color(AllegroFlare::color::black, 0.5));
+		al_draw_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, (AllegroFlare::basically_equal(hydration_unit, 1.0)) ? AllegroFlare::color::white : AllegroFlare::color::aqua, 2);
+		al_draw_filled_rounded_rectangle(hyd_bar.x+inset, hyd_bar.y+inset, hyd_bar.x+hyd_bar_now-inset, hyd_bar.y+hyd_bar_size.y-inset, roundness.x, roundness.y, AllegroFlare::color::color(AllegroFlare::color::aqua, 0.8));
 
 
 		player_hydration_max = of->player_character.max_health;
 		player_hydration = of->player_character.health;
-		hyd_bar = hyd_bar + vec2d(0, bar_y_spacing);
-		hyd_bar_size = vec2d(player_hydration_max*30, 20);
+		hyd_bar = hyd_bar + AllegroFlare::vec2d(0, bar_y_spacing);
+		hyd_bar_size = AllegroFlare::vec2d(player_hydration_max*30, 20);
 		hyd_bar_now = player_hydration*30;
-		al_draw_filled_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, color::color(color::black, 0.5));
-		al_draw_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, (::basically_equal(hydration_unit, 1.0)) ? color::white : color::hex("ff798f"), 2);
-		al_draw_filled_rounded_rectangle(hyd_bar.x+inset, hyd_bar.y+inset, hyd_bar.x+hyd_bar_now-inset, hyd_bar.y+hyd_bar_size.y-inset, roundness.x, roundness.y, color::color(color::hex("ff798f"), 0.8));
+		al_draw_filled_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, AllegroFlare::color::color(AllegroFlare::color::black, 0.5));
+		al_draw_rounded_rectangle(hyd_bar.x, hyd_bar.y, hyd_bar.x+hyd_bar_size.x, hyd_bar.y+hyd_bar_size.y, roundness.x, roundness.y, (AllegroFlare::basically_equal(hydration_unit, 1.0)) ? AllegroFlare::color::white : AllegroFlare::color::hex("ff798f"), 2);
+		al_draw_filled_rounded_rectangle(hyd_bar.x+inset, hyd_bar.y+inset, hyd_bar.x+hyd_bar_now-inset, hyd_bar.y+hyd_bar_size.y-inset, roundness.x, roundness.y, AllegroFlare::color::color(AllegroFlare::color::hex("ff798f"), 0.8));
 
 
 		// draw the text
 
-		TextObject text("hydration");
+      allegro_flare::TextObject text("hydration");
 		text.font(fonts["bankgthd.ttf 30"]);
 
 		text.text("hydration");
-		text.position(22, 27+bar_y_spacing*0).color(color::black).draw();
-		text.position(20, 24+bar_y_spacing*0).color(color::white).draw();
+		text.position(22, 27+bar_y_spacing*0).color(AllegroFlare::color::black).draw();
+		text.position(20, 24+bar_y_spacing*0).color(AllegroFlare::color::white).draw();
 
 		text.text("health");
-		text.position(22, 27+bar_y_spacing*1).color(color::black).draw();
-		text.position(20, 24+bar_y_spacing*1).color(color::white).draw();
+		text.position(22, 27+bar_y_spacing*1).color(AllegroFlare::color::black).draw();
+		text.position(20, 24+bar_y_spacing*1).color(AllegroFlare::color::white).draw();
 
 
 		//TextObject text2("Health");
@@ -253,11 +254,11 @@ void HUD::primary_timer_func()
 
 
 
-	al_draw_textf(fonts["bankgthd.ttf 26"], color::black, display->width()-30, display->height()-80, ALLEGRO_ALIGN_RIGHT,
+	al_draw_textf(fonts["bankgthd.ttf 26"], AllegroFlare::color::black, display->width()-30, display->height()-80, ALLEGRO_ALIGN_RIGHT,
 		"x: %f", of->player_controlled_entity->position.x);
-	al_draw_textf(fonts["bankgthd.ttf 26"], color::black, display->width()-30, display->height()-60, ALLEGRO_ALIGN_RIGHT,
+	al_draw_textf(fonts["bankgthd.ttf 26"], AllegroFlare::color::black, display->width()-30, display->height()-60, ALLEGRO_ALIGN_RIGHT,
 		"y: %f", of->player_controlled_entity->position.y);
-	al_draw_textf(fonts["bankgthd.ttf 26"], color::black, display->width()-30, display->height()-40, ALLEGRO_ALIGN_RIGHT,
+	al_draw_textf(fonts["bankgthd.ttf 26"], AllegroFlare::color::black, display->width()-30, display->height()-40, ALLEGRO_ALIGN_RIGHT,
 		"z: %f", of->player_controlled_entity->position.z);
 
 
@@ -292,7 +293,7 @@ void HUD::receive_signal(int signal, void *data)
 
 			// apply animations to each of the text elements
 			for (unsigned i=0; i<opacity_attrs.size(); i++)
-				motion.canimate(opacity_attrs[i], 0, 1, Framework::time_now, Framework::time_now+0.4, interpolator::slow_in, NULL, NULL);
+				motion.canimate(opacity_attrs[i], 0, 1, allegro_flare::Framework::time_now, allegro_flare::Framework::time_now+0.4, allegro_flare::interpolator::slow_in, NULL, NULL);
 
 			break;
 		}
@@ -314,7 +315,7 @@ void HUD::receive_signal(int signal, void *data)
 
 			// apply animations to each of the text elements
 			for (unsigned i=0; i<opacity_attrs.size(); i++)
-				motion.canimate(opacity_attrs[i], 1, 0, Framework::time_now, Framework::time_now+0.4, interpolator::slow_in, NULL, NULL);
+				motion.canimate(opacity_attrs[i], 1, 0, allegro_flare::Framework::time_now, allegro_flare::Framework::time_now+0.4, allegro_flare::interpolator::slow_in, NULL, NULL);
 		}
 		break;
 	}
@@ -332,7 +333,7 @@ void HUD::joy_button_down_func()
 void HUD::key_down_func()
 {
 	//set_message_text(""); // dirty
-	if (Framework::current_event->keyboard.keycode == ALLEGRO_KEY_F1)
+	if (allegro_flare::Framework::current_event->keyboard.keycode == ALLEGRO_KEY_F1)
 	{
 		state.toggle(DEBUG_MODE);
 	}

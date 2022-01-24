@@ -5,8 +5,8 @@
 
 
 
-#include <allegro_flare/gui/gui_screen.h>
-#include <allegro_flare/gui/widgets/text_box.h>
+#include <allegro_flare/gui_screen.h>
+#include <allegro_flare/text_box.h>
 #include <allegro_flare/timeline.h>
 
 
@@ -14,14 +14,14 @@
 
 
 
-class GUIScreen : public UIScreen
+class GUIScreen : public allegro_flare::UIScreen
 {
 public:
 	bool showing_dialogue;
 	float dialogue_motion_timer;
-	UITextBox *dialogue_box;
+   allegro_flare::UITextBox *dialogue_box;
 
-	GUIScreen(Display *display);
+	GUIScreen(allegro_flare::Display *display);
 	void receive_signal(int signal_type, void *data) override;
 	void on_draw() override;
 	void show_dialogue(std::string script);

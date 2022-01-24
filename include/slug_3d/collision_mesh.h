@@ -3,8 +3,8 @@
 
 
 
-#include <allegro_flare/vec3d.h>
-#include <allegro_flare/model3d.h>
+#include <AllegroFlare/Vec3D.hpp>
+#include <AllegroFlare/Model3D.hpp>
 #include <allegro_flare/useful3d.h>
 
 
@@ -39,29 +39,29 @@ public:
 		// they are left public for accessibility
 	{
 	public:
-		ALLEGRO_VERTEX_WITH_NORMAL av0, av1, av2;
-		vec3d v0, v1, v2;
-		vec3d normal;
-		vec3d centroid;
+      AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL av0, av1, av2;
+      AllegroFlare::vec3d v0, v1, v2;
+      AllegroFlare::vec3d normal;
+      AllegroFlare::vec3d centroid;
 		
 		int parent_models_object_num;
 		int parent_models_face_num;
 
-		Face(ALLEGRO_VERTEX_WITH_NORMAL av0, ALLEGRO_VERTEX_WITH_NORMAL av1, ALLEGRO_VERTEX_WITH_NORMAL av2,
+		Face(AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL av0, AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL av1, AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL av2,
 			int parent_models_object_num, int parent_models_face_num,
-			vec3d normal=vec3d(0)
+			AllegroFlare::vec3d normal=AllegroFlare::vec3d(0)
 			);
 
-		bool intersect(const Ray &r, IsectData &isectData) const;
+		bool intersect(const allegro_flare::Ray &r, allegro_flare::IsectData &isectData) const;
 
-		void draw(ALLEGRO_COLOR col=color::azure);
+		void draw(ALLEGRO_COLOR col=AllegroFlare::color::azure);
 	};
 
 
 	std::vector<Face> faces;
-	Model3D *model;
+   AllegroFlare::Model3D *model;
 
-	CollisionMesh(Model3D *m);
+	CollisionMesh(AllegroFlare::Model3D *m);
 };
 
 

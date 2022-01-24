@@ -3,8 +3,8 @@
 
 
 
-#include <allegro_flare/color.h>
-#include <allegro_flare/useful.h>
+#include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Useful.hpp>
 #include <cmath> // for std::fabs
 
 
@@ -36,11 +36,11 @@ static float dot_product(vec3d A, vec3d B)
 */
 
 
-static void draw_3d_line(vec3d start, vec3d end, ALLEGRO_COLOR col=color::red)
+static void draw_3d_line(AllegroFlare::vec3d start, AllegroFlare::vec3d end, ALLEGRO_COLOR col=AllegroFlare::color::red)
 {
 	ALLEGRO_VERTEX vtx[2];
-	vtx[0] = build_vertex(start.x, start.y, start.z, col, 0, 0);
-	vtx[1] = build_vertex(end.x, end.y, end.z, col, 0, 0);
+	vtx[0] = AllegroFlare::build_vertex(start.x, start.y, start.z, col, 0, 0);
+	vtx[1] = AllegroFlare::build_vertex(end.x, end.y, end.z, col, 0, 0);
 	al_draw_prim(&vtx[0], NULL, NULL, 0, 2, ALLEGRO_PRIM_LINE_LIST);
 }
 
@@ -72,13 +72,13 @@ void Entity::draw()
 
 	if (draw_crosshairs)
 	{
-		draw_crosshair(position, color::aquamarine, 1);
-		draw_3d_line(position, position + velocity, color::pink);
+		draw_crosshair(position, AllegroFlare::color::aquamarine, 1);
+		draw_3d_line(position, position + velocity, AllegroFlare::color::pink);
 
-		vec3d strafe_vector = cross_product(view_vector, up_vector);
+      AllegroFlare::vec3d strafe_vector = cross_product(view_vector, up_vector);
 
-		draw_3d_line(position, position + up_vector * 1, color::yellow);
-		draw_3d_line(position, position + strafe_vector * 1, color::green);
+		draw_3d_line(position, position + up_vector * 1, AllegroFlare::color::yellow);
+		draw_3d_line(position, position + strafe_vector * 1, AllegroFlare::color::green);
 	}
 }
 
@@ -110,7 +110,7 @@ void Entity::apply_force(vec3d direction_that_will_be_normalized, float magnitud
 */
 
 
-void Entity::add_force(vec3d force)
+void Entity::add_force(AllegroFlare::vec3d force)
 {
 	velocity += force;
 }
@@ -166,7 +166,7 @@ void Entity::update_player_controlls()
 
 	if (std::fabs(turning_speed) > 0.0001)
 	{
-		vec2d point(view_vector.x, view_vector.z);
+      AllegroFlare::vec2d point(view_vector.x, view_vector.z);
 		point = rotate_point(point, turning_speed);
 
 		view_vector.x = point.x;
@@ -184,7 +184,7 @@ void Entity::update_player_controlls()
 
 
 
-vec3d Entity::get_strafe_vector()
+AllegroFlare::vec3d Entity::get_strafe_vector()
 {
 	return cross_product(view_vector, up_vector);
 }
@@ -196,7 +196,7 @@ bool Entity::activate_skill(std::string skill, std::string data)
 {
 	if (skill=="jump" && state_flags.has(ON_GROUND))
 	{
-		add_force(vec3d(0, 0.4, 0));
+		add_force(AllegroFlare::vec3d(0, 0.4, 0));
 		return true;
 	}
 	return false;

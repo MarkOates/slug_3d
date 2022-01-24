@@ -6,7 +6,8 @@
 
 #include <string>
 //#include "vec3d.h"
-#include <allegro_flare/vec3d.h>
+//#include <allegro_flare/vec3d.h>
+#include <AllegroFlare/Vec3D.hpp>
 #include <allegro5/allegro_color.h>
 
 
@@ -19,14 +20,14 @@ public:
 	//vec3d _position;
 	//vec3d _hsize;
 
-	vec3d max, min;
+   AllegroFlare::vec3d max, min;
 
 	AABB3D(std::string data="");
 
-	bool collides(vec3d point);
+	bool collides(AllegroFlare::vec3d point);
 	//bool collides(AABB3D *other); // untested
 	void draw();
-	void resize(vec3d new_size);
+	void resize(AllegroFlare::vec3d new_size);
 };
 
 

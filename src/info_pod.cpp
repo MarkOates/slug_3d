@@ -3,11 +3,12 @@
 
 #include <slug_3d/info_pod.h>
 #include <slug_3d/map.h>
+#include <AllegroFlare/UsefulPHP.hpp>
 
 
 
 
-InfoPod::InfoPod(Map *map, vec3d location, std::string message) // left-slash delineates lines
+InfoPod::InfoPod(Map *map, AllegroFlare::vec3d location, std::string message) // left-slash delineates lines
 	: Entity2(map, Entity2::INFO_POD, map->models["info_pod-04.obj"], "")
 	, message(message)
 	, line()
@@ -29,7 +30,7 @@ InfoPod::InfoPod(Map *map, vec3d location, std::string message) // left-slash de
 void InfoPod::set_message(std::string message)
 {
 	this->message = message;
-	std::vector<std::string> lines = php::explode("/", message);
+	std::vector<std::string> lines = AllegroFlare::php::explode("/", message);
 	if (!lines.empty()) title = lines[0];
 	for (unsigned i=1; i<6; i++)
 	{
@@ -41,7 +42,7 @@ void InfoPod::set_message(std::string message)
 
 
 /*
-void InfoPod::test_player_collision(vec3d position)
+void InfoPod::test_player_collision(AllegroFlare::vec3d position)
 {
 	bool collides_now = collides(position);
 

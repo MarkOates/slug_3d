@@ -5,11 +5,11 @@
 
 
 
-#include <allegro_flare/useful.h>
+#include <AllegroFlare/Useful.hpp>
 #include <cmath>
 
 
-
+using namespace AllegroFlare;
 
 
 AABB3D::AABB3D(std::string data)

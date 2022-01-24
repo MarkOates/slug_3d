@@ -5,9 +5,9 @@
 
 
 #include <allegro_flare/screen.h>
-#include <allegro_flare/bins/bitmap_bin.h>
+#include <AllegroFlare/BitmapBin.hpp>
 #include <allegro_flare/camera3d.h>
-#include <allegro_flare/motion.h>
+#include <AllegroFlare/Motion.hpp>
 
 //#include "screen.h"
 //#include "bitmap_bin.h"
@@ -33,12 +33,12 @@
 class HUD;
 
 
-class ProgramMaster : public Screen
+class ProgramMaster : public allegro_flare::Screen
 {
 protected:
-	Motion motion;
-	BitmapBin bitmaps;
-	ModelBin models;
+   AllegroFlare::Motion motion;
+   AllegroFlare::BitmapBin bitmaps;
+   AllegroFlare::ModelBin models;
 
 	void _update_new_triangle_thing();
 	void _update_joystick_input_relative_to_camera();
@@ -50,7 +50,7 @@ public:
 	Level level;
 	Map *current_map;
 
-	Camera3D primary_camera;
+   allegro_flare::Camera3D primary_camera;
 	PlayerCharacter player_character;
 
 	float default_camera_pitch;
@@ -66,7 +66,7 @@ public:
 
 	int num_collision_steps;
 
-	ProgramMaster(Display *display);
+	ProgramMaster(allegro_flare::Display *display);
 
 	void collision_response_func_CAR(Entity *entity, float time_to_collision, CollisionMesh::Face *face, float face_collision_stepout=0.0001);
 	void collision_response_func_CRICKET(Entity *entity, float time_to_collision, CollisionMesh::Face *face, float face_collision_stepout=0.0001);

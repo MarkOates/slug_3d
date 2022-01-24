@@ -3,7 +3,7 @@
 
 
 
-#include <allegro_flare/vec3d.h>
+#include <AllegroFlare/Vec3D.hpp>
 #include <allegro_flare/bit_flags.h>
 
 
@@ -25,18 +25,18 @@ public:
 		STRAFING = 0x04
 	};
 
-	BitFlags<int> state_flags;
+   allegro_flare::BitFlags<int> state_flags;
 
 
 	Map *map;
 
-	vec3d position;
+   AllegroFlare::vec3d position;
 	bool moving_forward, moving_backward, strafing_right, strafing_left;
 
-	vec3d view_vector;
-	vec3d up_vector;
+   AllegroFlare::vec3d view_vector;
+   AllegroFlare::vec3d up_vector;
 
-	vec3d velocity;
+   AllegroFlare::vec3d velocity;
 	float turning_speed;
 
 	float air_drag; // 0 will be no drag (will not slow down to friction), 1 will be full drag (essentially cannot move, like being in molassas)
@@ -46,8 +46,8 @@ public:
 
 	void draw();
 
-	vec3d get_strafe_vector();
-	void add_force(vec3d force);
+   AllegroFlare::vec3d get_strafe_vector();
+	void add_force(AllegroFlare::vec3d force);
 
 
 	void update_moving_flags();

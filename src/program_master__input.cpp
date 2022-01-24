@@ -17,6 +17,21 @@
 //////// INPUT /////////
 
 
+using allegro_flare::Framework;
+using AllegroFlare::vec2d;
+using AllegroFlare::vec3d;
+using AllegroFlare::basically_equal;
+using allegro_flare::Camera3D;
+using AllegroFlare::TAU;
+
+
+
+static float limit(float min, float max, float val)
+{
+   if (val < min) val = min;
+   if (val > max) val = max;
+   return val;
+}
 
 
 
@@ -353,7 +368,8 @@ void ProgramMaster::joy_axis_func()
 				if (primary_camera__entity_is_attached_to_it)
 				{
 					primary_camera.pitch = default_camera_pitch + Framework::current_event->joystick.pos * 1.0;
-					primary_camera.pitch = limit<float>(-TAU/4, TAU/4, primary_camera.pitch);
+					//primary_camera.pitch = limit<float>(-TAU/4, TAU/4, primary_camera.pitch);
+					primary_camera.pitch = limit(-TAU/4, TAU/4, primary_camera.pitch);
 
 					//epos.z = -af::current_event->joystick.pos * 3;
 				}

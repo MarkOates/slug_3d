@@ -9,16 +9,16 @@
 
 
 
-CollisionMesh::Face::Face(ALLEGRO_VERTEX_WITH_NORMAL av0, ALLEGRO_VERTEX_WITH_NORMAL av1, ALLEGRO_VERTEX_WITH_NORMAL av2,
+CollisionMesh::Face::Face(AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL av0, AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL av1, AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL av2,
 	int parent_models_object_num, int parent_models_face_num,
-	vec3d normal
+	AllegroFlare::vec3d normal
 	)
 	: av0(av0)
 	, av1(av1)
 	, av2(av2)
-	, v0(vec3d(av0.x, av0.y, av0.z))
-	, v1(vec3d(av1.x, av1.y, av1.z))
-	, v2(vec3d(av2.x, av2.y, av2.z))
+	, v0(AllegroFlare::vec3d(av0.x, av0.y, av0.z))
+	, v1(AllegroFlare::vec3d(av1.x, av1.y, av1.z))
+	, v2(AllegroFlare::vec3d(av2.x, av2.y, av2.z))
 	, centroid((v0+v1+v2)/3)
 	, parent_models_object_num(parent_models_object_num)
 	, parent_models_face_num(parent_models_face_num)
@@ -30,20 +30,20 @@ CollisionMesh::Face::Face(ALLEGRO_VERTEX_WITH_NORMAL av0, ALLEGRO_VERTEX_WITH_NO
 
 
 
-bool CollisionMesh::Face::intersect(const Ray &r, IsectData &isectData) const
+bool CollisionMesh::Face::intersect(const allegro_flare::Ray &r, allegro_flare::IsectData &isectData) const
 {
 	//http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-9-ray-triangle-intersection/m-ller-trumbore-algorithm/
 	//#ifdef MOLLER_TRUMBORE
-	vec3d edge1 = v1 - v0;
-	vec3d edge2 = v2 - v0;
-	vec3d pvec = cross_product(r.dir, edge2);
+   AllegroFlare::vec3d edge1 = v1 - v0;
+   AllegroFlare::vec3d edge2 = v2 - v0;
+   AllegroFlare::vec3d pvec = cross_product(r.dir, edge2);
 	float det = dot_product(edge1, pvec);
 	if (det == 0) return false;
 	float invDet = 1 / det;
-	vec3d tvec = r.orig - v0;
+   AllegroFlare::vec3d tvec = r.orig - v0;
 	isectData.u = dot_product(tvec, pvec) * invDet;
 	if (isectData.u < 0 || isectData.u > 1) return false;
-	vec3d qvec = cross_product(tvec, edge1);
+   AllegroFlare::vec3d qvec = cross_product(tvec, edge1);
 	isectData.v = dot_product(r.dir, qvec) * invDet;
 	if (isectData.v < 0 || isectData.u + isectData.v > 1) return false;
 	isectData.t = dot_product(edge2, qvec) * invDet;
@@ -55,9 +55,9 @@ bool CollisionMesh::Face::intersect(const Ray &r, IsectData &isectData) const
 
 
 
-static ALLEGRO_VERTEX_WITH_NORMAL _create_vtx(vec3d vec, ALLEGRO_COLOR col)
+static AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL _create_vtx(AllegroFlare::vec3d vec, ALLEGRO_COLOR col)
 {
-	ALLEGRO_VERTEX_WITH_NORMAL ret_val;
+   AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL ret_val;
 	ret_val.x = vec.x;
 	ret_val.y = vec.y;
 	ret_val.z = vec.z;
@@ -73,7 +73,7 @@ static ALLEGRO_VERTEX_WITH_NORMAL _create_vtx(vec3d vec, ALLEGRO_COLOR col)
 
 void CollisionMesh::Face::draw(ALLEGRO_COLOR col)
 {
-	ALLEGRO_VERTEX_WITH_NORMAL vtx[3];
+   AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL vtx[3];
 	vtx[0] = _create_vtx(v0, col);
 	vtx[1] = _create_vtx(v1, col);
 	vtx[2] = _create_vtx(v2, col);
@@ -82,7 +82,7 @@ void CollisionMesh::Face::draw(ALLEGRO_COLOR col)
 
 
 
-CollisionMesh::CollisionMesh(Model3D *m)
+CollisionMesh::CollisionMesh(AllegroFlare::Model3D *m)
 	: model(m)
 	, faces()
 {
@@ -127,7 +127,7 @@ CollisionMesh::CollisionMesh(Model3D *m)
 				m->vertexes[index_list[i+2]],
 				o,
 				i/3,
-				vec3d(m->vertexes[index_list[i]].nx, m->vertexes[index_list[i]].ny, m->vertexes[index_list[i]].nz)
+				AllegroFlare::vec3d(m->vertexes[index_list[i]].nx, m->vertexes[index_list[i]].ny, m->vertexes[index_list[i]].nz)
 				// m->m->objects[o].get_face_normal(f)
 				));
 		}

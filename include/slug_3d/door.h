@@ -4,7 +4,7 @@
 
 
 
-#include <allegro_flare/model3d.h>
+#include <AllegroFlare/Model3D.hpp>
 
 //#include "model.h"
 #include <slug_3d/entity2.h>
@@ -26,7 +26,7 @@ public:
 	bool player_in_doorway; // lets the player leave the doorframe if he wants to enter back in
 
 public:
-	Door(Map *map, door_t type, std::string door_name, vec3d location, float rotation, std::string destination_door);
+	Door(Map *map, door_t type, std::string door_name, AllegroFlare::vec3d location, float rotation, std::string destination_door);
 };
 
 

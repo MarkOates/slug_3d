@@ -4,7 +4,7 @@
 
 
 
-Item::Item(Map *map, item_t item_type, vec3d location)
+Item::Item(Map *map, item_t item_type, AllegroFlare::vec3d location)
 	: Entity2(map, Entity2::ITEM, map->models["just_a_textured_quad-01.obj"])
 	, item_type(item_type)
 	, pickup_text("")
@@ -20,8 +20,8 @@ Item::Item(Map *map, item_t item_type, vec3d location)
 	this->place.scale.y = 0.5;
 	this->place.scale.z = 0.5;
 
-	bbox.min = vec3d(-1, -1, -1);
-	bbox.max = vec3d(1, 1, 1);
+	bbox.min = AllegroFlare::vec3d(-1, -1, -1);
+	bbox.max = AllegroFlare::vec3d(1, 1, 1);
 
 	/*
 	set_message_text("You Found a Paper Clip!", "What magical powers might you wield", "with this lucky find?  ", "Nothing, nothing at all!  In fact,", "the only thing you can do with it", "is put it on your character.");

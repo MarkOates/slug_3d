@@ -4,7 +4,7 @@
 
 
 
-#include <allegro_flare/model3d.h>
+#include <AllegroFlare/Model3D.hpp>
 #include <allegro_flare/bit_flags.h>
 
 
@@ -33,16 +33,16 @@ public:
 		DYING_ANIMATION = 0x16,
 	};
 
-	vec3d view_direction;
+   AllegroFlare::vec3d view_direction;
 	float speed;
-	BitFlags<int> state;
+   allegro_flare::BitFlags<int> state;
 	float health;
 	float flashing_damage_counter;
 	float damage_from_touching;
 
 	int exp_from_kill;
 
-	Enemy(Map *map, vec3d position, Model3D *model);
+	Enemy(Map *map, AllegroFlare::vec3d position, AllegroFlare::Model3D *model);
 	void update() override;
 	bool take_damage(float damage);
 };
@@ -57,13 +57,13 @@ public:
 	float state_counter;
 	AABB3D domain;
 	//vec3d target;
-	AntEnemy(Map *map, vec3d position, vec3d domain_min=0, vec3d domain_max=0);
+	AntEnemy(Map *map, AllegroFlare::vec3d position, AllegroFlare::vec3d domain_min=0, AllegroFlare::vec3d domain_max=0);
 
 	void update() override;
 
 	bool in_domain();
-	vec3d get_domain_center();
-	void face_target(vec3d target);
+   AllegroFlare::vec3d get_domain_center();
+	void face_target(AllegroFlare::vec3d target);
 
 	void make_red();
 	void make_blue();
@@ -76,7 +76,7 @@ public:
 class BeetleEnemy : public Enemy
 {
 public:
-	BeetleEnemy(Map *map, vec3d position);
+	BeetleEnemy(Map *map, AllegroFlare::vec3d position);
 };
 
 

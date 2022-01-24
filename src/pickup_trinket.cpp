@@ -5,7 +5,7 @@
 
 
 
-PickupTrinket::PickupTrinket(Map *map, Item::item_t type, vec3d location)
+PickupTrinket::PickupTrinket(Map *map, Item::item_t type, AllegroFlare::vec3d location)
 	: Item(map, type, location)
 	, pickup_item_type(type)
 {

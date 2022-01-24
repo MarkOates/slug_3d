@@ -4,9 +4,9 @@
 
 
 
-#include <allegro_flare/model3d.h>
-#include <allegro_flare/bins/model_bin.h>
-#include <allegro_flare/bins/bitmap_bin.h>
+#include <AllegroFlare/Model3D.hpp>
+#include <AllegroFlare/ModelBin.hpp>
+#include <AllegroFlare/BitmapBin.hpp>
 
 
 
@@ -34,12 +34,12 @@ public:
 	void add_to_inventory(Item::item_t item);
 	int get_num_items(Item::item_t item);
 
-	ModelBin models;
-	BitmapBin bitmaps;
+   AllegroFlare::ModelBin models;
+   AllegroFlare::BitmapBin bitmaps;
 	Entity *entity;
 	Entity2 *slug;
 	Entity2 *shell;
-	BitFlags<int> state;
+   allegro_flare::BitFlags<int> state;
 
 	int strike_distance;
 	float strike_stretch;
@@ -67,7 +67,7 @@ public:
 
 	void equip_shell(std::string model_identifier);
 
-	void put_in_map(Map *map, vec3d location);
+	void put_in_map(Map *map, AllegroFlare::vec3d location);
 
 	float get_y_rotation();
 

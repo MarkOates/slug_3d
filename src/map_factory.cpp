@@ -8,7 +8,14 @@
 
 #include <slug_3d/info_pod.h>
 
-
+using AllegroFlare::vec3d;
+using AllegroFlare::Model3D;
+using namespace AllegroFlare::color;
+using AllegroFlare::random_float;
+using AllegroFlare::tostring;
+using AllegroFlare::TAU;
+using allegro_flare::BLENDER_ADDITIVE;
+//using AllegroFlare::color;
 
 static Entity2 *make_entity2(Map *map, std::string model, std::string texture0, vec3d position=vec3d(0,0,0), float rotation_y=0)
 {
@@ -250,7 +257,7 @@ Map *MapFactory::climber_map()
 	Map *current_map = new Map();
 	current_map->name = "climber_map";
 
-	current_map->clear_color = color::hex("782f6c");
+	current_map->clear_color = AllegroFlare::color::hex("782f6c");
 
 	current_map->collision_mesh = new CollisionMesh(current_map->models["level-03.obj"]);
 
@@ -292,8 +299,8 @@ Map *MapFactory::customize_character_room()
 
 	
 
-	///POSTSHOPMap *current_map = create_a_map_from_model_with_cherries_in_it("Customize Your Character", color::firebrick, "customize_room-01c.obj", "quarter.png", "10x10_plane_tx-04.png");
-	Map *current_map = create_a_map_from_model_with_cherries_in_it("Customize Your Character", color::firebrick, "customize_room-01c.obj", "10x10_plane_tx-04.jpg", "");
+	///POSTSHOPMap *current_map = create_a_map_from_model_with_cherries_in_it("Customize Your Character", AllegroFlare::color::firebrick, "customize_room-01c.obj", "quarter.png", "10x10_plane_tx-04.png");
+	Map *current_map = create_a_map_from_model_with_cherries_in_it("Customize Your Character", AllegroFlare::color::firebrick, "customize_room-01c.obj", "10x10_plane_tx-04.jpg", "");
 		current_map->collision_mesh->model->set_named_object_texture("walls_Plane.004", current_map->bitmaps["bark.jpg"]);
 		current_map->collision_mesh->model->set_named_object_texture("ground_Plane", current_map->bitmaps["scaly.jpg"]);
 
@@ -305,7 +312,7 @@ Map *MapFactory::customize_character_room()
 		//current_map->collision_mesh->model->set_color();
 
 
-		current_map->clear_color = color::yellow;
+		current_map->clear_color = AllegroFlare::color::yellow;
 
 		/*
 	for (unsigned i=0; i<30; i++)
@@ -409,7 +416,7 @@ Map *MapFactory::sandbox_map()
 	Item *item = NULL;
 
 	//Map *current_map = create_a_map_from_model_with_cherries_in_it("Sand Box", color::firebrick, "sandbox-04.obj", "quarter.png", "10x10_plane_tx-04.png");
-	Map *current_map = create_a_map_from_model_with_cherries_in_it("Sand Box", color::firebrick, "sandbox-04.obj", "10x10_plane_tx-04.jpg", "");
+	Map *current_map = create_a_map_from_model_with_cherries_in_it("Sand Box", AllegroFlare::color::firebrick, "sandbox-04.obj", "10x10_plane_tx-04.jpg", "");
 		current_map->collision_mesh->model->set_named_object_texture("floor_Plane.002", current_map->bitmaps["sand-01.jpg"]);
 		current_map->collision_mesh->model->set_named_object_texture("platform_Plane.001", current_map->bitmaps["scaly.jpg"]);
 		current_map->collision_mesh->model->set_named_object_texture("walls_Plane", current_map->bitmaps["bark.jpg"]);
@@ -449,10 +456,10 @@ Map *MapFactory::sandbox_map()
 
 Map *MapFactory::bouncy_trouncy()
 {
-	Map *map = create_a_map_from_model_with_cherries_in_it("Bouncy Trouncy", color::firebrick, "bouncy_trouncy-06t.obj", "10x10_plane_tx-04.jpg", "");
+	Map *map = create_a_map_from_model_with_cherries_in_it("Bouncy Trouncy", AllegroFlare::color::firebrick, "bouncy_trouncy-06t.obj", "10x10_plane_tx-04.jpg", "");
 	//Map *map = create_a_map_from_model_with_cherries_in_it("Bouncy Trouncy", color::firebrick, "bouncy_trouncy-06t.obj", "quarter.png", "10x10_plane_tx-04.jpg");
 
-	map->clear_color = color::darkgreen;
+	map->clear_color = AllegroFlare::color::darkgreen;
 
 	map->collision_mesh->model->set_named_object_texture(0, map->bitmaps["bark.jpg"]);
 	map->collision_mesh->model->set_named_object_texture(1, map->bitmaps["bark.jpg"]);
@@ -516,7 +523,7 @@ Map *MapFactory::bouncy_trouncy()
 
 Map *MapFactory::water_room()
 {
-	Map *map = create_a_map_from_model_with_cherries_in_it("Water Room", color::blue, "water_room-03e.obj", "water2.png", "");
+	Map *map = create_a_map_from_model_with_cherries_in_it("Water Room", AllegroFlare::color::blue, "water_room-03e.obj", "water2.png", "");
 	InfoPod *info_pod = NULL;
 
 	map->collision_mesh->model->set_named_object_texture(1, map->bitmaps["water2.png"]);
@@ -558,7 +565,7 @@ Map *MapFactory::first_world_hiding_under_a_leaf()
 	
 
 
-	current_map->clear_color = color::hex("193d41");
+	current_map->clear_color = AllegroFlare::color::hex("193d41");
 
 	current_map->collision_mesh = new CollisionMesh(current_map->models["magick_world-04.obj"]);
 	
@@ -636,7 +643,7 @@ Map *MapFactory::terrain_map(std::vector<Map *> other_maps_to_make_doors_to)
 
 
 
-	current_map->clear_color = color::hex("012600");
+	current_map->clear_color = AllegroFlare::color::hex("012600");
 
 
 

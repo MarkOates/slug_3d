@@ -5,6 +5,6 @@
 
 void dirty_send_signal(int signal, void *data)
 {
-	static Screen *my_screen = new Screen(NULL);
+	static allegro_flare::Screen *my_screen = new allegro_flare::Screen(NULL);
 	my_screen->send_signal(signal, data);
 };

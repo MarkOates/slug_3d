@@ -3,9 +3,9 @@
 
 
 
-#include <allegro_flare/bins/sample_bin.h>
-#include <allegro_flare/model3d.h>
-#include <allegro_flare/vec3d.h>
+#include <AllegroFlare/SampleBin.hpp>
+#include <AllegroFlare/Model3D.hpp>
+#include <AllegroFlare/Vec3D.hpp>
 
 
 //#include "sample_bin.h"
@@ -29,14 +29,14 @@ public:
 		ITEM_TYPE_PIKCUP_TRINKET
 	};
 
-	SampleBin samples;
+   AllegroFlare::SampleBin samples;
 	std::string pickup_text;
 
 	item_t item_type;
 	float speed_diff;
 
 public:
-	Item(Map *map, item_t item_type, vec3d location);
+	Item(Map *map, item_t item_type, AllegroFlare::vec3d location);
 
 	void update() override;
 

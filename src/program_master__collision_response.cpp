@@ -10,7 +10,10 @@
 #include <slug_3d/hud.h>
 
 
-
+using AllegroFlare::vec3d;
+using AllegroFlare::Model3D;
+using namespace AllegroFlare::color;
+using allegro_flare::draw_3d_line;
 
    
 
@@ -57,11 +60,11 @@ void ProgramMaster::collision_response_func_ALONG_SLIPPY(Entity *entity, float t
 	//intersect_info.t = 0.5;
 	//std::cout << time_to_collision << std::endl;
 	vec3d point_of_intersection = entity->position + time_to_collision * entity->velocity;
-	if (draw_crosshairs) draw_crosshair(point_of_intersection, color::red, 0.4); // point of collision
+	if (draw_crosshairs) draw_crosshair(point_of_intersection, AllegroFlare::color::red, 0.4); // point of collision
 
 	float STEPOUT = face_collision_stepout;
 	vec3d stepout_point = point_of_intersection + face->normal * STEPOUT;
-	if (draw_crosshairs) draw_crosshair(stepout_point, color::aqua, 0.4); // point of collision
+	if (draw_crosshairs) draw_crosshair(stepout_point, AllegroFlare::color::aqua, 0.4); // point of collision
 
 	//float mag = entity->velocity.GetMagnitude();
 	vec3d resultant_velocity_vector = reflect(entity->velocity, face->normal);
@@ -82,9 +85,9 @@ void ProgramMaster::collision_response_func_ALONG_SLIPPY(Entity *entity, float t
 
 	vec3d projected_point_stepped_out = projected_point + face->normal * STEPOUT;
 
-	if (draw_crosshairs) draw_3d_line(stepout_point, projected_point_stepped_out, color::black);
+	if (draw_crosshairs) draw_3d_line(stepout_point, projected_point_stepped_out, AllegroFlare::color::black);
 
-	if (draw_crosshairs) draw_crosshair(projected_point, color::darkcyan, 0.6);//stepout_point, resultant_velocity_vector, color::darkblue);
+	if (draw_crosshairs) draw_crosshair(projected_point, AllegroFlare::color::darkcyan, 0.6);//stepout_point, resultant_velocity_vector, color::darkblue);
 
 
 	// ok, great... now use it to do the collision response
@@ -118,11 +121,11 @@ void ProgramMaster::collision_response_func_ALONG(Entity *entity, float time_to_
 	//intersect_info.t = 0.5;
 	//std::cout << time_to_collision << std::endl;
 	vec3d point_of_intersection = entity->position + time_to_collision * entity->velocity;
-	if (draw_crosshairs) draw_crosshair(point_of_intersection, color::red, 0.4); // point of collision
+	if (draw_crosshairs) draw_crosshair(point_of_intersection, AllegroFlare::color::red, 0.4); // point of collision
 
 	float STEPOUT = face_collision_stepout;
 	vec3d stepout_point = point_of_intersection + face->normal * STEPOUT;
-	if (draw_crosshairs) draw_crosshair(stepout_point, color::aqua, 0.4); // point of collision
+	if (draw_crosshairs) draw_crosshair(stepout_point, AllegroFlare::color::aqua, 0.4); // point of collision
 
 	//float mag = entity->velocity.GetMagnitude();
 	vec3d resultant_velocity_vector = reflect(entity->velocity, face->normal);
@@ -138,9 +141,9 @@ void ProgramMaster::collision_response_func_ALONG(Entity *entity, float time_to_
 
 	vec3d projected_point_stepped_out = projected_point + face->normal * STEPOUT;
 
-	if (draw_crosshairs) draw_3d_line(stepout_point, projected_point_stepped_out, color::black);
+	if (draw_crosshairs) draw_3d_line(stepout_point, projected_point_stepped_out, AllegroFlare::color::black);
 
-	if (draw_crosshairs) draw_crosshair(projected_point, color::darkcyan, 0.6);//stepout_point, resultant_velocity_vector, color::darkblue);
+	if (draw_crosshairs) draw_crosshair(projected_point, AllegroFlare::color::darkcyan, 0.6);//stepout_point, resultant_velocity_vector, color::darkblue);
 
 
 	// ok, great... now use it to do the collision response
@@ -183,7 +186,7 @@ void ProgramMaster::collision_response_func_CONTINUOUS(Entity *entity, float tim
 	//if (draw_crosshairs) draw_crosshair(point_of_intersection, color::red, 0.4); // point of collision
 
    //vec3d final_offset_from_intersection_point = vec3d(0.0, face_collision_stepout, 0.0);
-   vec3d reflect_normal = reflect(entity->velocity, face->normal).Normalized();
+   vec3d reflect_normal = reflect(entity->velocity, face->normal).normalized();
    vec3d final_offset_from_intersection_point = reflect_normal * face_collision_stepout;
 
    if (face->normal.y < 0)
@@ -358,12 +361,12 @@ void ProgramMaster::_update_new_triangle_thing()
 				Entity &entity = *current_map->entities[e];
 				if (entity.velocity.get_magnitude() > 0)
 				{
-					IsectData intersect_info = IsectData();
+               allegro_flare::IsectData intersect_info = allegro_flare::IsectData();
 
 					vec3d start_pos = entity.position;
 					vec3d end_pos = entity.position + entity.velocity;
 
-					if (face.intersect(Ray(start_pos, end_pos-start_pos), intersect_info))
+					if (face.intersect(allegro_flare::Ray(start_pos, end_pos-start_pos), intersect_info))
 					{
 						//vec3d collision_point = (end_pos-start_pos) * intersect.t + start_pos;
 						//draw_crosshair(collision_point, color::pink, 0.5); // turning this on will show the intersection point
@@ -489,7 +492,7 @@ void ProgramMaster::_update_new_triangle_thing()
 	
             draw_3d_line(colliding_face->centroid,
                   colliding_face->centroid+colliding_face->normal*5,
-                  color::black);
+                  AllegroFlare::color::black);
 				//colliding_face->draw(color::orange); // if you wan tto draw the colliding face
 			}
 			else

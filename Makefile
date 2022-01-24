@@ -4,7 +4,8 @@
 
 # INCLUDE_FLAGS=-IE:/allegro-5.1.11-mingw-edgar/include -IE:/allegro_flare/include -IE:/slug_3d/include -IE:/flare_gui/include
 # INCLUDE_FLAGS=-IE:/allegro-5.1.11-mingw-edgar/include -IE:/allegro_flare/include -IE:/slug_3d/include -IE:/flare_gui/include
-LINK_FLAGS=-L/Users/markoates/Repos/allegro-5.1.13/lib -L/Users/markoates/Repos/allegro_flare/lib -L/Users/markoates/Repos/flare_gui/lib
+# LINK_FLAGS=-L/Users/markoates/Repos/allegro-5.1.13/lib -L/Users/markoates/Repos/allegro_flare/lib -L/Users/markoates/Repos/flare_gui/lib
+LINK_FLAGS=-L/Users/markoates/Repos/allegro_flare/lib
 INCLUDE_FLAGS=-I/Users/markoates/Repos/allegro-5.1.13/include -I/Users/markoates/Repos/allegro_flare/include -I/Users/markoates/Repos/slug_3d/include -I/Users/markoates/Repos/flare_gui/include
 
 
@@ -12,8 +13,8 @@ INCLUDE_FLAGS=-I/Users/markoates/Repos/allegro-5.1.13/include -I/Users/markoates
 # ALLEGRO_FLARE_LIB=allegro_flare-0.8.6-mingw-4.8.1
 ALLEGRO_LIBS=-lallegro_color -lallegro_font -lallegro_ttf -lallegro_dialog -lallegro_audio -lallegro_acodec -lallegro_primitives -lallegro_image -lallegro_main -lallegro
 # FGUI_LIB=flare_gui-0.6.6-mingw-4.8.1
-ALLEGRO_FLARE_LIB=allegro_flare-0.8.9wip
-
+# ALLEGRO_FLARE_LIB=allegro_flare-0.8.9wip
+ALLEGRO_FLARE_LIB=mylibrary-0.0.1
 
 # EXE_EXTENSION=
 EXE_EXTENSION=.exe

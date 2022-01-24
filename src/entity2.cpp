@@ -10,7 +10,7 @@
 
 
 
-Entity2::Entity2(Map *map, entity2_t entity2_type, Model3D *model, std::string data)
+Entity2::Entity2(Map *map, entity2_t entity2_type, AllegroFlare::Model3D *model, std::string data)
 	: map(map)
 	, model(model)
 	, place()
@@ -59,16 +59,16 @@ void Entity2::update() {}
 
 
 
-bool Entity2::collides(vec3d point)
+bool Entity2::collides(AllegroFlare::vec3d point)
 {
 	// collision does not take into account ROTATION or SCALE for now
-	point -= vec3d(place.position.x, place.position.y, place.position.z);
+	point -= AllegroFlare::vec3d(place.position.x, place.position.y, place.position.z);
 	return bbox.collides(point);
 }
 
 
 
-bool Entity2::update_player_collision(vec3d player_location)
+bool Entity2::update_player_collision(AllegroFlare::vec3d player_location)
 {
 	bool collides_now = collides(player_location);
 

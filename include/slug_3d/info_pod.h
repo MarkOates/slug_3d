@@ -3,7 +3,7 @@
 
 
 
-#include <allegro_flare/useful.h>
+#include <AllegroFlare/Useful.hpp>
 
 
 
@@ -21,7 +21,7 @@ public:
 	HUD *hud;
 
 public:
-	InfoPod(Map *map, vec3d location, std::string message); // left-slash delineates lines;
+	InfoPod(Map *map, AllegroFlare::vec3d location, std::string message); // left-slash delineates lines;
 	void set_message(std::string message);
 
 	void on_enter() override;
